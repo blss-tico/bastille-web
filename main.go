@@ -44,9 +44,15 @@ func main() {
 	mux.HandleFunc("/help", helpHandlerTplt)
 	mux.HandleFunc("/contact", contactHandlerTplt)
 	mux.HandleFunc("/bootstrap", bootstrapHandlerTplt)
+	mux.HandleFunc("/clone", cloneHandlerTplt)
+	mux.HandleFunc("/cmd", cmdHandlerTplt)
+	mux.HandleFunc("/config", configHandlerTplt)
 
 	// data handlers
 	mux.HandleFunc("POST /bootstrap", LoggingMiddleware(bootstrapHandler))
+	mux.HandleFunc("POST /clone", LoggingMiddleware(cloneHandler))
+	mux.HandleFunc("POST /cmd", LoggingMiddleware(cmdHandler))
+	mux.HandleFunc("POST /config", LoggingMiddleware(configHandler))
 
 	port, ok := os.LookupEnv("BWU_PORT")
 	if !ok || port == "" {

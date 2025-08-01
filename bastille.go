@@ -67,3 +67,67 @@ func bastilleBootstrap(options, releasetemplate, updatearch string) (string, err
 
 	return runBastilleCommands(args...)
 }
+
+func bastilleClone(options, target, newname, ip string) (string, error) {
+	args := []string{"clone"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if newname != "" {
+		args = append(args, newname)
+	}
+
+	if ip != "" {
+		args = append(args, ip)
+	}
+
+	return runBastilleCommands(args...)
+}
+
+func bastilleCmd(options, target string, command []string) (string, error) {
+	args := []string{"cmd"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	args = append(args, command...)
+
+	return runBastilleCommands(args...)
+}
+
+func bastilleConfig(options, target, action, property, value string) (string, error) {
+	args := []string{"config"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if action != "" {
+		args = append(args, action)
+	}
+
+	if property != "" {
+		args = append(args, property)
+	}
+
+	if value != "" {
+		args = append(args, value)
+	}
+
+	return runBastilleCommands(args...)
+}

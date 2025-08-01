@@ -31,3 +31,24 @@ type bootstrapModel struct {
 	ReleaseTemplate string `json:"release|template"`
 	UpdateArch      string `json:"update|arch,omitempty"`
 }
+
+type cloneModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+	Newname string `json:"new_name"`
+	Ip      string `json:"ip"`
+}
+
+type cmdModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+	Command string `json:"command"`
+}
+
+type configModel struct {
+	Options  string `json:"options,omitempty"`
+	Target   string `json:"target"`
+	Action   string `json:"action"`
+	Property string `json:"property"`
+	Value    string `json:"value,omitempty"`
+}

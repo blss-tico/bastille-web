@@ -91,3 +91,21 @@ func bootstrapHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	data := templateModel{Title: "Bootstrap", Data: bastille}
 	renderTemplateUtil(w, "bootstrap.html", data)
 }
+
+func cloneHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("cloneHandlerTplt")
+	data := templateModel{Title: "Contact", Data: bastille}
+	renderTemplateUtil(w, "clone.html", data)
+}
+
+func cmdHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("cmdHandlerTplt")
+	data := templateModel{Title: "Cmd", Data: bastille}
+	renderTemplateUtil(w, "cmd.html", data)
+}
+
+func configHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("cmdHandlerTplt")
+	data := templateModel{Title: "Cmd", Data: bastille}
+	renderTemplateUtil(w, "config.html", data)
+}
