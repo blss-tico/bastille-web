@@ -47,12 +47,18 @@ func main() {
 	mux.HandleFunc("/clone", cloneHandlerTplt)
 	mux.HandleFunc("/cmd", cmdHandlerTplt)
 	mux.HandleFunc("/config", configHandlerTplt)
+	mux.HandleFunc("/convert", convertHandlerTplt)
+	mux.HandleFunc("/cp", cpHandlerTplt)
+	mux.HandleFunc("/create", createHandlerTplt)
 
 	// data handlers
 	mux.HandleFunc("POST /bootstrap", LoggingMiddleware(bootstrapHandler))
 	mux.HandleFunc("POST /clone", LoggingMiddleware(cloneHandler))
 	mux.HandleFunc("POST /cmd", LoggingMiddleware(cmdHandler))
 	mux.HandleFunc("POST /config", LoggingMiddleware(configHandler))
+	mux.HandleFunc("POST /convert", LoggingMiddleware(convertHandler))
+	mux.HandleFunc("POST /cp", LoggingMiddleware(cpHandler))
+	mux.HandleFunc("POST /create", LoggingMiddleware(createHandler))
 
 	port, ok := os.LookupEnv("BWU_PORT")
 	if !ok || port == "" {

@@ -109,3 +109,21 @@ func configHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	data := templateModel{Title: "Cmd", Data: bastille}
 	renderTemplateUtil(w, "config.html", data)
 }
+
+func convertHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("convertHandlerTplt")
+	data := templateModel{Title: "Convert", Data: bastille}
+	renderTemplateUtil(w, "convert.html", data)
+}
+
+func cpHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("cpHandlerTplt")
+	data := templateModel{Title: "Cp", Data: bastille}
+	renderTemplateUtil(w, "cp.html", data)
+}
+
+func createHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("createHandlerTplt")
+	data := templateModel{Title: "Create", Data: bastille}
+	renderTemplateUtil(w, "create.html", data)
+}

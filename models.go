@@ -52,3 +52,28 @@ type configModel struct {
 	Property string `json:"property"`
 	Value    string `json:"value,omitempty"`
 }
+
+type convertModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+	Release string `json:"release,omitempty"`
+}
+
+type cpModel struct {
+	Options  string `json:"options,omitempty"`
+	Target   string `json:"target"`
+	Hostpath string `json:"hostpath"`
+	Jailpath string `json:"jailpath"`
+}
+
+type createModel struct {
+	Options    string `json:"options,omitempty"`
+	Name       string `json:"name"`
+	Release    string `json:"release"`
+	Ip         string `json:"ip"`
+	Iface      string `json:"iface,omitempty"`
+	Ipip       string `json:"ipip,omitempty"`
+	Value      string `json:"value,omitempty"`
+	Vlanid     string `json:"vlanid,omitempty"`
+	Zfsoptions string `json:"zfsoptions,omitempty"`
+}

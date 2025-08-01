@@ -92,3 +92,63 @@ func configHandler(w http.ResponseWriter, r *http.Request) {
 
 	respondOkWithJSONUtil(w, result)
 }
+
+func convertHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("convertHandler")
+
+	var data convertModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleConvert(data.Options, data.Target, data.Release)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}
+
+func cpHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("cpHandler")
+
+	var data cpModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleCp(data.Options, data.Target, data.Hostpath, data.Jailpath)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}
+
+func createHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("createHandler")
+
+	var data createModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleCreate(data.Options, data.Name, data.Release, data.Ip, data.Iface, data.Ipip, data.Value, data.Vlanid, data.Zfsoptions)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}

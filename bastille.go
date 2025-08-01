@@ -131,3 +131,85 @@ func bastilleConfig(options, target, action, property, value string) (string, er
 
 	return runBastilleCommands(args...)
 }
+
+func bastilleConvert(options, target, release string) (string, error) {
+	args := []string{"convert"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if release != "" {
+		args = append(args, release)
+	}
+
+	return runBastilleCommands(args...)
+}
+
+func bastilleCp(options, target, hostpath, jailpath string) (string, error) {
+	args := []string{"convert"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if hostpath != "" {
+		args = append(args, hostpath)
+	}
+
+	if jailpath != "" {
+		args = append(args, jailpath)
+	}
+
+	return runBastilleCommands(args...)
+}
+
+func bastilleCreate(options, name, release, ip, iface, ipip, value, vlanid, zfsoptions string) (string, error) {
+	args := []string{"create"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if name != "" {
+		args = append(args, name)
+	}
+
+	if release != "" {
+		args = append(args, release)
+	}
+
+	if ip != "" {
+		args = append(args, ip)
+	}
+
+	if iface != "" {
+		args = append(args, iface)
+	}
+
+	if ipip != "" {
+		args = append(args, ipip)
+	}
+
+	if value != "" {
+		args = append(args, value)
+	}
+
+	if vlanid != "" {
+		args = append(args, vlanid)
+	}
+
+	if zfsoptions != "" {
+		args = append(args, zfsoptions)
+	}
+
+	return runBastilleCommands(args...)
+}
