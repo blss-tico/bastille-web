@@ -77,3 +77,21 @@ type createModel struct {
 	Vlanid     string `json:"vlanid,omitempty"`
 	Zfsoptions string `json:"zfsoptions,omitempty"`
 }
+
+type destroyModel struct {
+	Options     string `json:"options,omitempty"`
+	JailRelease string `json:"jail|release"`
+}
+
+type etcupdateModel struct {
+	Options         string `json:"options,omitempty"`
+	Bootstraptarget string `json:"bootstrap|target"`
+	Action          string `json:"action,omitempty"`
+	Release         string `json:"release,omitempty"`
+}
+
+type exportModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+	Path    string `json:"path"`
+}

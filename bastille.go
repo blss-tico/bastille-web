@@ -213,3 +213,57 @@ func bastilleCreate(options, name, release, ip, iface, ipip, value, vlanid, zfso
 
 	return runBastilleCommands(args...)
 }
+
+func bastilleDestroy(options, jailrelease string) (string, error) {
+	args := []string{"destroy"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if jailrelease != "" {
+		args = append(args, jailrelease)
+	}
+
+	return runBastilleCommands(args...)
+}
+
+func bastilleEtcupdate(options, bootstraptarget, action, release string) (string, error) {
+	args := []string{"etcupdate"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if bootstraptarget != "" {
+		args = append(args, bootstraptarget)
+	}
+
+	if action != "" {
+		args = append(args, action)
+	}
+
+	if release != "" {
+		args = append(args, release)
+	}
+
+	return runBastilleCommands(args...)
+}
+
+func bastilleExport(options, target, path string) (string, error) {
+	args := []string{"export"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if path != "" {
+		args = append(args, path)
+	}
+
+	return runBastilleCommands(args...)
+}

@@ -50,6 +50,9 @@ func main() {
 	mux.HandleFunc("/convert", convertHandlerTplt)
 	mux.HandleFunc("/cp", cpHandlerTplt)
 	mux.HandleFunc("/create", createHandlerTplt)
+	mux.HandleFunc("/destroy", destroyHandlerTplt)
+	mux.HandleFunc("/etcupdate", etcupdateHandlerTplt)
+	mux.HandleFunc("/export", exportHandlerTplt)
 
 	// data handlers
 	mux.HandleFunc("POST /bootstrap", LoggingMiddleware(bootstrapHandler))
@@ -59,6 +62,9 @@ func main() {
 	mux.HandleFunc("POST /convert", LoggingMiddleware(convertHandler))
 	mux.HandleFunc("POST /cp", LoggingMiddleware(cpHandler))
 	mux.HandleFunc("POST /create", LoggingMiddleware(createHandler))
+	mux.HandleFunc("POST /destroy", LoggingMiddleware(destroyHandler))
+	mux.HandleFunc("POST /etcupdate", LoggingMiddleware(etcupdateHandler))
+	mux.HandleFunc("POST /export", LoggingMiddleware(exportHandler))
 
 	port, ok := os.LookupEnv("BWU_PORT")
 	if !ok || port == "" {

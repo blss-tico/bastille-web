@@ -127,3 +127,21 @@ func createHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	data := templateModel{Title: "Create", Data: bastille}
 	renderTemplateUtil(w, "create.html", data)
 }
+
+func destroyHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("destroyHandlerTplt")
+	data := templateModel{Title: "Destroy", Data: bastille}
+	renderTemplateUtil(w, "destroy.html", data)
+}
+
+func etcupdateHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("etcupdateHandlerTplt")
+	data := templateModel{Title: "Etcupdate", Data: bastille}
+	renderTemplateUtil(w, "etcupdate.html", data)
+}
+
+func exportHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("exportHandlerTplt")
+	data := templateModel{Title: "Export", Data: bastille}
+	renderTemplateUtil(w, "export.html", data)
+}
