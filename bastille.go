@@ -545,6 +545,19 @@ func bastilleService(options, target, servicename, arg string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
+func bastilleSetup(options, action string) (string, error) {
+	args := []string{"setup"}
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if action != "" {
+		args = append(args, action)
+	}
+
+	return runBastilleCommands(args...)
+}
+
 func bastilleStart(options, target, value string) (string, error) {
 	args := []string{"start"}
 	if options != "" {

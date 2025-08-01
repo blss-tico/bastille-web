@@ -185,6 +185,11 @@ type serviceModel struct {
 	Args        string `json:"args"`
 }
 
+type setupModel struct {
+	Options string `json:"options,omitempty"`
+	Action  string `json:"action"`
+}
+
 type startModel struct {
 	Options string `json:"options,omitempty"`
 	Target  string `json:"target"`

@@ -66,6 +66,7 @@ func main() {
 	mux.HandleFunc("/rename", renameHandlerTplt)
 	mux.HandleFunc("/restart", restartHandlerTplt)
 	mux.HandleFunc("/service", serviceHandlerTplt)
+	mux.HandleFunc("/setup", setupHandlerTplt)
 	mux.HandleFunc("/start", startHandlerTplt)
 	mux.HandleFunc("/stop", stopHandlerTplt)
 
@@ -93,6 +94,7 @@ func main() {
 	mux.HandleFunc("POST /rename", LoggingMiddleware(renameHandler))
 	mux.HandleFunc("POST /restart", LoggingMiddleware(restartHandler))
 	mux.HandleFunc("POST /service", LoggingMiddleware(serviceHandler))
+	mux.HandleFunc("POST /setup", LoggingMiddleware(setupHandler))
 	mux.HandleFunc("POST /start", LoggingMiddleware(startHandler))
 	mux.HandleFunc("POST /stop", LoggingMiddleware(stopHandler))
 
