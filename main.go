@@ -62,6 +62,9 @@ func main() {
 	mux.HandleFunc("/mount", mountHandlerTplt)
 	mux.HandleFunc("/network", networkHandlerTplt)
 	mux.HandleFunc("/pkg", pkgHandlerTplt)
+	mux.HandleFunc("/rcp", rcpHandlerTplt)
+	mux.HandleFunc("/rename", renameHandlerTplt)
+	mux.HandleFunc("/restart", restartHandlerTplt)
 
 	// data handlers
 	mux.HandleFunc("POST /bootstrap", LoggingMiddleware(bootstrapHandler))
@@ -83,6 +86,9 @@ func main() {
 	mux.HandleFunc("POST /mount", LoggingMiddleware(mountHandler))
 	mux.HandleFunc("POST /network", LoggingMiddleware(networkHandler))
 	mux.HandleFunc("POST /pkg", LoggingMiddleware(pkgHandler))
+	mux.HandleFunc("POST /rcp", LoggingMiddleware(rcpHandler))
+	mux.HandleFunc("POST /rename", LoggingMiddleware(renameHandler))
+	mux.HandleFunc("POST /restart", LoggingMiddleware(restartHandler))
 
 	port, ok := os.LookupEnv("BWU_PORT")
 	if !ok || port == "" {

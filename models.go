@@ -158,3 +158,22 @@ type pkgModel struct {
 	Target  string `json:"target"`
 	Arg     string `json:"args"`
 }
+
+type rcpModel struct {
+	Options  string `json:"options,omitempty"`
+	Target   string `json:"target"`
+	Jailpath string `json:"jail_path"`
+	Hostpath string `json:"host_path"`
+}
+
+type renameModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+	Newname string `json:"new_name"`
+}
+
+type restartModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+	Value   string `json:"value,omitempty"`
+}

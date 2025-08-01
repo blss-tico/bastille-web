@@ -199,3 +199,21 @@ func pkgHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	data := templateModel{Title: "Pkg", Data: bastille}
 	renderTemplateUtil(w, "pkg.html", data)
 }
+
+func rcpHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("rcpHandlerTplt")
+	data := templateModel{Title: "Rcp", Data: bastille}
+	renderTemplateUtil(w, "rcp.html", data)
+}
+
+func renameHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("renameHandlerTplt")
+	data := templateModel{Title: "Rename", Data: bastille}
+	renderTemplateUtil(w, "rename.html", data)
+}
+
+func restartHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("restartHandlerTplt")
+	data := templateModel{Title: "Restart", Data: bastille}
+	renderTemplateUtil(w, "restart.html", data)
+}

@@ -398,3 +398,63 @@ func pkgHandler(w http.ResponseWriter, r *http.Request) {
 
 	respondOkWithJSONUtil(w, result)
 }
+
+func rcpHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("rcpHandler")
+
+	var data rcpModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleRcp(data.Options, data.Target, data.Jailpath, data.Hostpath)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}
+
+func renameHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("renameHandler")
+
+	var data renameModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleRename(data.Options, data.Target, data.Newname)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}
+
+func restartHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("restartHandler")
+
+	var data restartModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleRestart(data.Options, data.Target, data.Value)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}

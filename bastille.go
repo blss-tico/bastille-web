@@ -462,3 +462,58 @@ func bastillePkg(options, target string, arg []string) (string, error) {
 
 	return runBastilleCommands(args...)
 }
+
+func bastilleRcp(options, target, jailpath, hostpath string) (string, error) {
+	args := []string{"rcp"}
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if jailpath != "" {
+		args = append(args, jailpath)
+	}
+
+	if hostpath != "" {
+		args = append(args, hostpath)
+	}
+
+	return runBastilleCommands(args...)
+}
+
+func bastilleRename(options, target, newname string) (string, error) {
+	args := []string{"rename"}
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if newname != "" {
+		args = append(args, newname)
+	}
+
+	return runBastilleCommands(args...)
+}
+
+func bastilleRestart(options, target, value string) (string, error) {
+	args := []string{"restart"}
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if value != "" {
+		args = append(args, value)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	return runBastilleCommands(args...)
+}
