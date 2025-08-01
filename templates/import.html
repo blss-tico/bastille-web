@@ -1,0 +1,91 @@
+{{define "content"}}
+  <div class="card">
+    {{$parentContext := .}} 
+    {{range .Data.Commands}}
+      {{if eq .Command "import"}}
+        <h2>{{.Command}}</h2>
+        <p class="card-description">{{.Description}}</p>
+        <br />
+        <form id="import-form" class="card-form">
+          <label>Options:</label><br />
+          {{range .Options}}
+            <input type="checkbox" name="options_{{.Lflag}}" value="{{.Sflag}}" />
+            <label for="{{.Lflag}}">{{.Lflag}}</label>
+            &nbsp;
+          {{end}}
+          <br /><br />
+          {{range .Fields}}
+          <label>{{.}}</label><br />
+          <input type="text" name="{{.}}" />
+          <br /><br />
+          {{end}}
+          <button class="btn-card-submit" onclick="importSubmit(event)">Submit</button>          
+        </form>
+        <br />
+        <h3>Help</h3>
+        <p class="card-help">{{.Help}}</p>
+        {{range .Options}}
+          <p>&nbsp;&nbsp;{{.Sflag}}&nbsp;|&nbsp;{{.Lflag}}&nbsp;-&nbsp;{{.Text}}</p>
+        {{end}}
+      {{end}}
+    {{end}}
+    <div class="card-results">
+      <p id="result" class="card-result"></p>
+      <p id="error" class="card-error"></p>
+    </div>
+  </div>
+
+  <script>
+    async function importSubmit(event) {
+      event.preventDefault();
+
+      const name = 'import';
+      const result = document.getElementById('result');
+      const error = document.getElementById('error');
+      result.innerText = "";
+      error.innerText = ""; 
+
+      const form = document.getElementById(name + '-form');
+      const formData = new FormData(form);
+      
+      let options = [];
+      let formObj = {};
+      formData.forEach((value, key) => {
+        if (key.indexOf('options_') != -1) {
+          options.push(value);
+          return;
+        }
+
+        formObj[key] = value;
+      });
+      formObj['options'] = options.join(' ').trimEnd();
+      const formJson = JSON.stringify(formObj);
+      console.log(formJson);
+      return;
+
+      const response = await fetch('/' + name, {
+        method: 'POST',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'accept': 'application/json',
+          'Content-Type': 'application/json',
+          'X-Request-ID': sessionStorage.getItem('id')
+        },
+        body: formJson
+      });
+      
+      if (!response.ok) {
+        const err = new Error(`HTTP error! status: ${response.status}`);
+        console.log('Error: ', err.message);
+        result.innerText = "";
+        error.innerText = await response.text();
+        return;
+      }
+
+      const data = await response.json();
+      result.innerText = data.msg;
+      error.innerHTML = data.err;
+      return data;
+    }
+  </script>
+{{end}}

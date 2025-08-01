@@ -53,6 +53,9 @@ func main() {
 	mux.HandleFunc("/destroy", destroyHandlerTplt)
 	mux.HandleFunc("/etcupdate", etcupdateHandlerTplt)
 	mux.HandleFunc("/export", exportHandlerTplt)
+	mux.HandleFunc("/htop", htopHandlerTplt)
+	mux.HandleFunc("/import", importHandlerTplt)
+	mux.HandleFunc("/jcp", jcpHandlerTplt)
 
 	// data handlers
 	mux.HandleFunc("POST /bootstrap", LoggingMiddleware(bootstrapHandler))
@@ -65,6 +68,9 @@ func main() {
 	mux.HandleFunc("POST /destroy", LoggingMiddleware(destroyHandler))
 	mux.HandleFunc("POST /etcupdate", LoggingMiddleware(etcupdateHandler))
 	mux.HandleFunc("POST /export", LoggingMiddleware(exportHandler))
+	mux.HandleFunc("POST /htop", LoggingMiddleware(htopHandler))
+	mux.HandleFunc("POST /import", LoggingMiddleware(importHandler))
+	mux.HandleFunc("POST /jcp", LoggingMiddleware(jcpHandler))
 
 	port, ok := os.LookupEnv("BWU_PORT")
 	if !ok || port == "" {

@@ -145,3 +145,21 @@ func exportHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	data := templateModel{Title: "Export", Data: bastille}
 	renderTemplateUtil(w, "export.html", data)
 }
+
+func htopHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("htopHandlerTplt")
+	data := templateModel{Title: "Htop", Data: bastille}
+	renderTemplateUtil(w, "htop.html", data)
+}
+
+func importHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("importHandlerTplt")
+	data := templateModel{Title: "Import", Data: bastille}
+	renderTemplateUtil(w, "import.html", data)
+}
+
+func jcpHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("jcpHandlerTplt")
+	data := templateModel{Title: "Jcp", Data: bastille}
+	renderTemplateUtil(w, "jcp.html", data)
+}

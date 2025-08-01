@@ -267,3 +267,61 @@ func bastilleExport(options, target, path string) (string, error) {
 
 	return runBastilleCommands(args...)
 }
+
+func bastilleHtop(options, target string) (string, error) {
+	args := []string{"htop"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	return runBastilleCommands(args...)
+}
+
+func bastilleImport(options, file, release string) (string, error) {
+	args := []string{"htop"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if file != "" {
+		args = append(args, file)
+	}
+
+	if release != "" {
+		args = append(args, release)
+	}
+
+	return runBastilleCommands(args...)
+}
+
+func bastilleJcp(options, sourcejail, jailpath, destjail, jailpath2 string) (string, error) {
+	args := []string{"jcp"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if sourcejail != "" {
+		args = append(args, sourcejail)
+	}
+
+	if jailpath != "" {
+		args = append(args, jailpath)
+	}
+
+	if destjail != "" {
+		args = append(args, destjail)
+	}
+
+	if jailpath2 != "" {
+		args = append(args, jailpath2)
+	}
+
+	return runBastilleCommands(args...)
+}

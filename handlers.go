@@ -212,3 +212,63 @@ func exportHandler(w http.ResponseWriter, r *http.Request) {
 
 	respondOkWithJSONUtil(w, result)
 }
+
+func htopHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("htopHandler")
+
+	var data htopModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleHtop(data.Options, data.Target)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}
+
+func importHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("importHandler")
+
+	var data importModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleImport(data.Options, data.File, data.Release)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}
+
+func jcpHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("jcpHandler")
+
+	var data jcpModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleJcp(data.Options, data.Sourcejail, data.Jailpath, data.Destjail, data.Jailpath2)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}

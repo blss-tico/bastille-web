@@ -95,3 +95,22 @@ type exportModel struct {
 	Target  string `json:"target"`
 	Path    string `json:"path"`
 }
+
+type htopModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+}
+
+type importModel struct {
+	Options string `json:"options,omitempty"`
+	File    string `json:"file"`
+	Release string `json:"release,omitempty"`
+}
+
+type jcpModel struct {
+	Options    string `json:"options,omitempty"`
+	Sourcejail string `json:"source_jail"`
+	Jailpath   string `json:"jail_path"`
+	Destjail   string `json:"dest_jail"`
+	Jailpath2  string `json:"jail_path2"`
+}
