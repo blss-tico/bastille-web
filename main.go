@@ -39,6 +39,12 @@ func main() {
 	log.Println("main")
 	mux := http.NewServeMux()
 
+	// template handlers
+	mux.HandleFunc("/", homeHandlerTplt)
+	mux.HandleFunc("/help", helpHandlerTplt)
+	mux.HandleFunc("/contact", contactHandlerTplt)
+	mux.HandleFunc("/bootstrap", bootstrapHandlerTplt)
+
 	// data handlers
 	mux.HandleFunc("POST /bootstrap", LoggingMiddleware(bootstrapHandler))
 
