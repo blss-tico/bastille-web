@@ -177,3 +177,14 @@ type restartModel struct {
 	Target  string `json:"target"`
 	Value   string `json:"value,omitempty"`
 }
+
+type startModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+	Value   string `json:"value,omitempty"`
+}
+
+type stopModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+}

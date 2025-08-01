@@ -517,3 +517,33 @@ func bastilleRestart(options, target, value string) (string, error) {
 
 	return runBastilleCommands(args...)
 }
+
+func bastilleStart(options, target, value string) (string, error) {
+	args := []string{"start"}
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if value != "" {
+		args = append(args, value)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	return runBastilleCommands(args...)
+}
+
+func bastilleStop(options, target string) (string, error) {
+	args := []string{"stop"}
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	return runBastilleCommands(args...)
+}

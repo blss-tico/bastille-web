@@ -70,7 +70,7 @@
           <td>{{ .Release}}</td>
           <td>{{ .Path}}</td>
           <td>
-            <button class="btn-home-start-jail" onclick="startJail('', '', '{{.Hostname}}')" {{if eq .State "Up" }}disabled{{end}}>
+            <button class="btn-home-start-jail" onclick="startJail('', '{{.Hostname}}', '')" {{if eq .State "Up" }}disabled{{end}}>
               START
             </button>
             <button class="btn-home-stop-jail" onclick="stopJail('', '{{.Hostname}}')" {{if eq .State "Down" }}disabled{{end}}>
@@ -86,8 +86,8 @@
 </div>
 
 <script>
-  async function startJail(options, value, target) {
-    const data = { options: "", value: "", target: target };
+  async function startJail(options, target, value) {
+    const data = { options: "", target: target, value: "" };
 
     const response = await fetch('http://localhost:8088/start', {
       method: 'POST',
