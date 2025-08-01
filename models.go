@@ -200,3 +200,9 @@ type stopModel struct {
 	Options string `json:"options,omitempty"`
 	Target  string `json:"target"`
 }
+
+type sysrcModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+	Args    string `json:"args"`
+}

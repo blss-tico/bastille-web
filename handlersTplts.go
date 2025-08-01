@@ -241,3 +241,9 @@ func stopHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	data := templateModel{Title: "Stop", Data: bastille}
 	renderTemplateUtil(w, "stop.html", data)
 }
+
+func sysrcHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("sysrcHandlerTplt")
+	data := templateModel{Title: "Sysrc", Data: bastille}
+	renderTemplateUtil(w, "sysrc.html", data)
+}

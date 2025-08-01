@@ -587,3 +587,20 @@ func bastilleStop(options, target string) (string, error) {
 
 	return runBastilleCommands(args...)
 }
+
+func bastilleSysrc(options, target, arg string) (string, error) {
+	args := []string{"sysrc"}
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if arg != "" {
+		args = append(args, arg)
+	}
+
+	return runBastilleCommands(args...)
+}
