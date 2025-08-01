@@ -56,6 +56,9 @@ func main() {
 	mux.HandleFunc("/htop", htopHandlerTplt)
 	mux.HandleFunc("/import", importHandlerTplt)
 	mux.HandleFunc("/jcp", jcpHandlerTplt)
+	mux.HandleFunc("/limits", limitsHandlerTplt)
+	mux.HandleFunc("/list", listHandlerTplt)
+	mux.HandleFunc("/migrate", migrateHandlerTplt)
 
 	// data handlers
 	mux.HandleFunc("POST /bootstrap", LoggingMiddleware(bootstrapHandler))
@@ -71,6 +74,9 @@ func main() {
 	mux.HandleFunc("POST /htop", LoggingMiddleware(htopHandler))
 	mux.HandleFunc("POST /import", LoggingMiddleware(importHandler))
 	mux.HandleFunc("POST /jcp", LoggingMiddleware(jcpHandler))
+	mux.HandleFunc("POST /limits", LoggingMiddleware(limitsHandler))
+	mux.HandleFunc("POST /list", LoggingMiddleware(listHandler))
+	mux.HandleFunc("POST /migrate", LoggingMiddleware(migrateHandler))
 
 	port, ok := os.LookupEnv("BWU_PORT")
 	if !ok || port == "" {

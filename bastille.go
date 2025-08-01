@@ -325,3 +325,61 @@ func bastilleJcp(options, sourcejail, jailpath, destjail, jailpath2 string) (str
 
 	return runBastilleCommands(args...)
 }
+
+func bastilleLimits(options, target, action, option, value string) (string, error) {
+	args := []string{"limits"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if action != "" {
+		args = append(args, action)
+	}
+
+	if option != "" {
+		args = append(args, option)
+	}
+
+	if value != "" {
+		args = append(args, value)
+	}
+
+	return runBastilleCommands(args...)
+}
+
+func bastilleList(options, action string) (string, error) {
+	args := []string{"list"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if action != "" {
+		args = append(args, action)
+	}
+
+	return runBastilleCommands(args...)
+}
+
+func bastilleMigrate(options, target, remote string) (string, error) {
+	args := []string{"migrate"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if remote != "" {
+		args = append(args, remote)
+	}
+
+	return runBastilleCommands(args...)
+}

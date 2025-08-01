@@ -163,3 +163,21 @@ func jcpHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	data := templateModel{Title: "Jcp", Data: bastille}
 	renderTemplateUtil(w, "jcp.html", data)
 }
+
+func limitsHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("limitsHandlerTplt")
+	data := templateModel{Title: "Limits", Data: bastille}
+	renderTemplateUtil(w, "limits.html", data)
+}
+
+func listHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("listHandlerTplt")
+	data := templateModel{Title: "List", Data: bastille}
+	renderTemplateUtil(w, "list.html", data)
+}
+
+func migrateHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("migrateHandlerTplt")
+	data := templateModel{Title: "Migrate", Data: bastille}
+	renderTemplateUtil(w, "migrate.html", data)
+}

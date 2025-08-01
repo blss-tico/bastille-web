@@ -272,3 +272,63 @@ func jcpHandler(w http.ResponseWriter, r *http.Request) {
 
 	respondOkWithJSONUtil(w, result)
 }
+
+func limitsHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("limitsHandler")
+
+	var data limitsModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleLimits(data.Options, data.Target, data.Action, data.Option, data.Value)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}
+
+func listHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("listHandler")
+
+	var data listModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleList(data.Options, data.Action)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}
+
+func migrateHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("migrateHandler")
+
+	var data migrateModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleMigrate(data.Options, data.Target, data.Remote)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}

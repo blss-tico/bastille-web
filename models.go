@@ -114,3 +114,22 @@ type jcpModel struct {
 	Destjail   string `json:"dest_jail"`
 	Jailpath2  string `json:"jail_path2"`
 }
+
+type limitsModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+	Action  string `json:"action"`
+	Option  string `json:"option,omitempty"`
+	Value   string `json:"value,omitempty"`
+}
+
+type listModel struct {
+	Options string `json:"options,omitempty"`
+	Action  string `json:"action"`
+}
+
+type migrateModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+	Remote  string `json:"remote"`
+}
