@@ -459,6 +459,26 @@ func restartHandler(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+func serviceHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("serviceHandler")
+
+	var data serviceModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleService(data.Options, data.Target, data.Servicename, data.Args)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}
+
 func startHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("startHandler")
 

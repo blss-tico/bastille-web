@@ -178,6 +178,13 @@ type restartModel struct {
 	Value   string `json:"value,omitempty"`
 }
 
+type serviceModel struct {
+	Options     string `json:"options,omitempty"`
+	Target      string `json:"target"`
+	Servicename string `json:"service_name"`
+	Args        string `json:"args"`
+}
+
 type startModel struct {
 	Options string `json:"options,omitempty"`
 	Target  string `json:"target"`

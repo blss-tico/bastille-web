@@ -218,6 +218,12 @@ func restartHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	renderTemplateUtil(w, "restart.html", data)
 }
 
+func serviceHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("serviceHandlerTplt")
+	data := templateModel{Title: "Service", Data: bastille}
+	renderTemplateUtil(w, "service.html", data)
+}
+
 func startHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("startHandlerTplt")
 	data := templateModel{Title: "Start", Data: bastille}
