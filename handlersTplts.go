@@ -181,3 +181,21 @@ func migrateHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	data := templateModel{Title: "Migrate", Data: bastille}
 	renderTemplateUtil(w, "migrate.html", data)
 }
+
+func mountHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("mountHandlerTplt")
+	data := templateModel{Title: "Mount", Data: bastille}
+	renderTemplateUtil(w, "mount.html", data)
+}
+
+func networkHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("networkHandlerTplt")
+	data := templateModel{Title: "Network", Data: bastille}
+	renderTemplateUtil(w, "network.html", data)
+}
+
+func pkgHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("pkgHandlerTplt")
+	data := templateModel{Title: "Pkg", Data: bastille}
+	renderTemplateUtil(w, "pkg.html", data)
+}

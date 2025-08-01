@@ -332,3 +332,69 @@ func migrateHandler(w http.ResponseWriter, r *http.Request) {
 
 	respondOkWithJSONUtil(w, result)
 }
+
+func mountHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("mountHandler")
+
+	var data mountModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleMount(data.Options, data.Target, data.Hostpath, data.Jailpath, data.Filesystemtype, data.Option, data.Dump, data.Passnumber)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}
+
+func networkHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("networkHandler")
+
+	var data networkModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleNetwork(data.Options, data.Target, data.Action, data.Iface, data.Ip)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}
+
+func pkgHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("pkgHandler")
+
+	var data pkgModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	arg := strings.Split(data.Arg, " ")
+	if len(arg) == 0 {
+		http.Error(w, "args is not found", http.StatusBadRequest)
+		return
+	}
+
+	result, err := bastillePkg(data.Options, data.Target, arg)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}

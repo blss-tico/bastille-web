@@ -383,3 +383,82 @@ func bastilleMigrate(options, target, remote string) (string, error) {
 
 	return runBastilleCommands(args...)
 }
+
+func bastilleMount(options, target, hostpath, jailpath, filesystemtype, option, dump, passnumber string) (string, error) {
+	args := []string{"mount"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if hostpath != "" {
+		args = append(args, hostpath)
+	}
+
+	if jailpath != "" {
+		args = append(args, jailpath)
+	}
+
+	if filesystemtype != "" {
+		args = append(args, filesystemtype)
+	}
+
+	if option != "" {
+		args = append(args, option)
+	}
+
+	if dump != "" {
+		args = append(args, dump)
+	}
+
+	if passnumber != "" {
+		args = append(args, passnumber)
+	}
+
+	return runBastilleCommands(args...)
+}
+
+func bastilleNetwork(options, target, action, iface, ip string) (string, error) {
+	args := []string{"network"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if action != "" {
+		args = append(args, action)
+	}
+
+	if iface != "" {
+		args = append(args, iface)
+	}
+
+	if ip != "" {
+		args = append(args, ip)
+	}
+
+	return runBastilleCommands(args...)
+}
+
+func bastillePkg(options, target string, arg []string) (string, error) {
+	args := []string{"pkg"}
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	args = append(args, arg...)
+
+	return runBastilleCommands(args...)
+}

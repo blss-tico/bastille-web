@@ -59,6 +59,9 @@ func main() {
 	mux.HandleFunc("/limits", limitsHandlerTplt)
 	mux.HandleFunc("/list", listHandlerTplt)
 	mux.HandleFunc("/migrate", migrateHandlerTplt)
+	mux.HandleFunc("/mount", mountHandlerTplt)
+	mux.HandleFunc("/network", networkHandlerTplt)
+	mux.HandleFunc("/pkg", pkgHandlerTplt)
 
 	// data handlers
 	mux.HandleFunc("POST /bootstrap", LoggingMiddleware(bootstrapHandler))
@@ -77,6 +80,9 @@ func main() {
 	mux.HandleFunc("POST /limits", LoggingMiddleware(limitsHandler))
 	mux.HandleFunc("POST /list", LoggingMiddleware(listHandler))
 	mux.HandleFunc("POST /migrate", LoggingMiddleware(migrateHandler))
+	mux.HandleFunc("POST /mount", LoggingMiddleware(mountHandler))
+	mux.HandleFunc("POST /network", LoggingMiddleware(networkHandler))
+	mux.HandleFunc("POST /pkg", LoggingMiddleware(pkgHandler))
 
 	port, ok := os.LookupEnv("BWU_PORT")
 	if !ok || port == "" {

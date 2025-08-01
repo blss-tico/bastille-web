@@ -133,3 +133,28 @@ type migrateModel struct {
 	Target  string `json:"target"`
 	Remote  string `json:"remote"`
 }
+
+type mountModel struct {
+	Options        string `json:"options,omitempty"`
+	Target         string `json:"target"`
+	Hostpath       string `json:"host_path"`
+	Jailpath       string `json:"jail_path"`
+	Filesystemtype string `json:"filesystem_type"`
+	Option         string `json:"option"`
+	Dump           string `json:"dump"`
+	Passnumber     string `json:"pass_number"`
+}
+
+type networkModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+	Action  string `json:"action"`
+	Iface   string `json:"interface,omitempty"`
+	Ip      string `json:"ip,omitempty"`
+}
+
+type pkgModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+	Arg     string `json:"args"`
+}
