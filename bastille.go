@@ -10,13 +10,13 @@ import (
 
 var wg sync.WaitGroup
 
-func runBastilleCommands(args ...string) (string, error) {
-	type ResultCommand struct {
-		Output string
-		Error  error
-	}
+type ResultCommand struct {
+	Output string
+	Error  error
+}
 
-	results := make(chan ResultCommand)
+func runBastilleCommands(args ...string) (string, error) {
+	resChan := make(chan ResultCommand)
 	wg.Add(1)
 
 	go func() {
@@ -25,24 +25,31 @@ func runBastilleCommands(args ...string) (string, error) {
 		cmd := exec.Command("bastille", args...)
 		log.Println("runBastilleCommands:", cmd)
 
-		var resultError error
 		result, err := cmd.CombinedOutput()
 		if err != nil {
-			resultError = fmt.Errorf("bastille: %s ,failed: %v\n %s", cmd, err, result)
+			resChan <- ResultCommand{Output: "", Error: fmt.Errorf("bastille: %s ,failed: %v\n %s", cmd, err, result)}
+			return
 		}
 
-		results <- ResultCommand{
-			Output: string(result),
-			Error:  resultError,
-		}
+		resChan <- ResultCommand{Output: string(result), Error: nil}
 	}()
 
 	go func() {
 		wg.Wait()
-		close(results)
+		close(resChan)
 	}()
 
-	return (<-results).Output, (<-results).Error
+	var r string
+	var e error
+	for res := range resChan {
+		if res.Output != "" {
+			r, e = res.Output, nil
+		} else {
+			r, e = "", res.Error
+		}
+	}
+
+	return r, e
 }
 
 func runOsCommands(command string, args ...string) (string, error) {
@@ -129,7 +136,8 @@ func bastilleCmd(options, target string, command []string) (string, error) {
 
 	args = append(args, command...)
 
-	return runBastilleCommands(args...)
+	res, err := runBastilleCommands(args...)
+	return res, err
 }
 
 func bastilleConfig(options, target, action, property, value string) (string, error) {

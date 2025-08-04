@@ -17,9 +17,11 @@ async function sendHttpRequest(url, bodyData) {
   if (!response.ok) {
     console.log('Response status ', response.status);
     const error = await response.text();
+    console.log(response.status);
     return { code: response.status, error: error };
   }
-
+  
   const responseData = await response.json();
+  console.log(response.status, responseData);
   return { code: response.status, data: responseData };
 }
