@@ -17,7 +17,7 @@ func init() {
 
 	bastilleFile, err := os.ReadFile("bastille.json")
 	if err != nil {
-		log.Fatalf("Error reading file: %v", err)
+		log.Fatalf("Error: %v", err)
 	}
 
 	err = json.Unmarshal(bastilleFile, &bastille)
@@ -38,6 +38,10 @@ func LoggingMiddleware(f http.HandlerFunc) http.HandlerFunc {
 func main() {
 	log.Println("main")
 	mux := http.NewServeMux()
+
+	// static files handler
+	fs := http.FileServer(http.Dir("./static"))
+	mux.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	// template handlers
 	mux.HandleFunc("/", homeHandlerTplt)
