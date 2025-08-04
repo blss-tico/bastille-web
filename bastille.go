@@ -5,19 +5,44 @@ import (
 	"log"
 	"os/exec"
 	"strings"
+	"sync"
 )
 
-func runBastilleCommands(args ...string) (string, error) {
-	cmd := exec.Command("bastille", args...)
-	log.Println("runBastilleCommands:", cmd)
+var wg sync.WaitGroup
 
-	result, err := cmd.CombinedOutput()
-	if err != nil {
-		return "", fmt.Errorf("bastille: %s ,failed: %v\n %s", cmd, err, result)
+func runBastilleCommands(args ...string) (string, error) {
+	type ResultCommand struct {
+		Output string
+		Error  error
 	}
 
-	// result := "ok"
-	return string(result), nil
+	results := make(chan ResultCommand)
+	wg.Add(1)
+
+	go func() {
+		defer wg.Done()
+
+		cmd := exec.Command("bastille", args...)
+		log.Println("runBastilleCommands:", cmd)
+
+		result, err := cmd.CombinedOutput()
+		var resultError error
+		if err != nil {
+			resultError = fmt.Errorf("bastille: %s ,failed: %v\n %s", cmd, err, result)
+		}
+
+		results <- ResultCommand{
+			Output: string(result),
+			Error:  resultError,
+		}
+	}()
+
+	go func() {
+		wg.Wait()
+		close(results)
+	}()
+
+	return (<-results).Output, (<-results).Error
 }
 
 func runOsCommands(command string, args ...string) (string, error) {
