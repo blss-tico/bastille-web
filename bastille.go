@@ -25,8 +25,8 @@ func runBastilleCommands(args ...string) (string, error) {
 		cmd := exec.Command("bastille", args...)
 		log.Println("runBastilleCommands:", cmd)
 
-		result, err := cmd.CombinedOutput()
 		var resultError error
+		result, err := cmd.CombinedOutput()
 		if err != nil {
 			resultError = fmt.Errorf("bastille: %s ,failed: %v\n %s", cmd, err, result)
 		}
