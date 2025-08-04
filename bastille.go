@@ -637,3 +637,24 @@ func bastilleSysrc(options, target, arg string) (string, error) {
 
 	return runBastilleCommands(args...)
 }
+
+func bastilleTags(options, target, action, tags string) (string, error) {
+	args := []string{"tags"}
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if action != "" {
+		args = append(args, action)
+	}
+
+	if tags != "" {
+		args = append(args, tags)
+	}
+
+	return runBastilleCommands(args...)
+}

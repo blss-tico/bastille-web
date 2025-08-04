@@ -247,3 +247,9 @@ func sysrcHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	data := templateModel{Title: "Sysrc", Data: bastille}
 	renderTemplateUtil(w, "sysrc.html", data)
 }
+
+func tagsHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("tagsHandlerTplt")
+	data := templateModel{Title: "Tags", Data: bastille}
+	renderTemplateUtil(w, "tags.html", data)
+}

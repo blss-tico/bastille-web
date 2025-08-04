@@ -35,7 +35,14 @@ func respondOkWithJSONUtil(w http.ResponseWriter, payload string) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(http.StatusOK)
-	response := map[string]string{"msg": payload, "err": "no errors"}
+
+	if payload != "" {
+		response := map[string]string{"msg": payload}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	response := map[string]string{"msg": "command executed"}
 	json.NewEncoder(w).Encode(response)
 }
 

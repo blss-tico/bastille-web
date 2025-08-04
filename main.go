@@ -74,6 +74,7 @@ func main() {
 	mux.HandleFunc("/start", startHandlerTplt)
 	mux.HandleFunc("/stop", stopHandlerTplt)
 	mux.HandleFunc("/sysrc", sysrcHandlerTplt)
+	mux.HandleFunc("/tags", tagsHandlerTplt)
 
 	// data handlers
 	mux.HandleFunc("POST /bootstrap", LoggingMiddleware(bootstrapHandler))
@@ -103,6 +104,7 @@ func main() {
 	mux.HandleFunc("POST /start", LoggingMiddleware(startHandler))
 	mux.HandleFunc("POST /stop", LoggingMiddleware(stopHandler))
 	mux.HandleFunc("POST /sysrc", LoggingMiddleware(sysrcHandler))
+	mux.HandleFunc("POST /tags", LoggingMiddleware(tagsHandler))
 
 	port, ok := os.LookupEnv("BWU_PORT")
 	if !ok || port == "" {

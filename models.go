@@ -206,3 +206,10 @@ type sysrcModel struct {
 	Target  string `json:"target"`
 	Args    string `json:"args"`
 }
+
+type tagsModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+	Action  string `json:"action"`
+	Tgs     string `json:"tags"`
+}
