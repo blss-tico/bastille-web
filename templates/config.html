@@ -45,12 +45,13 @@
     async function configSubmit(event) {
       event.preventDefault();
 
+      const name = 'config';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
       error.innerText = ""; 
       
-      const form = document.getElementById('config-form');
+      const form = document.getElementById(name + '-form');
       const formData = new FormData(form);
       
       let options = [];
@@ -72,8 +73,9 @@
       formObj['options'] = options.join(' ').trimEnd();
       formObj['action'] = actions.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
+      result.innerText = 'send -> bastille ' + name;
 
-      const response = await fetch('/config', {
+      const response = await fetch('/' + name, {
         method: 'POST',
         headers: {
           'Access-Control-Allow-Origin': '*',

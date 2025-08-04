@@ -39,12 +39,13 @@
     async function destroySubmit(event) {
       event.preventDefault();
 
+      const name = 'destroy';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
       error.innerText = ""; 
 
-      const form = document.getElementById('destroy-form');
+      const form = document.getElementById(name + '-form');
       const formData = new FormData(form);
       
       let options = [];
@@ -59,8 +60,9 @@
       });
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
+      result.innerText = 'send -> bastille ' + name;
 
-      const response = await fetch('/destroy', {
+      const response = await fetch('/' + name, {
         method: 'POST',
         headers: {
           'Access-Control-Allow-Origin': '*',

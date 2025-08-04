@@ -1,229 +1,310 @@
 {{define "base"}}
-<!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.Title}}-Bastille-Web</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
-      .navbar {
-        background-color: #333;
-        color: white;
-        padding: 10px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .navbar-brand {
-        font-size: 1.5em;
-        font-weight: bold;
-      }
-      .navbar-menu {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-      }
-      .navbar-menu li {
-        margin-left: 20px;
-      }
-      .navbar-menu a {
-        color: white;
-        text-decoration: none;
-        padding: 5px 10px;
-        border-radius: 4px;
-      }
-      .navbar-menu a:hover {
-        background-color: #555;
-      }
-      .container {
-        display: flex;
-        flex: 1;
-      }
-      .sidebar {
-        width: 180px;
-        height: 100vh;
-        background-color: #f4f4f4;
-        padding: 20px;
-        box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-        overflow-y: scroll;
-      }
-      .sidebar h3 {
-        margin-top: 0;
-        color: #333;
-      }
-      .sidebar ul {
-        list-style: none;
-        padding: 0;
-      }
-      .sidebar ul li {
-        margin-bottom: 10px;
-      }
-      .sidebar ul li a {
-        text-decoration: none;
-        color: #000000;
-        display: block;
-        padding: 5px 0;
-      }
-      .sidebar ul li a:hover {
-        color: #000000;
-        background-color: #d4d1d1;
-      }
-      .main-content {
-        flex: 1;
-        padding: 20px;
-        background-color: #fff;
-      }
-      .ttl-home-host-info {
-        color: #57565e;
-      }
-      .ttl-home-list-jails {
-        color: #57565e;
-      }
-      .tbl-home-host-info tr:hover {
-        background-color: #d4d1d1;
-        color: #000;
-      }
-      .tbl-home-list-jails {
-        pad: 4px;
-      }
-      .tbl-home-list-jails thead {
-        text-align: left;
-        background-color: #333;
-        color: #fff;
-      }
-      .tbl-home-list-jails tr:hover{            
-        background-color: #d4d1d1;
-        color: #000;
-      }
-      .tbl-home-list-jails-up {
-        background-color: #bbe0b8;
-      }
-      .tbl-home-list-jails-down {
-        background-color: #fff;
-      }
-      .btn-home-start-jail {
-        background-color: #76aa72;
-        border-radius: 2px;
-        border: none;
-        margin: 2px;
-        color: #fff;
-      }
-      .btn-home-start-jail:hover {
-        background-color: #0c6e21;
-      }
-      .btn-home-start-jail:hover:disabled {
-        background-color: #d3d3d3;
-      }
-      .btn-home-start-jail:disabled {
-        background-color: #d3d3d3;            
-      }
-      .btn-home-stop-jail {
-        background-color: #dd544b;
-        border-radius: 2px;
-        border: none;
-        margin: 2px;
-        color: #fff;
-      }
-      .btn-home-stop-jail:hover {
-        background-color: #da2c20;            
-      }
-      .btn-home-stop-jail:hover:disabled {
-        background-color: #d3d3d3;
-      }
-      .btn-home-stop-jail:disabled {
-        background-color: #d3d3d3;
-      }
-      .card {
-        padding-top: 5px;
-        padding-left: 5px;
-        padding-right: 5px;
-        padding-bottom: 7px;
-        box-shadow: 5px 5px 5px 5px #d3d3d3;
-      }
-      .card-description {
-        font-size: medium;
-      }
-      .card-help {
-        font-size: medium;
-        font-weight: bold;
-      }
-      .card-results {
-        background-color: #000;
-      }
-      .card-result {
-        color: #14c514;
-      }
-      .card-error {
-        color: #dd544b;
-      }
-      .btn-card-submit {
-        background-color: #76aa72;
-        border-radius: 2px;
-        border: none;
-        margin: 2px;
-        color: #fff;
-        height:30px;
-        width:60px;
-      }
-      .btn-card-submit:hover {
-        background-color: #0c6e21;            
-      }
-      .ttl-help {
-        color: #57565e;
-      }
-      .help-commands-cloud {      
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: baseline;
-        align-items: baseline;
-        width: 80%;
-        margin: 0 auto;
-      }
-      .help-commands-item {
-        margin: 5px;
-        padding: 5px;
-        border-radius: 5px;
-        background-color: #e23232;
-        font-size: 1.2em;
-        color: #fff;
-        text-decoration: none;
-      }
-      .help-commands-item:hover {
-        background-color: #555;
-        color: #fff;
-      }
-      .ttl-contact {
-        color: #57565e;
-      }
-      footer {
-        background-color: #333;
-        color: white;
-        text-align: center;
-        padding: 10px 0;
-        margin-top: auto;
-      }
-    </style>
-    <script>
-      window.onload = () => {
-        sessionStorage.setItem('id', crypto.randomUUID());
-      }
-    </script>
-  </head>
-  <body>
-    {{template "navbar" .}}
-    <div class="container">
-      {{template "sidebar" .}}
-      <main class="main-content"> {{template "content" .}} </main>
-    </div>
-    <footer> &copy; 2025 Bastille-Web. Todos os direitos reservados.</footer>
-  </body>
-</html>
+  <!DOCTYPE html>
+  <html lang="pt-BR">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>{{.Title}}-Bastille-Web</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+        }
+        .loader {
+          width: 10px;
+          padding: 1px;
+          aspect-ratio: 1;
+          border-radius: 50%;
+          background: #333;
+          --_m: conic-gradient(#0000 10%,#000), linear-gradient(#000 0 0) content-box;
+          -webkit-mask: var(--_m);
+                  mask: var(--_m);
+          -webkit-mask-composite: source-out;
+                  mask-composite: subtract;
+          animation: l3 1s infinite linear;
+        }
+        @keyframes l3 {
+          to{transform: rotate(1turn)}
+        }
+        .navbar {
+          background-color: #333;
+          color: white;
+          padding: 10px 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .navbar-brand {
+          font-size: 1.4em;
+          font-weight: bold;
+        }
+        .navbar-menu {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: flex;
+        }
+        .navbar-menu li {
+          margin-left: 20px;
+        }
+        .navbar-menu a {
+          color: white;
+          text-decoration: none;
+          padding: 5px 10px;
+          border-radius: 4px;
+        }
+        .navbar-menu a:hover {
+          background-color: #555;
+        }
+        .container {
+          display: flex;
+          flex: 1;
+          padding-left: 28vh;
+        }
+        .sidebar {
+          left: 0;
+          width: 20vh;
+          height: 100vh;
+          background-color: #f4f4f4;
+          padding: 20px;
+          box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+          overflow-y: scroll;
+          position: fixed;
+          transition: width 0.3s ease;
+        }
+        .sidebar h4 {
+          margin-top: 0;
+          color: #333;
+        }
+        .sidebar-btn {
+          display: none;
+          position: fixed;
+          top: 4px;
+          left: 5px;
+          color: #fff;
+          background-color: #333;
+          border: none;
+          padding: 10px;
+          cursor: pointer;
+        }
+        .sidebar ul {
+          list-style: none;
+          padding: 0;
+        }
+        .sidebar ul li {
+          margin-bottom: 2px;
+        }
+        .sidebar ul li a {
+          text-decoration: none;
+          color: #000000;
+          display: block;
+          padding: 5px 0;
+        }
+        .sidebar ul li a:hover {
+          color: #fff;
+          background-color: #333;
+        }        
+        .main-content {
+          flex: 1;        
+          background-color: #fff;
+        }
+        .ttl-home-host-info {
+          color: #57565e;
+        }
+        .ttl-home-list-jails {
+          color: #57565e;
+        }
+        .tbl-home-host-info {
+          font-size: 0.9em;
+        }
+        .tbl-home-host-info tr:hover {
+          background-color: #333;
+          color: #fff;        
+        }
+        .tbl-home-list-jails {
+          pad: 5px;
+          font-size: 0.9em;
+          width: 100%;
+        }
+        .tbl-home-list-jails thead {
+          text-align: center;
+          background-color: #333;
+          color: #fff;
+        }
+        .tbl-home-list-jails tbody {
+          text-align: left;
+          background-color: #fff;
+          color: #333;
+        }
+        .tbl-home-list-jails tbody tr:hover{            
+          background-color: #f0eeee;
+          color: #000;
+        }
+        .tbl-home-list-jails-up {
+          background-color: #bbe0b8;
+        }
+        .tbl-home-list-jails-down {
+          background-color: #fff;
+        }
+        .tbl-home-td-btns { 
+          display: flex;
+          flex: 1;
+          flex-direction: row;
+          align-items: center;
+        }
+        .tbl-home-td-loader {
+          width: 12px;
+          text-align: center;
+        }
+        .btn-home-start-jail {
+          background-color: #76aa72;
+          border-radius: 2px;
+          border: none;
+          margin: 2px;
+          color: #fff;
+        }
+        .btn-home-start-jail:hover {
+          background-color: #0c6e21;
+        }
+        .btn-home-start-jail:hover:disabled {
+          background-color: #d3d3d3;
+        }
+        .btn-home-start-jail:disabled {
+          background-color: #d3d3d3;            
+        }
+        .btn-home-stop-jail {
+          background-color: #dd544b;
+          border-radius: 2px;
+          border: none;
+          margin: 2px;
+          color: #fff;
+        }
+        .btn-home-stop-jail:hover {
+          background-color: #da2c20;            
+        }
+        .btn-home-stop-jail:hover:disabled {
+          background-color: #d3d3d3;
+        }
+        .btn-home-stop-jail:disabled {
+          background-color: #d3d3d3;
+        }
+        .card {
+          padding-top: 5px;
+          padding-left: 5px;
+          padding-right: 5px;
+          padding-bottom: 7px;
+          box-shadow: 5px 5px 5px 5px #d3d3d3;
+        }
+        .card-description {
+          font-size: medium;
+        }
+        .card-help {
+          font-size: medium;
+          font-weight: bold;
+        }
+        .card-results {
+          background-color: #000;
+        }
+        .card-result {
+          color: #14c514;
+        }
+        .card-error {
+          color: #dd544b;
+        }
+        .btn-card-submit {
+          background-color: #76aa72;
+          border-radius: 2px;
+          border: none;
+          margin: 2px;
+          color: #fff;
+          height:30px;
+          width:60px;
+        }
+        .btn-card-submit:hover {
+          background-color: #0c6e21;            
+        }
+        .ttl-help {
+          color: #57565e;
+        }
+        .help-commands-cloud {      
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: baseline;
+          align-items: baseline;
+          width: 80%;
+          margin: 0 auto;
+        }
+        .help-commands-item {
+          margin: 5px;
+          padding: 5px;
+          border-radius: 5px;
+          background-color: #e23232;
+          font-size: 1.2em;
+          color: #fff;
+          text-decoration: none;
+        }
+        .help-commands-item:hover {
+          background-color: #555;
+          color: #fff;
+        }
+        .ttl-contact {
+          color: #57565e;
+        }
+        footer {
+          background-color: #333;
+          color: white;
+          text-align: center;
+          padding: 10px 0;
+          margin-top: auto;
+        }
+        @media (max-width: 768px) {
+          .navbar {
+            padding: 10px 2px;
+          }
+          .navbar-brand {
+            font-size: 1.4em;
+            font-weight: bold;
+            padding-left: 40px;
+          }
+          .container {
+            display: flex;
+            flex: 1;
+            padding-left: 6vh;
+          }
+          .sidebar {
+            width: 0em;
+            overflow: hidden;
+          }
+          .sidebar-btn {
+            display: block;
+          }
+          .sidebar.open {
+            width: 20vh;
+          }
+          .tbl-home-td-path {
+            display: none;
+          }
+          .tbl-home-th-path {
+            display: none;
+          }
+        }
+      </style>
+      <script>
+        window.onload = () => {
+          sessionStorage.setItem('id', crypto.randomUUID());
+        }
+      </script>
+    </head>
+    <body>
+      {{template "navbar" .}}
+      <div class="container">
+        {{template "sidebar" .}}
+        <main class="main-content"> {{template "content" .}} </main>
+      </div>
+      <footer> &copy; 2025 Bastille-Web. Todos os direitos reservados.</footer>
+    </body>
+  </html>
 {{end}}

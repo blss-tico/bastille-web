@@ -1,140 +1,155 @@
 {{define "content"}}
-<div>
-  <h2 class="ttl-home-host-info">Host Info</h2>
-  {{if .SysData}}
-  <table class="tbl-home-host-info">
-    <tbody>
-      <tr>
-        <td>HOSTNAME</td>
-        <td><strong>{{ .SysData.Hostname}}</strong></td> 
-      </tr>
-      <tr>
-        <td>PLATFORM</td>
-        <td><strong>{{ .SysData.Platform}}</strong></td>
-      </tr>  
-      <tr>
-        <td>RELEASE</td>
-        <td><strong>{{ .SysData.Osrelease}}</strong></td>
-      </tr>
-      <tr>
-        <td>ARCHTECTURE</td>
-        <td><strong>{{ .SysData.Arch}}</strong></td>
-      </tr>
-      <tr>
-        <td>TOTAL MEMORY</td>
-        <td><strong>{{ .SysData.Totalmemory}} (Mb)</strong></td>
-      </tr>
-      <tr>
-        <td>AVAILABLE MEMORY</td>
-        <td><strong>{{ .SysData.Availablememory}} (Mb)</strong></td>
-      </tr>
-      <tr>
-        <td>BASTILLE VERSION</td>
-        <td><strong>{{ .SysData.BastilleVersion}}</strong></td>
-      </tr>
-    </tbody>
-  </table>
-  {{end}}
-</div>
-
-<br />
-
-<div>  
-  <h2 class="ttl-home-list-jails">Bastille Jails</h2>
-  {{if .JailsData}}
-  <table class="tbl-home-list-jails">
-    <thead>
-      <tr>
-        <th>JID</th>
-        <th>BOOT</th>
-        <th>PRIO</th>
-        <th>STATE</th>
-        <th>IP ADDRESS</th>
-        <th>PUBLISHED PORTS</th>
-        <th>HOSTNAME</th>
-        <th>RELEASE</th>
-        <th>PATH</th>
-        <th>ACTION</th>
-      </tr>
-    </thead>
-      <tbody>
-        {{range .JailsData}}
-        <tr class='{{if eq .State "Up"}}tbl-home-list-jails-up{{else}}tbl-home-list-jails-down{{end}}'>
-          <td>{{ .Jid}}</td>
-          <td>{{ .Boot}}</td>
-          <td>{{ .Prio}}</td>
-          <td>{{ .State}}</td>
-          <td>{{ .Ip}}</td>
-          <td>{{ .Published}}</td>
-          <td>{{ .Hostname}}</td>
-          <td>{{ .Release}}</td>
-          <td>{{ .Path}}</td>
-          <td>
-            <button class="btn-home-start-jail" onclick="startJail('', '{{.Hostname}}', '')" {{if eq .State "Up" }}disabled{{end}}>
-              START
-            </button>
-            <button class="btn-home-stop-jail" onclick="stopJail('', '{{.Hostname}}')" {{if eq .State "Down" }}disabled{{end}}>
-              STOP
-            </button>
-          </td>
-        </tr>
-        {{end}}
-      </tbody>
-  </table>
   <div>
-  {{end}}
-</div>
+    <h3 class="ttl-home-host-info">Host Info</h3>
+    {{if .SysData}}
+    <table class="tbl-home-host-info">
+      <tbody>
+        <tr>
+          <td>HOSTNAME</td>
+          <td><strong>{{ .SysData.Hostname}}</strong></td> 
+        </tr>
+        <tr>
+          <td>PLATFORM</td>
+          <td><strong>{{ .SysData.Platform}}</strong></td>
+        </tr>  
+        <tr>
+          <td>RELEASE</td>
+          <td><strong>{{ .SysData.Osrelease}}</strong></td>
+        </tr>
+        <tr>
+          <td>ARCHTECTURE</td>
+          <td><strong>{{ .SysData.Arch}}</strong></td>
+        </tr>
+        <tr>
+          <td>TOTAL MEMORY</td>
+          <td><strong>{{ .SysData.Totalmemory}} (Mb)</strong></td>
+        </tr>
+        <tr>
+          <td>AVAILABLE MEMORY</td>
+          <td><strong>{{ .SysData.Availablememory}} (Mb)</strong></td>
+        </tr>
+        <tr>
+          <td>BASTILLE VERSION</td>
+          <td><strong>{{ .SysData.BastilleVersion}}</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    {{end}}
+  </div>
+  <div>  
+    {{if .JailsData}}
+      <h3 class="ttl-home-list-jails">Bastille Jails</h3>
+      <table class="tbl-home-list-jails">
+        <thead>
+          <tr>
+            <th>JID</th>
+            <th>BOOT</th>
+            <th>PRIO</th>
+            <th>STATE</th>
+            <th>IP ADDRESS</th>
+            <th>PUBLISHED PORTS</th>
+            <th>HOSTNAME</th>
+            <th>RELEASE</th>
+            <th class="tbl-home-th-path">PATH</th>
+            <th>ACTION</th>
+            <th>#</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{range $index, $element := .JailsData}}
+            <tr class='{{if eq .State "Up"}}tbl-home-list-jails-up{{else}}tbl-home-list-jails-down{{end}}'>
+              <td>{{ $element.Jid}}</td>
+              <td>{{ $element.Boot}}</td>
+              <td>{{ $element.Prio}}</td>
+              <td>{{ $element.State}}</td>
+              <td>{{ $element.Ip}}</td>
+              <td>{{ $element.Published}}</td>
+              <td>{{ $element.Hostname}}</td>
+              <td>{{ $element.Release}}</td>
+              <td class="tbl-home-td-path">{{ $element.Path}}</td>
+              <td class="tbl-home-td-btns">
+                <button 
+                  class="btn-home-start-jail" 
+                  onclick="startJail('{{$element.Hostname}}', '{{$index}}')" 
+                  {{if eq $element.State "Up" }}disabled{{end}}
+                >
+                  START
+                </button>
+                <button 
+                  class="btn-home-stop-jail" 
+                  onclick="stopJail('{{$element.Hostname}}', '{{$index}}')" 
+                  {{if eq $element.State "Down" }}disabled{{end}}
+                >
+                  STOP
+                </button>
+              </td>
+              <td class="tbl-home-td-loader">
+                <div class="loader"></div>
+              </td>
+            </tr>
+          {{end}}
+        </tbody>
+      </table>
+    {{end}}
+  </div>
 
-<script>
-  async function startJail(options, target, value) {
-    const data = { options: "", target: target, value: "" };
+  <script>
+    let loaderDiv = document.getElementsByClassName("loader");
+    for (const elem of loaderDiv) { elem.style.display = 'none'; }
+    
+    async function startJail(target, idx) {
+      const data = { options: "", target: target, value: "" };
+      loaderDiv[idx].style.display = 'block';
 
-    const response = await fetch('http://localhost:8088/start', {
-      method: 'POST',
-      // mode: 'no-cors',
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'accept': 'application/json',
-        'Content-Type': 'application/json',
-        'X-Request-ID': sessionStorage.getItem('id')
-      },
-      body: JSON.stringify(data),
-    });
+      const response = await fetch('http://localhost:8088/start', {
+        method: 'POST',
+        // mode: 'no-cors',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'accept': 'application/json',
+          'Content-Type': 'application/json',
+          'X-Request-ID': sessionStorage.getItem('id')
+        },
+        body: JSON.stringify(data),
+      });
 
-    if (!response.ok) {
-      const error = new Error(`HTTP error! status: ${response.status}`);
-      console.log('Error: ', error.message);
+      if (!response.ok) {
+        const error = new Error(`HTTP error! status: ${response.status}`);
+        console.log('Error: ', error.message);
+      }
+      
+      loaderDiv[idx].style.display = 'none';
+      const responseData = await response.json();
+      window.location.href = "http://localhost:8088/";
+      // return responseData;
     }
 
-    const responseData = await response.json();
-    window.location.href = "http://localhost:8088/";
-    // return responseData;
-  }
+    async function stopJail(target, idx) {
+      const data = { options: "", target: target };
+      console.log(idx);
+      loaderDiv[idx].style.display = 'block';
 
-  async function stopJail(options, target) {
-    const data = { options: "", target: target };
+      const response = await fetch('http://localhost:8088/stop', {
+        method: 'POST',
+        //mode: 'no-cors',
+        headers: {
+          'access-control-allow-origin': '*',
+          'accept': 'application/json',
+          'Content-Type': 'application/json',
+          'X-Request-ID': sessionStorage.getItem('id')
+        },
+        body: JSON.stringify(data),
+      });
 
-    const response = await fetch('http://localhost:8088/stop', {
-      method: 'POST',
-      //mode: 'no-cors',
-      headers: {
-        'access-control-allow-origin': '*',
-        'accept': 'application/json',
-        'Content-Type': 'application/json',
-        'X-Request-ID': sessionStorage.getItem('id')
-      },
-      body: JSON.stringify(data),
-    });
+      if (!response.ok) {
+        const error = new Error(`HTTP error! status: ${response.status}`);
+        console.log('Error: ', error.message);
+      }
 
-    if (!response.ok) {
-      const error = new Error(`HTTP error! status: ${response.status}`);
-      console.log('Error: ', error.message);
+      loaderDiv[idx].style.display = 'none';
+      const responseData = await response.json();
+      window.location.href = "http://localhost:8088/";
+      //return responseData;
     }
-
-    //document.getElementById(target+"_stop").disabled = true; 
-    const responseData = await response.json();
-    window.location.href = "http://localhost:8088/";
-    //return responseData;
-  }
-</script>
+  </script>
 {{end}}

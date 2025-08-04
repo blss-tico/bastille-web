@@ -60,8 +60,7 @@
       });
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
-      console.log(formJson);
-      return;
+      result.innerText = 'send -> bastille ' + name;
 
       const response = await fetch('/' + name, {
         method: 'POST',

@@ -15,9 +15,9 @@
           {{end}}
           <br /><br />
           {{range .Fields}}
-          <label>{{.}}</label><br />
-          <input type="text" name="{{.}}" />
-          <br /><br />
+            <label>{{.}}</label><br />
+            <input type="text" name="{{.}}" />
+            <br /><br />
           {{end}}
           <button class="btn-card-submit" onclick="renameSubmit(event)">Submit</button>          
         </form>
@@ -60,6 +60,7 @@
       });
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
+      result.innerText = 'send -> bastille ' + name;
 
       const response = await fetch('/' + name, {
         method: 'POST',

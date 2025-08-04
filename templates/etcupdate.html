@@ -72,6 +72,7 @@
       formObj['options'] = options.join(' ').trimEnd();
       formObj['action'] = actions.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
+      result.innerText = 'send -> bastille ' + name;
 
       const response = await fetch('/' + name, {
         method: 'POST',
