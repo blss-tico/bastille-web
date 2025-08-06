@@ -459,6 +459,26 @@ func rcpHandler(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+func rdrHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("rdrHandler")
+
+	var data rdrModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleRdr(data.Options, data.Optionsarg, data.Target, data.Action, data.Hostport, data.Jailport, data.Log, data.Logopts)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}
+
 func renameHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("renameHandler")
 

@@ -555,6 +555,43 @@ func bastilleRcp(options, target, jailpath, hostpath string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
+func bastilleRdr(options, optionsarg, target, action, hostport, jailport, log, logopts string) (string, error) {
+	args := []string{"rcp"}
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if optionsarg != "" {
+		args = append(args, optionsarg)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if action != "" {
+		args = append(args, action)
+	}
+
+	if hostport != "" {
+		args = append(args, hostport)
+	}
+
+	if jailport != "" {
+		args = append(args, jailport)
+	}
+
+	if log != "" {
+		args = append(args, log)
+	}
+
+	if logopts != "" {
+		args = append(args, logopts)
+	}
+
+	return runBastilleCommands(args...)
+}
+
 func bastilleRename(options, target, newname string) (string, error) {
 	args := []string{"rename"}
 	if options != "" {

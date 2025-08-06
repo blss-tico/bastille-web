@@ -242,6 +242,12 @@ func rcpHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	renderTemplateUtil(w, "rcp.html", data)
 }
 
+func rdrHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("rdrHandlerTplt")
+	data := templatesModel{Title: "rdr", Data: bastille}
+	renderTemplateUtil(w, "rdr.html", data)
+}
+
 func renameHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("renameHandlerTplt")
 	data := templatesModel{Title: "rename", Data: bastille}

@@ -523,7 +523,7 @@
     },
     {
       "command": "rdr",
-      "description": "Redirect host port to container port.",
+      "description": "bastille rdr allows you to configure dynamic rdr rules for your containers without modifying pf.conf (assuming you are using the bastille0 interface for a private network and have enabled rdr-anchor 'rdr/*' in /etc/pf.conf as described in the Networking section).",
       "options": [{
         "sflag": "-d",
         "lflag": "--destination",
@@ -545,7 +545,7 @@
         "lflag": "--debug",
         "text": "Enable debug mode."
       }],
-      "fields": ["TARGET", "clear", "reset", "list", "tcp", "udp", "HOST_PORT", "JAIL_PORT", "log", "logopts", "[destination]", "[interface]", "[source]", "[ipv4|ipv6]"],
+      "fields": ["options_arg", "TARGET", "clear", "reset", "list", "tcp|udp", "HOST_PORT", "JAIL_PORT", "log", "logopts"],
       "help": "bastille rdr [option(s)] TARGET [clear|reset|list|(tcp|udp)] HOST_PORT JAIL_PORT [log ['(' logopts ')']]"
     },
     {

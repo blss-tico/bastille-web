@@ -185,6 +185,17 @@ type rcpModel struct {
 	Hostpath string `json:"host_path"`
 }
 
+type rdrModel struct {
+	Options    string `json:"options,omitempty"`
+	Optionsarg string `json:"options_arg,omitempty"`
+	Target     string `json:"target"`
+	Action     string `json:"action"`
+	Hostport   string `json:"host_port"`
+	Jailport   string `json:"jail_port"`
+	Log        string `json:"log,omitempty"`
+	Logopts    string `json:"logopts,omitempty"`
+}
+
 type renameModel struct {
 	Options string `json:"options,omitempty"`
 	Target  string `json:"target"`
