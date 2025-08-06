@@ -545,7 +545,7 @@
         "lflag": "--debug",
         "text": "Enable debug mode."
       }],
-      "fields": ["options_arg", "TARGET", "clear", "reset", "list", "tcp|udp", "HOST_PORT", "JAIL_PORT", "log", "logopts"],
+      "fields": ["options_arg", "TARGET", "clear", "reset", "list", "tcp", "udp", "HOST_PORT", "JAIL_PORT", "log", "logopts"],
       "help": "bastille rdr [option(s)] TARGET [clear|reset|list|(tcp|udp)] HOST_PORT JAIL_PORT [log ['(' logopts ')']]"
     },
     {

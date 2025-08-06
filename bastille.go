@@ -556,7 +556,7 @@ func bastilleRcp(options, target, jailpath, hostpath string) (string, error) {
 }
 
 func bastilleRdr(options, optionsarg, target, action, hostport, jailport, log, logopts string) (string, error) {
-	args := []string{"rcp"}
+	args := []string{"rdr"}
 	if options != "" {
 		args = append(args, options)
 	}

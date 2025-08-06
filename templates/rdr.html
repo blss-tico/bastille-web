@@ -15,7 +15,7 @@
             {{end}}
             <br />
             {{range .Fields}}
-              {{if or (eq . "clear") (eq . "reset") (eq . "list") (eq . "tcp|udp")}}                
+              {{if or (eq . "clear") (eq . "reset") (eq . "list") (eq . "tcp") (eq . "udp")}}                
                 <input type="checkbox" name="actions_{{.}}" value="{{.}}" />
                 <label for="actions_{{.}}">{{.}}</label>
                 &nbsp;
@@ -62,6 +62,7 @@
       const form = document.getElementById(name + '-form');
       const formData = new FormData(form);      
       let options = [];
+      let actions = [];
       let formObj = {};
       formData.forEach((value, key) => {
         if (key.indexOf('options_') != -1) {
@@ -69,9 +70,15 @@
           return;
         }
 
+        if (key.indexOf('actions_') != -1) {
+          actions.push(value);
+          return;
+        }
+
         formObj[key] = value;
       });
       formObj['options'] = options.join(' ').trimEnd();
+      formObj['action'] = actions.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
 
       result.innerText = 'send -> bastille ' + name;
