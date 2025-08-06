@@ -238,3 +238,14 @@ type umountModel struct {
 	Target   string `json:"target"`
 	Jailpath string `json:"jail_path"`
 }
+
+type updateModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+}
+
+type upgradeModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+	Action  string `json:"NEW_RELEASE|install"`
+}

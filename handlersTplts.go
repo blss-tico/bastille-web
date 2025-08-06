@@ -295,3 +295,15 @@ func umountHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	data := templatesModel{Title: "umount", Data: bastille}
 	renderTemplateUtil(w, "umount.html", data)
 }
+
+func updateHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("updateHandlerTplt")
+	data := templatesModel{Title: "update", Data: bastille}
+	renderTemplateUtil(w, "update.html", data)
+}
+
+func upgradeHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("upgradeHandlerTplt")
+	data := templatesModel{Title: "upgrade", Data: bastille}
+	renderTemplateUtil(w, "upgrade.html", data)
+}

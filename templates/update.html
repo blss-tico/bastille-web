@@ -1,0 +1,82 @@
+{{define "content"}}
+  <div class="card">
+    {{$parentContext := .}} 
+    {{range .Data.Commands}}
+      {{if eq .Command $.Title}}
+        <div class="card-title">{{.Command}}</div>
+        <div class="card-description">{{.Description}}</div>
+        <div class="card-content">
+          <form id="{{$.Title}}-form" class="card-form">
+            <label>OPTIONS:</label><br />
+            {{range .Options}}
+              <input type="checkbox" name="options_{{.Lflag}}" value="{{.Sflag}}" />
+              <label for="{{.Lflag}}">{{.Lflag}}</label>
+              &nbsp;
+            {{end}}
+            <br />
+            {{range .Fields}}              
+                <br />
+                <label>{{.}}</label><br />
+                <input type="text" name="{{.}}" />
+                <br />              
+            {{end}}
+            <br />
+            <button class="btn-card-submit" onclick="updateSubmit(event)">Submit</button>          
+          </form>
+        </div>
+        <br />
+        <div class="card-help">
+          <h3>Help</h3>
+          <p>{{.Help}}</p>
+          <div class="card-help-options">
+            {{range .Options}}
+              <p>&nbsp;&nbsp;{{.Sflag}}&nbsp;|&nbsp;{{.Lflag}}&nbsp;-&nbsp;{{.Text}}</p>
+            {{end}}
+          </div>
+        </div>
+      {{end}}
+    {{end}}
+    <div class="card-results">
+      <p id="result" class="card-result"></p>
+      <p id="error" class="card-error"></p>
+    </div>
+  </div>
+
+  <script>
+    async function updateSubmit(event) {
+      event.preventDefault();
+
+      const name = 'update';
+      const result = document.getElementById('result');
+      const error = document.getElementById('error');
+      result.innerText = "";
+      error.innerText = ""; 
+
+      const form = document.getElementById(name + '-form');
+      const formData = new FormData(form);      
+      let options = [];
+      let formObj = {};
+      formData.forEach((value, key) => {
+        if (key.indexOf('options_') != -1) {
+          options.push(value);
+          return;
+        }
+
+        formObj[key] = value;
+      });
+      formObj['options'] = options.join(' ').trimEnd();
+      const formJson = JSON.stringify(formObj);
+
+      result.innerText = 'send -> bastille ' + name;
+
+      const response = await sendHttpRequest(name, formJson);
+      if (response.code == 200) {
+        error.innerText = "";
+        result.innerText = response.data.msg;
+      } else {
+        result.innerText = "";
+        error.innerText = response.error;
+      }
+    }
+  </script>
+{{end}}

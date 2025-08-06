@@ -44,6 +44,8 @@ func templatesRoutes(mux *http.ServeMux) {
 	mux.HandleFunc("/template", templateHandlerTplt)
 	mux.HandleFunc("/top", topHandlerTplt)
 	mux.HandleFunc("/umount", umountHandlerTplt)
+	mux.HandleFunc("/update", updateHandlerTplt)
+	mux.HandleFunc("/upgrade", upgradeHandlerTplt)
 }
 
 func dataRoutes(mux *http.ServeMux) {
@@ -78,4 +80,6 @@ func dataRoutes(mux *http.ServeMux) {
 	mux.HandleFunc("POST /template", loggingMiddleware(templateHandler))
 	mux.HandleFunc("POST /top", loggingMiddleware(topHandler))
 	mux.HandleFunc("POST /umount", loggingMiddleware(umountHandler))
+	mux.HandleFunc("POST /update", loggingMiddleware(updateHandler))
+	mux.HandleFunc("POST /upgrade", loggingMiddleware(upgradeHandler))
 }

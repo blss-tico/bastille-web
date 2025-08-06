@@ -710,3 +710,33 @@ func bastilleUmount(options, target, jailpath string) (string, error) {
 
 	return runBastilleCommands(args...)
 }
+
+func bastilleUpdate(options, target string) (string, error) {
+	args := []string{"update"}
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	return runBastilleCommands(args...)
+}
+
+func bastilleUpgrade(options, target, action string) (string, error) {
+	args := []string{"upgrade"}
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if action != "" {
+		args = append(args, action)
+	}
+
+	return runBastilleCommands(args...)
+}

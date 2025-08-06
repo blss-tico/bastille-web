@@ -727,7 +727,7 @@
     },
     {
       "command": "update",
-      "description": "Update container base -pX release.",
+      "description": "The update command targets a release or a thick jail. Because thin jails are based on a release, when the release is updated all the thin jails are automatically updated as well.",
       "options": [{
         "sflag": "-a",
         "lflag": "--auto",
@@ -746,7 +746,7 @@
     },
     {
       "command": "upgrade",
-      "description": "Upgrade container release to X.Y-RELEASE.",
+      "description": "The upgrade command targets a thick or thin jail. Thin jails will be updated by changing the release mount point that it is based on. Thick jails will be upgraded normally.",
       "options": [{
         "sflag": "-a",
         "lflag": "--auto",
@@ -760,7 +760,7 @@
         "lflag": "--debug",
         "text": "Enable debug mode."
       }],
-      "fields": ["TARGET", "NEW_RELEASE", "install"],
+      "fields": ["TARGET", "NEW_RELEASE|install"],
       "help": "bastille upgrade [option(s)] TARGET NEW_RELEASE|install"
     },
     {
