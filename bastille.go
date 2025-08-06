@@ -680,3 +680,16 @@ func bastilleTemplate(options, target, action, template string) (string, error) 
 
 	return runBastilleCommands(args...)
 }
+
+func bastilleTop(options, target string) (string, error) {
+	args := []string{"top"}
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	return runBastilleCommands(args...)
+}

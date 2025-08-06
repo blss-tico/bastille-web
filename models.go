@@ -227,3 +227,8 @@ type templateModel struct {
 	Action   string `json:"action"`
 	Template string `json:"template"`
 }
+
+type topModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+}

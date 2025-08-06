@@ -75,6 +75,7 @@ func homeHandlerTplt(w http.ResponseWriter, r *http.Request) {
 		Ip        string
 	}
 	data := HomeData{Title: "home", Data: bastille, SysData: sysinfo, JailsData: list, Ip: IpAddrModel}
+
 	renderTemplateUtil(w, "home.html", data)
 }
 
@@ -98,7 +99,14 @@ func contactHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	email := "blss-tico@gmail.com"
 	githubpers := "https://github.com/blss-tico"
 	githubproj := "https://github.com/blss-tico/bastille-web"
-	data := ContactModel{Title: "contact", Data: bastille, Email: email, Githubpers: githubpers, Githubproj: githubproj}
+	data := ContactModel{
+		Title:      "contact",
+		Data:       bastille,
+		Email:      email,
+		Githubpers: githubpers,
+		Githubproj: githubproj,
+	}
+
 	renderTemplateUtil(w, "contact.html", data)
 }
 
@@ -274,4 +282,10 @@ func templateHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("templateHandlerTplt")
 	data := templatesModel{Title: "template", Data: bastille}
 	renderTemplateUtil(w, "template.html", data)
+}
+
+func topHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("topHandlerTplt")
+	data := templatesModel{Title: "top", Data: bastille}
+	renderTemplateUtil(w, "top.html", data)
 }
