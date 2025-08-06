@@ -307,3 +307,9 @@ func upgradeHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	data := templatesModel{Title: "upgrade", Data: bastille}
 	renderTemplateUtil(w, "upgrade.html", data)
 }
+
+func verifyHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("verifyHandlerTplt")
+	data := templatesModel{Title: "verify", Data: bastille}
+	renderTemplateUtil(w, "verify.html", data)
+}

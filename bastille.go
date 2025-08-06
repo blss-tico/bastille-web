@@ -740,3 +740,16 @@ func bastilleUpgrade(options, target, action string) (string, error) {
 
 	return runBastilleCommands(args...)
 }
+
+func bastilleVerify(options, action string) (string, error) {
+	args := []string{"verify"}
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if action != "" {
+		args = append(args, action)
+	}
+
+	return runBastilleCommands(args...)
+}

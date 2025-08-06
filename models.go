@@ -249,3 +249,8 @@ type upgradeModel struct {
 	Target  string `json:"target"`
 	Action  string `json:"NEW_RELEASE|install"`
 }
+
+type verifyModel struct {
+	Options string `json:"options,omitempty"`
+	Action  string `json:"RELEASE|TEMPLATE"`
+}

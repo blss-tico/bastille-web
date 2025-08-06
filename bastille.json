@@ -765,7 +765,7 @@
     },
     {
       "command": "verify",
-      "description": "Compare release against a 'known good' index.",
+      "description": "This command scans a bootstrapped release or template and validates that everything looks in order. This is not a 100% comprehensive check, but it compares the release or template against a “known good” index.",
       "options": [{
         "sflag": "-x",
         "lflag": "--debug",
