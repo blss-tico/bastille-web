@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"time"
 )
 
 var bastille bastilleModel
@@ -24,87 +23,13 @@ func init() {
 	}
 }
 
-func LoggingMiddleware(f http.HandlerFunc) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		sessionId := r.Header.Get("X-Request-ID")
-		start := time.Now()
-		log.Printf("%s %s %s %v %s", r.Method, r.URL.Path, r.RemoteAddr, time.Since(start), sessionId)
-		f(w, r)
-	}
-}
-
 func main() {
 	log.Println("main")
+
 	mux := http.NewServeMux()
-
-	// static files handler
-	fs := http.FileServer(http.Dir("./static"))
-	mux.Handle("/static/", http.StripPrefix("/static/", fs))
-
-	// template handlers
-	mux.HandleFunc("/", homeHandlerTplt)
-	mux.HandleFunc("/help", helpHandlerTplt)
-	mux.HandleFunc("/contact", contactHandlerTplt)
-	mux.HandleFunc("/bootstrap", bootstrapHandlerTplt)
-	mux.HandleFunc("/clone", cloneHandlerTplt)
-	mux.HandleFunc("/cmd", cmdHandlerTplt)
-	mux.HandleFunc("/config", configHandlerTplt)
-	mux.HandleFunc("/convert", convertHandlerTplt)
-	mux.HandleFunc("/cp", cpHandlerTplt)
-	mux.HandleFunc("/create", createHandlerTplt)
-	mux.HandleFunc("/destroy", destroyHandlerTplt)
-	mux.HandleFunc("/etcupdate", etcupdateHandlerTplt)
-	mux.HandleFunc("/export", exportHandlerTplt)
-	mux.HandleFunc("/htop", htopHandlerTplt)
-	mux.HandleFunc("/import", importHandlerTplt)
-	mux.HandleFunc("/jcp", jcpHandlerTplt)
-	mux.HandleFunc("/limits", limitsHandlerTplt)
-	mux.HandleFunc("/list", listHandlerTplt)
-	mux.HandleFunc("/migrate", migrateHandlerTplt)
-	mux.HandleFunc("/mount", mountHandlerTplt)
-	mux.HandleFunc("/network", networkHandlerTplt)
-	mux.HandleFunc("/pkg", pkgHandlerTplt)
-	mux.HandleFunc("/rcp", rcpHandlerTplt)
-	mux.HandleFunc("/rename", renameHandlerTplt)
-	mux.HandleFunc("/restart", restartHandlerTplt)
-	mux.HandleFunc("/service", serviceHandlerTplt)
-	mux.HandleFunc("/setup", setupHandlerTplt)
-	mux.HandleFunc("/start", startHandlerTplt)
-	mux.HandleFunc("/stop", stopHandlerTplt)
-	mux.HandleFunc("/sysrc", sysrcHandlerTplt)
-	mux.HandleFunc("/tags", tagsHandlerTplt)
-	mux.HandleFunc("/template", templateHandlerTplt)
-
-	// data handlers
-	mux.HandleFunc("POST /bootstrap", LoggingMiddleware(bootstrapHandler))
-	mux.HandleFunc("POST /clone", LoggingMiddleware(cloneHandler))
-	mux.HandleFunc("POST /cmd", LoggingMiddleware(cmdHandler))
-	mux.HandleFunc("POST /config", LoggingMiddleware(configHandler))
-	mux.HandleFunc("POST /convert", LoggingMiddleware(convertHandler))
-	mux.HandleFunc("POST /cp", LoggingMiddleware(cpHandler))
-	mux.HandleFunc("POST /create", LoggingMiddleware(createHandler))
-	mux.HandleFunc("POST /destroy", LoggingMiddleware(destroyHandler))
-	mux.HandleFunc("POST /etcupdate", LoggingMiddleware(etcupdateHandler))
-	mux.HandleFunc("POST /export", LoggingMiddleware(exportHandler))
-	mux.HandleFunc("POST /htop", LoggingMiddleware(htopHandler))
-	mux.HandleFunc("POST /import", LoggingMiddleware(importHandler))
-	mux.HandleFunc("POST /jcp", LoggingMiddleware(jcpHandler))
-	mux.HandleFunc("POST /limits", LoggingMiddleware(limitsHandler))
-	mux.HandleFunc("POST /list", LoggingMiddleware(listHandler))
-	mux.HandleFunc("POST /migrate", LoggingMiddleware(migrateHandler))
-	mux.HandleFunc("POST /mount", LoggingMiddleware(mountHandler))
-	mux.HandleFunc("POST /network", LoggingMiddleware(networkHandler))
-	mux.HandleFunc("POST /pkg", LoggingMiddleware(pkgHandler))
-	mux.HandleFunc("POST /rcp", LoggingMiddleware(rcpHandler))
-	mux.HandleFunc("POST /rename", LoggingMiddleware(renameHandler))
-	mux.HandleFunc("POST /restart", LoggingMiddleware(restartHandler))
-	mux.HandleFunc("POST /service", LoggingMiddleware(serviceHandler))
-	mux.HandleFunc("POST /setup", LoggingMiddleware(setupHandler))
-	mux.HandleFunc("POST /start", LoggingMiddleware(startHandler))
-	mux.HandleFunc("POST /stop", LoggingMiddleware(stopHandler))
-	mux.HandleFunc("POST /sysrc", LoggingMiddleware(sysrcHandler))
-	mux.HandleFunc("POST /tags", LoggingMiddleware(tagsHandler))
-	mux.HandleFunc("POST /template", LoggingMiddleware(templateHandler))
+	staticRoutes(mux)
+	templatesRoutes(mux)
+	dataRoutes(mux)
 
 	port, ok := os.LookupEnv("BW_PORT")
 	if !ok || port == "" {
