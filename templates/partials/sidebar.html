@@ -9,7 +9,7 @@
         <br />
         <h4>Bastille Commands</h4>
         {{range .Data.Commands}}
-          {{if and (ne .Command "console") (ne .Command "edit") (ne .Command "htop")}}
+          {{if and (ne .Command "console") (ne .Command "edit") (ne .Command "htop") (ne .Command "top")}}
             <li><a href="/{{.Command}}">{{.Command}}</a></li>
           {{end}}
         {{end}}
