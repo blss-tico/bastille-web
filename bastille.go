@@ -693,3 +693,20 @@ func bastilleTop(options, target string) (string, error) {
 
 	return runBastilleCommands(args...)
 }
+
+func bastilleUmount(options, target, jailpath string) (string, error) {
+	args := []string{"umount"}
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if jailpath != "" {
+		args = append(args, jailpath)
+	}
+
+	return runBastilleCommands(args...)
+}

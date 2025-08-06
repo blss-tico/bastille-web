@@ -289,3 +289,9 @@ func topHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	data := templatesModel{Title: "top", Data: bastille}
 	renderTemplateUtil(w, "top.html", data)
 }
+
+func umountHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("umountHandlerTplt")
+	data := templatesModel{Title: "umount", Data: bastille}
+	renderTemplateUtil(w, "umount.html", data)
+}

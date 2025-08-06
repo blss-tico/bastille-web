@@ -232,3 +232,9 @@ type topModel struct {
 	Options string `json:"options,omitempty"`
 	Target  string `json:"target"`
 }
+
+type umountModel struct {
+	Options  string `json:"options,omitempty"`
+	Target   string `json:"target"`
+	Jailpath string `json:"jail_path"`
+}
