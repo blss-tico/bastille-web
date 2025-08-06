@@ -75,11 +75,6 @@ func osMemInfo() (string, error) {
 	return runOsCommands("sysctl", args...)
 }
 
-func bastilleListAllJson() (string, error) {
-	args := []string{"list", "-j", "all"}
-	return runBastilleCommands(args...)
-}
-
 func bastilleVersion() (string, error) {
 	args := []string{"-v"}
 	return runBastilleCommands(args...)

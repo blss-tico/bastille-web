@@ -43,7 +43,7 @@ func homeHandlerTplt(w http.ResponseWriter, r *http.Request) {
 		BastilleVersion: bstv,
 	}
 
-	result, err := bastilleListAllJson()
+	result, err := bastilleList("-j", "all")
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
