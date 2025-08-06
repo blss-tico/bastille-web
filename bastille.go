@@ -658,3 +658,24 @@ func bastilleTags(options, target, action, tags string) (string, error) {
 
 	return runBastilleCommands(args...)
 }
+
+func bastilleTemplate(options, target, action, template string) (string, error) {
+	args := []string{"tags"}
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if action != "" {
+		args = append(args, action)
+	}
+
+	if template != "" {
+		args = append(args, template)
+	}
+
+	return runBastilleCommands(args...)
+}

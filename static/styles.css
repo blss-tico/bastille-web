@@ -1,9 +1,14 @@
+:root{
+  color-scheme: light dark;
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: light-dark(#fff, #444);
 }
 
 .loader {
@@ -27,12 +32,18 @@ body {
 }
 
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   background-color: #333;
   color: white;
   padding: 10px 20px;
   display: flex;
+  flex: 1;
   justify-content: space-between;
   align-items: center;
+  z-index: 999;
 }
 
 .navbar-brand {
@@ -44,6 +55,7 @@ body {
   list-style: none;
   margin: 0;
   padding: 0;
+  padding-right: 20px;
   display: flex;
 }
 
@@ -78,6 +90,12 @@ body {
   overflow-y: scroll;
   position: fixed;
   transition: width 0.3s ease;
+}
+
+.div-sidebar-navigation {
+  padding-top: 30px;
+  padding-left: 10px;
+  padding-bottom: 30px;
 }
 
 .sidebar h4 {
@@ -121,6 +139,9 @@ body {
 .main-content {
   flex: 1;
   background-color: #fff;
+  margin-top: 50px;
+  margin-bottom: 35px;
+  margin-right: 10px;
 }
 
 .ttl-home-host-info {
@@ -144,6 +165,7 @@ body {
   pad: 5px;
   font-size: 0.9em;
   width: 100%;
+  overflow-x: auto;
 }
 
 .tbl-home-list-jails thead {
@@ -225,19 +247,46 @@ body {
 
 .card {
   padding-top: 5px;
-  padding-left: 5px;
+  padding-left: 10px;
   padding-right: 5px;
   padding-bottom: 7px;
   box-shadow: 5px 5px 5px 5px #d3d3d3;
 }
 
+.card-title {
+  font-size: 1.3em;
+  font-weight: bold;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
 .card-description {
-  font-size: medium;
+  font-size: 1.0em;
+  font-style: italic;
+}
+
+.card-content {
+  padding-top: 20px;
+  font-size: 0.9em;
+}
+
+.card-form {
+  font-size: 0.9em;
+}
+
+.card-form label {
+  font-weight: bold;
 }
 
 .card-help {
-  font-size: medium;
+  font-size: 0.9em;
   font-weight: bold;
+}
+
+.card-help-options {
+  font-size: 0.9em;
+  font-weight: normal;
+  padding-left: 10px;
 }
 
 .card-results {
@@ -284,7 +333,7 @@ body {
   padding: 5px;
   border-radius: 5px;
   background-color: #e23232;
-  font-size: 1.2em;
+  font-size: 1.1em;
   color: #fff;
   text-decoration: none;
 }
@@ -298,34 +347,56 @@ body {
   color: #57565e;
 }
 
+.div-contact a {
+  text-decoration: none;
+}
+
 footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   background-color: #333;
   color: white;
   text-align: center;
-  padding: 10px 0;
-  margin-top: auto;
+  padding: 5px 0;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
-  .navbar {
-    padding: 10px 2px;
+  .navbar {   
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    padding: 10px 20px;    
+    z-index: 999;
   }
 
   .navbar-brand {
     font-size: 1.4em;
     font-weight: bold;
-    padding-left: 40px;
+    padding-left: 30px;
   }
 
-  .container {
-    display: flex;
-    flex: 1;
-    padding-left: 6vh;
+  .navbar-menu {
+    display: none;
   }
 
   .sidebar {
     width: 0em;
-    overflow: hidden;
+    height: 100vh;
+    overflow-y: scroll;
+    /*overflow: hidden;*/
+    padding: 0px;
+    background-color: #e0dede;
+    z-index: 1;
+  }
+
+  .div-sidebar-navigation {
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 50px;
   }
 
   .sidebar-btn {
@@ -336,11 +407,99 @@ footer {
     width: 20vh;
   }
 
-  .tbl-home-td-path {
+  .container {
+    display: flex;
+    flex: 1;
+    padding-left: 5px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    z-index: 2;
+  }
+
+  .main-content {
+    flex: 1;
+    background-color: #fff;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  .div-home-list-jails {
+    padding-right: 5px;
+  }
+
+  .tbl-home-host-info tbody, td, tr {
+    display: block;
+  }
+
+  .tbl-home-host-info tr {
+    width: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .tbl-home-host-info td {
+    border: none;
+    position: relative;
+    padding-left: 5%;
+    text-align: right;
+    font-weight: bold;
+  }
+
+  .tbl-home-host-info td::before {
+    position: absolute;
+    left: 6px;
+    width: 100%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: normal;
+  }
+
+  .tbl-home-list-jails thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  .tbl-home-list-jails thead {
     display: none;
   }
 
-  .tbl-home-th-path {
-    display: none;
+  .tbl-home-list-jails tr {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .tbl-home-list-jails td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    text-align: right;
+    font-weight: bold;
+  }
+
+  .tbl-home-list-jails td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: normal;
+  }
+
+  .tbl-home-td-loader {
+    padding-bottom: 10px;
   }
 }

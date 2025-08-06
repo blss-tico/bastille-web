@@ -1,29 +1,29 @@
 {{define "sidebar"}}
   <aside class="sidebar">
-    <h4>Navigation</h4>
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/help">Help</a></li>
-      <li><a href="/contact">Contact</a></li>
-      <br />
-      <h4>Bastille Commands</h4>
-      {{range .Data.Commands}}
-        {{if and (ne .Command "console") (ne .Command "edit") (ne .Command "htop")}}
-          <li><a href="/{{.Command}}">{{.Command}}</a></li>
+    <div class="div-sidebar-navigation">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/help">Help</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <br />
+        <h4>Bastille Commands</h4>
+        {{range .Data.Commands}}
+          {{if and (ne .Command "console") (ne .Command "edit") (ne .Command "htop")}}
+            <li><a href="/{{.Command}}">{{.Command}}</a></li>
+          {{end}}
         {{end}}
-      {{end}}
-      <br />
-    </ul>
+        <br />
+      </ul>
+    </div>
   </aside>
 
   <script>
-    window.onload = () => {    
-      const menuButton = document.querySelector('.sidebar-btn');
-      const sidebar = document.querySelector('.sidebar');
+    const menuButton = document.querySelector('.sidebar-btn');
+    const sidebar = document.querySelector('.sidebar');
 
-      menuButton.addEventListener('click', () => {
-        sidebar.classList.toggle('open');
-      });
-    }
+    menuButton.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
   </script>
 {{end}}

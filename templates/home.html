@@ -22,7 +22,7 @@
         </tr>
         <tr>
           <td>TOTAL MEMORY</td>
-          <td><strong>{{ .SysData.Totalmemory}} (Mb)</strong></td>
+          <td><strong>{{ .SysData.Totalmemory}} (Gb)</strong></td>
         </tr>
         <tr>
           <td>AVAILABLE MEMORY</td>
@@ -36,7 +36,10 @@
     </table>
     {{end}}
   </div>
-  <div>  
+
+  <br />
+  
+  <div class="div-home-list-jails">
     {{if .JailsData}}
       <h3 class="ttl-home-list-jails">Bastille Jails</h3>
       <table class="tbl-home-list-jails">
@@ -58,16 +61,16 @@
         <tbody>
           {{range $index, $element := .JailsData}}
             <tr class='{{if eq .State "Up"}}tbl-home-list-jails-up{{else}}tbl-home-list-jails-down{{end}}'>
-              <td>{{ $element.Jid}}</td>
-              <td>{{ $element.Boot}}</td>
-              <td>{{ $element.Prio}}</td>
-              <td>{{ $element.State}}</td>
-              <td>{{ $element.Ip}}</td>
-              <td>{{ $element.Published}}</td>
-              <td>{{ $element.Hostname}}</td>
-              <td>{{ $element.Release}}</td>
-              <td class="tbl-home-td-path">{{ $element.Path}}</td>
-              <td class="tbl-home-td-btns">
+              <td data-label="JID">{{ $element.Jid}}</td>
+              <td data-label="BOOT">{{ $element.Boot}}</td>
+              <td data-label="PRIO">{{ $element.Prio}}</td>
+              <td data-label="STATE">{{ $element.State}}</td>
+              <td data-label="IP">{{ $element.Ip}}</td>
+              <td data-label="PUBLISHED">{{ $element.Published}}</td>
+              <td data-label="HOSTNAME">{{ $element.Hostname}}</td>
+              <td data-label="RELEASE">{{ $element.Release}}</td>
+              <td data-label="PATH" class="tbl-home-td-path">{{ $element.Path}}</td>
+              <td data-label="ACTION" class="tbl-home-td-btns">
                 <button 
                   class="btn-home-start-jail" 
                   onclick="startJail('{{$element.Hostname}}', '{{$index}}')" 
@@ -83,7 +86,7 @@
                   STOP
                 </button>
               </td>
-              <td class="tbl-home-td-loader">
+              <td data-label="LOADER" class="tbl-home-td-loader">
                 <div class="loader"></div>
               </td>
             </tr>
@@ -101,7 +104,7 @@
       const data = { options: "", target: target, value: "" };
       loaderDiv[idx].style.display = 'block';
 
-      const response = await fetch('http://localhost:8088/start', {
+      const response = await fetch('/start', {
         method: 'POST',
         // mode: 'no-cors',
         headers: {
@@ -120,7 +123,7 @@
       
       loaderDiv[idx].style.display = 'none';
       const responseData = await response.json();
-      window.location.href = "http://localhost:8088/";
+      window.location.href = "http://{{.Ip}}/";
       // return responseData;
     }
 
@@ -129,7 +132,7 @@
       console.log(idx);
       loaderDiv[idx].style.display = 'block';
 
-      const response = await fetch('http://localhost:8088/stop', {
+      const response = await fetch('/stop', {
         method: 'POST',
         //mode: 'no-cors',
         headers: {
@@ -148,7 +151,7 @@
 
       loaderDiv[idx].style.display = 'none';
       const responseData = await response.json();
-      window.location.href = "http://localhost:8088/";
+      window.location.href = "http://{{.Ip}}/";
       //return responseData;
     }
   </script>

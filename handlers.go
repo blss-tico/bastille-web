@@ -578,3 +578,23 @@ func tagsHandler(w http.ResponseWriter, r *http.Request) {
 
 	respondOkWithJSONUtil(w, result)
 }
+
+func templateHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("templateHandler")
+
+	var data templateModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleTemplate(data.Options, data.Target, data.Action, data.Template)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}

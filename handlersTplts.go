@@ -69,187 +69,206 @@ func homeHandlerTplt(w http.ResponseWriter, r *http.Request) {
 		Data      bastilleModel
 		SysData   SysInfo
 		JailsData []List
+		Ip        string
 	}
-	data := HomeData{Title: "Home", Data: bastille, SysData: sysinfo, JailsData: list}
+	data := HomeData{Title: "home", Data: bastille, SysData: sysinfo, JailsData: list, Ip: IpAddrModel}
 	renderTemplateUtil(w, "home.html", data)
 }
 
 func helpHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("helpHandlerTplt")
-	data := templateModel{Title: "Help", Data: bastille}
+	data := templatesModel{Title: "help", Data: bastille}
 	renderTemplateUtil(w, "help.html", data)
 }
 
 func contactHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("contactHandlerTplt")
-	data := templateModel{Title: "Contact", Data: bastille}
+
+	type ContactModel struct {
+		Title      string
+		Data       bastilleModel
+		Email      string
+		Githubpers string
+		Githubproj string
+	}
+
+	email := "blss-tico@gmail.com"
+	githubpers := "https://github.com/blss-tico"
+	githubproj := "https://github.com/blss-tico/bastille-web"
+	data := ContactModel{Title: "contact", Data: bastille, Email: email, Githubpers: githubpers, Githubproj: githubproj}
 	renderTemplateUtil(w, "contact.html", data)
 }
 
 func bootstrapHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("bootstrapHandlerTplt")
-	data := templateModel{Title: "Bootstrap", Data: bastille}
+	data := templatesModel{Title: "bootstrap", Data: bastille}
 	renderTemplateUtil(w, "bootstrap.html", data)
 }
 
 func cloneHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("cloneHandlerTplt")
-	data := templateModel{Title: "Contact", Data: bastille}
+	data := templatesModel{Title: "clone", Data: bastille}
 	renderTemplateUtil(w, "clone.html", data)
 }
 
 func cmdHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("cmdHandlerTplt")
-	data := templateModel{Title: "Cmd", Data: bastille}
+	data := templatesModel{Title: "cmd", Data: bastille}
 	renderTemplateUtil(w, "cmd.html", data)
 }
 
 func configHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("cmdHandlerTplt")
-	data := templateModel{Title: "Cmd", Data: bastille}
+	data := templatesModel{Title: "config", Data: bastille}
 	renderTemplateUtil(w, "config.html", data)
 }
 
 func convertHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("convertHandlerTplt")
-	data := templateModel{Title: "Convert", Data: bastille}
+	data := templatesModel{Title: "convert", Data: bastille}
 	renderTemplateUtil(w, "convert.html", data)
 }
 
 func cpHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("cpHandlerTplt")
-	data := templateModel{Title: "Cp", Data: bastille}
+	data := templatesModel{Title: "cp", Data: bastille}
 	renderTemplateUtil(w, "cp.html", data)
 }
 
 func createHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("createHandlerTplt")
-	data := templateModel{Title: "Create", Data: bastille}
+	data := templatesModel{Title: "create", Data: bastille}
 	renderTemplateUtil(w, "create.html", data)
 }
 
 func destroyHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("destroyHandlerTplt")
-	data := templateModel{Title: "Destroy", Data: bastille}
+	data := templatesModel{Title: "destroy", Data: bastille}
 	renderTemplateUtil(w, "destroy.html", data)
 }
 
 func etcupdateHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("etcupdateHandlerTplt")
-	data := templateModel{Title: "Etcupdate", Data: bastille}
+	data := templatesModel{Title: "etcupdate", Data: bastille}
 	renderTemplateUtil(w, "etcupdate.html", data)
 }
 
 func exportHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("exportHandlerTplt")
-	data := templateModel{Title: "Export", Data: bastille}
+	data := templatesModel{Title: "export", Data: bastille}
 	renderTemplateUtil(w, "export.html", data)
 }
 
 func htopHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("htopHandlerTplt")
-	data := templateModel{Title: "Htop", Data: bastille}
+	data := templatesModel{Title: "htop", Data: bastille}
 	renderTemplateUtil(w, "htop.html", data)
 }
 
 func importHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("importHandlerTplt")
-	data := templateModel{Title: "Import", Data: bastille}
+	data := templatesModel{Title: "import", Data: bastille}
 	renderTemplateUtil(w, "import.html", data)
 }
 
 func jcpHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("jcpHandlerTplt")
-	data := templateModel{Title: "Jcp", Data: bastille}
+	data := templatesModel{Title: "jcp", Data: bastille}
 	renderTemplateUtil(w, "jcp.html", data)
 }
 
 func limitsHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("limitsHandlerTplt")
-	data := templateModel{Title: "Limits", Data: bastille}
+	data := templatesModel{Title: "limits", Data: bastille}
 	renderTemplateUtil(w, "limits.html", data)
 }
 
 func listHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("listHandlerTplt")
-	data := templateModel{Title: "List", Data: bastille}
+	data := templatesModel{Title: "list", Data: bastille}
 	renderTemplateUtil(w, "list.html", data)
 }
 
 func migrateHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("migrateHandlerTplt")
-	data := templateModel{Title: "Migrate", Data: bastille}
+	data := templatesModel{Title: "migrate", Data: bastille}
 	renderTemplateUtil(w, "migrate.html", data)
 }
 
 func mountHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("mountHandlerTplt")
-	data := templateModel{Title: "Mount", Data: bastille}
+	data := templatesModel{Title: "mount", Data: bastille}
 	renderTemplateUtil(w, "mount.html", data)
 }
 
 func networkHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("networkHandlerTplt")
-	data := templateModel{Title: "Network", Data: bastille}
+	data := templatesModel{Title: "network", Data: bastille}
 	renderTemplateUtil(w, "network.html", data)
 }
 
 func pkgHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("pkgHandlerTplt")
-	data := templateModel{Title: "Pkg", Data: bastille}
+	data := templatesModel{Title: "pkg", Data: bastille}
 	renderTemplateUtil(w, "pkg.html", data)
 }
 
 func rcpHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("rcpHandlerTplt")
-	data := templateModel{Title: "Rcp", Data: bastille}
+	data := templatesModel{Title: "rcp", Data: bastille}
 	renderTemplateUtil(w, "rcp.html", data)
 }
 
 func renameHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("renameHandlerTplt")
-	data := templateModel{Title: "Rename", Data: bastille}
+	data := templatesModel{Title: "rename", Data: bastille}
 	renderTemplateUtil(w, "rename.html", data)
 }
 
 func restartHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("restartHandlerTplt")
-	data := templateModel{Title: "Restart", Data: bastille}
+	data := templatesModel{Title: "restart", Data: bastille}
 	renderTemplateUtil(w, "restart.html", data)
 }
 
 func serviceHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("serviceHandlerTplt")
-	data := templateModel{Title: "Service", Data: bastille}
+	data := templatesModel{Title: "service", Data: bastille}
 	renderTemplateUtil(w, "service.html", data)
 }
 
 func setupHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("setupHandlerTplt")
-	data := templateModel{Title: "Setup", Data: bastille}
+	data := templatesModel{Title: "setup", Data: bastille}
 	renderTemplateUtil(w, "setup.html", data)
 }
 
 func startHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("startHandlerTplt")
-	data := templateModel{Title: "Start", Data: bastille}
+	data := templatesModel{Title: "start", Data: bastille}
 	renderTemplateUtil(w, "start.html", data)
 }
 
 func stopHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("stopHandlerTplt")
-	data := templateModel{Title: "Stop", Data: bastille}
+	data := templatesModel{Title: "stop", Data: bastille}
 	renderTemplateUtil(w, "stop.html", data)
 }
 
 func sysrcHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("sysrcHandlerTplt")
-	data := templateModel{Title: "Sysrc", Data: bastille}
+	data := templatesModel{Title: "sysrc", Data: bastille}
 	renderTemplateUtil(w, "sysrc.html", data)
 }
 
 func tagsHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("tagsHandlerTplt")
-	data := templateModel{Title: "Tags", Data: bastille}
+	data := templatesModel{Title: "tags", Data: bastille}
 	renderTemplateUtil(w, "tags.html", data)
+}
+
+func templateHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("templateHandlerTplt")
+	data := templatesModel{Title: "template", Data: bastille}
+	renderTemplateUtil(w, "template.html", data)
 }

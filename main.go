@@ -75,6 +75,7 @@ func main() {
 	mux.HandleFunc("/stop", stopHandlerTplt)
 	mux.HandleFunc("/sysrc", sysrcHandlerTplt)
 	mux.HandleFunc("/tags", tagsHandlerTplt)
+	mux.HandleFunc("/template", templateHandlerTplt)
 
 	// data handlers
 	mux.HandleFunc("POST /bootstrap", LoggingMiddleware(bootstrapHandler))
@@ -105,13 +106,14 @@ func main() {
 	mux.HandleFunc("POST /stop", LoggingMiddleware(stopHandler))
 	mux.HandleFunc("POST /sysrc", LoggingMiddleware(sysrcHandler))
 	mux.HandleFunc("POST /tags", LoggingMiddleware(tagsHandler))
+	mux.HandleFunc("POST /template", LoggingMiddleware(templateHandler))
 
 	port, ok := os.LookupEnv("BWU_PORT")
 	if !ok || port == "" {
-		port = ":8088"
+		port = IpAddrModel
 	}
 
-	log.Printf("Server starting on http://localhost%s", port)
+	log.Printf("Server starting on http://%s", port)
 	if err := http.ListenAndServe(port, mux); err != nil {
 		log.Fatalf("Server failed to start: %v", err)
 	}

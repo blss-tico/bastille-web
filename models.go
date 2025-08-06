@@ -1,5 +1,7 @@
 package main
 
+const IpAddrModel = "127.0.0.1:80"
+
 type optionsModel struct {
 	Sflag string
 	Lflag string
@@ -21,7 +23,7 @@ type bastilleModel struct {
 	Commands []bastilleCommandsModel `json:"commands"`
 }
 
-type templateModel struct {
+type templatesModel struct {
 	Title string
 	Data  bastilleModel
 }
@@ -212,4 +214,11 @@ type tagsModel struct {
 	Target  string `json:"target"`
 	Action  string `json:"action"`
 	Tgs     string `json:"tags"`
+}
+
+type templateModel struct {
+	Options  string `json:"options,omitempty"`
+	Target   string `json:"target"`
+	Action   string `json:"action"`
+	Template string `json:"template"`
 }

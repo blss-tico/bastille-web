@@ -1,7 +1,18 @@
 {{define "content"}}
-  <h2 class="ttl-contact">Contact Page</h2>
-  <p>Email: <b>blss-tico@gmail.com</b></p>
-  <p>Github: <b>https://github.com/blss-tico/bastille-web</b></p>
+  <h3 class="ttl-contact">Contact Page</h3>
   <br />
-  <p>By me a coffe :-)</p>
+  <div class="div-contact">
+    <p>
+      <b><i>Bruno Leonardo Tico)</i></b>    
+    </p>
+    <address>
+      <a href="mailto:{{.Email}}">{{.Email}}</a>
+      <br />
+      <a href="{{.Githubpers}}">{{.Githubpers}}</a>
+      <br />
+      <a href="{{.Githubproj}}">{{.Githubproj}}</a>
+    </address>
+    <br />
+    <p>By me a coffe ;-)</p>
+  </div>
 {{end}}

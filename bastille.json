@@ -115,7 +115,7 @@
     },
     {
       "command": "create",
-      "description": "Create a new thin container or a thick container if -T|--thick option specified.",
+      "description": "Create a jail uning any available bootstrapped release. To create a jail, simply provide a name, bootstrapped release, and IP address.",
       "options": [{
         "sflag": "-B",
         "lflag": "--bridge",
