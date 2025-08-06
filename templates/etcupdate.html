@@ -2,36 +2,41 @@
   <div class="card">
     {{$parentContext := .}} 
     {{range .Data.Commands}}
-      {{if eq .Command "etcupdate"}}
-        <h2>{{.Command}}</h2>
-        <p class="card-description">{{.Description}}</p>
-        <br />
-        <form id="etcupdate-form" class="card-form">
-          <label>Options:</label><br />
-          {{range .Options}}
-            <input type="checkbox" name="options_{{.Lflag}}" value="{{.Sflag}}" />
-            <label for="{{.Lflag}}">{{.Lflag}}</label>
-            &nbsp;
-          {{end}}
-          <br /><br />
-          {{range .Fields}}
-            {{if (or (eq . "diff") (eq . "resolve") (eq . "update"))}}
-              <input type="checkbox" name="action_{{.}}" value="{{.}}" />
-              <label for="{{.}}">{{.}}</label>
-            {{else}}
-              <label>{{.}}</label><br />
-              <input type="text" name="{{.}}" />
+      {{if eq .Command $.Title}}
+        <div class="card-title">{{.Command}}</div>
+        <div class="card-description">{{.Description}}</div>
+        <div class="card-content">
+          <form id="{{$.Title}}-form" class="card-form">
+            <label>OPTIONS:</label><br />
+            {{range .Options}}
+              <input type="checkbox" name="options_{{.Lflag}}" value="{{.Sflag}}" />
+              <label for="{{.Lflag}}">{{.Lflag}}</label>
+              &nbsp;
             {{end}}
             <br /><br />
-          {{end}}
-          <button class="btn-card-submit" onclick="etcupdateSubmit(event)">Submit</button>          
-        </form>
+            {{range .Fields}}
+              {{if (or (eq . "diff") (eq . "resolve") (eq . "update"))}}
+                <input type="checkbox" name="action_{{.}}" value="{{.}}" />
+                <label for="{{.}}">{{.}}</label>
+              {{else}}
+                <label>{{.}}</label><br />
+                <input type="text" name="{{.}}" />
+              {{end}}
+              <br /><br />
+            {{end}}
+            <button class="btn-card-submit" onclick="etcupdateSubmit(event)">Submit</button>          
+          </form>
+        </div>
         <br />
-        <h3>Help</h3>
-        <p class="card-help">{{.Help}}</p>
-        {{range .Options}}
-          <p>&nbsp;&nbsp;{{.Sflag}}&nbsp;|&nbsp;{{.Lflag}}&nbsp;-&nbsp;{{.Text}}</p>
-        {{end}}
+        <div class="card-help">
+          <h3>Help</h3>
+          <p>{{.Help}}</p>
+          <div class="card-help-options">
+            {{range .Options}}
+              <p>&nbsp;&nbsp;{{.Sflag}}&nbsp;|&nbsp;{{.Lflag}}&nbsp;-&nbsp;{{.Text}}</p>
+            {{end}}
+          </div>
+        </div>
       {{end}}
     {{end}}
     <div class="card-results">
