@@ -2,14 +2,12 @@ package main
 
 import (
 	"encoding/json"
-	"html/template"
 	"log"
 	"net/http"
 	"os"
 	"time"
 )
 
-var templates *template.Template
 var bastille bastilleModel
 
 func init() {
@@ -108,7 +106,7 @@ func main() {
 	mux.HandleFunc("POST /tags", LoggingMiddleware(tagsHandler))
 	mux.HandleFunc("POST /template", LoggingMiddleware(templateHandler))
 
-	port, ok := os.LookupEnv("BWU_PORT")
+	port, ok := os.LookupEnv("BW_PORT")
 	if !ok || port == "" {
 		port = IpAddrModel
 	}

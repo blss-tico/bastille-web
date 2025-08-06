@@ -2,11 +2,14 @@ package main
 
 import (
 	"encoding/json"
+	"html/template"
 	"log"
 	"net/http"
 	"regexp"
 	"strings"
 )
+
+var templates *template.Template
 
 func homeHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("homeHandlerTplt")

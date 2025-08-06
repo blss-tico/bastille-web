@@ -23,6 +23,11 @@ type bastilleModel struct {
 	Commands []bastilleCommandsModel `json:"commands"`
 }
 
+type resultCommandModel struct {
+	Output string
+	Error  error
+}
+
 type templatesModel struct {
 	Title string
 	Data  bastilleModel

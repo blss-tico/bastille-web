@@ -10,13 +10,8 @@ import (
 
 var wg sync.WaitGroup
 
-type ResultCommand struct {
-	Output string
-	Error  error
-}
-
 func runBastilleCommands(args ...string) (string, error) {
-	resChan := make(chan ResultCommand)
+	resChan := make(chan resultCommandModel)
 	wg.Add(1)
 
 	go func() {
@@ -27,11 +22,17 @@ func runBastilleCommands(args ...string) (string, error) {
 
 		result, err := cmd.CombinedOutput()
 		if err != nil {
-			resChan <- ResultCommand{Output: "", Error: fmt.Errorf("bastille: %s ,failed: %v\n %s", cmd, err, result)}
+			resChan <- resultCommandModel{
+				Output: "",
+				Error:  fmt.Errorf("bastille: %s ,failed: %v\n %s", cmd, err, result),
+			}
 			return
 		}
 
-		resChan <- ResultCommand{Output: string(result), Error: nil}
+		resChan <- resultCommandModel{
+			Output: string(result),
+			Error:  nil,
+		}
 	}()
 
 	go func() {
