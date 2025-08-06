@@ -93,6 +93,26 @@ func configHandler(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+func consoleHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("consoleHandler")
+
+	var data consoleModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleConsole(data.Options, data.Target, data.User)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}
+
 func convertHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("convertHandler")
 
@@ -165,6 +185,26 @@ func destroyHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	result, err := bastilleDestroy(data.Options, data.JailRelease)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}
+
+func editHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("editHandler")
+
+	var data editModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := bastilleEdit(data.Options, data.Target, data.File)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

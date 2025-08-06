@@ -134,6 +134,12 @@ func configHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	renderTemplateUtil(w, "config.html", data)
 }
 
+func consoleHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("consoleHandlerTplt")
+	data := templatesModel{Title: "console", Data: bastille}
+	renderTemplateUtil(w, "console.html", data)
+}
+
 func convertHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("convertHandlerTplt")
 	data := templatesModel{Title: "convert", Data: bastille}
@@ -156,6 +162,12 @@ func destroyHandlerTplt(w http.ResponseWriter, r *http.Request) {
 	log.Println("destroyHandlerTplt")
 	data := templatesModel{Title: "destroy", Data: bastille}
 	renderTemplateUtil(w, "destroy.html", data)
+}
+
+func editHandlerTplt(w http.ResponseWriter, r *http.Request) {
+	log.Println("editHandlerTplt")
+	data := templatesModel{Title: "edit", Data: bastille}
+	renderTemplateUtil(w, "edit.html", data)
 }
 
 func etcupdateHandlerTplt(w http.ResponseWriter, r *http.Request) {

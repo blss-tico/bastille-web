@@ -60,6 +60,12 @@ type configModel struct {
 	Value    string `json:"value,omitempty"`
 }
 
+type consoleModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+	User    string `json:"user,omitempty"`
+}
+
 type convertModel struct {
 	Options string `json:"options,omitempty"`
 	Target  string `json:"target"`
@@ -88,6 +94,12 @@ type createModel struct {
 type destroyModel struct {
 	Options     string `json:"options,omitempty"`
 	JailRelease string `json:"jail|release"`
+}
+
+type editModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+	File    string `json:"file,omitempty"`
 }
 
 type etcupdateModel struct {

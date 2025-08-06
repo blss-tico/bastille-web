@@ -167,6 +167,24 @@ func bastilleConfig(options, target, action, property, value string) (string, er
 	return runBastilleCommands(args...)
 }
 
+func bastilleConsole(options, target, user string) (string, error) {
+	args := []string{"console"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if user != "" {
+		args = append(args, user)
+	}
+
+	return runBastilleCommands(args...)
+}
+
 func bastilleConvert(options, target, release string) (string, error) {
 	args := []string{"convert"}
 
@@ -258,6 +276,24 @@ func bastilleDestroy(options, jailrelease string) (string, error) {
 
 	if jailrelease != "" {
 		args = append(args, jailrelease)
+	}
+
+	return runBastilleCommands(args...)
+}
+
+func bastilleEdit(options, target, file string) (string, error) {
+	args := []string{"edit"}
+
+	if options != "" {
+		args = append(args, options)
+	}
+
+	if target != "" {
+		args = append(args, target)
+	}
+
+	if file != "" {
+		args = append(args, file)
 	}
 
 	return runBastilleCommands(args...)

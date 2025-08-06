@@ -66,7 +66,7 @@
     },
     {
       "command": "console",
-      "description": "Console into a running container.",
+      "description": "Launch a login shell into the jail. Default is password- less root login.",
       "options": [{
         "sflag": "-a",
         "lflag": "--auto",
@@ -213,7 +213,7 @@
     },
     {
       "command": "edit",
-      "description": "Edit container configuration files (advanced).",
+      "description": "Edit jail config files.",
       "options": [{
         "sflag": "-x",
         "lflag": "--debug",
