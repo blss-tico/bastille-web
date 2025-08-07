@@ -23,8 +23,8 @@ func init() {
 	}
 }
 
-func main() {
-	log.Println("main")
+func startHttpServer(argsCommandLine []string) {
+	log.Println("startHttpServer")
 
 	mux := http.NewServeMux()
 	bastille := &Bastille{}
@@ -36,7 +36,6 @@ func main() {
 	routes.dataRoutes(mux)
 
 	addr := os.Getenv("BW_ADDR")
-	argsCommandLine := os.Args
 	if addr == "" {
 		if len(argsCommandLine) == 2 {
 			log.Println("command line addr: ", argsCommandLine[1])
@@ -53,4 +52,9 @@ func main() {
 	if err := http.ListenAndServe(addr, mux); err != nil {
 		log.Fatalf("Server failed to start: %v", err)
 	}
+}
+
+func main() {
+	log.Println("main")
+	startHttpServer(os.Args)
 }
