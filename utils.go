@@ -7,6 +7,8 @@ import (
 	"net/http"
 )
 
+var templates *template.Template
+
 func renderTemplateUtil(w http.ResponseWriter, name string, data any) {
 	log.Println("renderTemplate")
 

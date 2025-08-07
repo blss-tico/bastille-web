@@ -27,9 +27,13 @@ func main() {
 	log.Println("main")
 
 	mux := http.NewServeMux()
-	staticRoutes(mux)
-	templatesRoutes(mux)
-	dataRoutes(mux)
+
+	handlerTemplates := &HandlersTemplates{}
+	handlersData := &HandlersData{}
+	routes := &Routes{ht: *handlerTemplates, hd: *handlersData}
+	routes.staticRoutes(mux)
+	routes.templatesRoutes(mux)
+	routes.dataRoutes(mux)
 
 	port, ok := os.LookupEnv("BW_PORT")
 	if !ok || port == "" {
