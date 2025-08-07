@@ -27,21 +27,30 @@ func main() {
 	log.Println("main")
 
 	mux := http.NewServeMux()
-
-	handlerTemplates := &HandlersTemplates{}
-	handlersData := &HandlersData{}
+	bastille := &Bastille{}
+	handlerTemplates := &HandlersTemplates{bl: *bastille}
+	handlersData := &HandlersData{bl: *bastille}
 	routes := &Routes{ht: *handlerTemplates, hd: *handlersData}
 	routes.staticRoutes(mux)
 	routes.templatesRoutes(mux)
 	routes.dataRoutes(mux)
 
-	port, ok := os.LookupEnv("BW_PORT")
-	if !ok || port == "" {
-		port = IpAddrModel
+	addr := os.Getenv("BW_ADDR")
+	argsCommandLine := os.Args
+	if addr == "" {
+		if len(argsCommandLine) == 2 {
+			log.Println("command line addr: ", argsCommandLine[1])
+			addr = argsCommandLine[1]
+		} else {
+			log.Println("source code addr: ", addrModel)
+			addr = addrModel
+		}
+	} else {
+		log.Println("env variable addr: ", addr)
 	}
 
-	log.Printf("Server starting on http://%s", port)
-	if err := http.ListenAndServe(port, mux); err != nil {
+	log.Printf("Server starting on http://%s", addr)
+	if err := http.ListenAndServe(addr, mux); err != nil {
 		log.Fatalf("Server failed to start: %v", err)
 	}
 }

@@ -1,6 +1,6 @@
 package main
 
-const IpAddrModel = "127.0.0.1:80"
+const addrModel = "127.0.0.1:80"
 
 type optionsModel struct {
 	Sflag string

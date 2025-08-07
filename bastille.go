@@ -53,34 +53,15 @@ func runBastilleCommands(args ...string) (string, error) {
 	return r, e
 }
 
-func runOsCommands(command string, args ...string) (string, error) {
-	cmd := exec.Command(command, args...)
-	log.Println("runOsCommands:", cmd)
-
-	result, err := cmd.CombinedOutput()
-	if err != nil {
-		return "", fmt.Errorf("os: %v ,failed: %v\n %s", args, err, result)
-	}
-
-	return string(result), nil
+type Bastille struct {
 }
 
-func osInfo() (string, error) {
-	args := []string{"-a"}
-	return runOsCommands("uname", args...)
-}
-
-func osMemInfo() (string, error) {
-	args := []string{"-h", "hw.physmem", "hw.usermem"}
-	return runOsCommands("sysctl", args...)
-}
-
-func bastilleVersion() (string, error) {
+func (b *Bastille) bastilleVersion() (string, error) {
 	args := []string{"-v"}
 	return runBastilleCommands(args...)
 }
 
-func bastilleBootstrap(options, releasetemplate, updatearch string) (string, error) {
+func (b *Bastille) bootstrap(options, releasetemplate, updatearch string) (string, error) {
 	args := []string{"bootstrap"}
 	if options != "" {
 		args = append(args, options)
@@ -97,7 +78,7 @@ func bastilleBootstrap(options, releasetemplate, updatearch string) (string, err
 	return runBastilleCommands(args...)
 }
 
-func bastilleClone(options, target, newname, ip string) (string, error) {
+func (b *Bastille) clone(options, target, newname, ip string) (string, error) {
 	args := []string{"clone"}
 
 	if options != "" {
@@ -119,7 +100,7 @@ func bastilleClone(options, target, newname, ip string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleCmd(options, target string, command []string) (string, error) {
+func (b *Bastille) cmd(options, target string, command []string) (string, error) {
 	args := []string{"cmd"}
 
 	if options != "" {
@@ -136,7 +117,7 @@ func bastilleCmd(options, target string, command []string) (string, error) {
 	return res, err
 }
 
-func bastilleConfig(options, target, action, property, value string) (string, error) {
+func (b *Bastille) config(options, target, action, property, value string) (string, error) {
 	args := []string{"config"}
 
 	if options != "" {
@@ -162,7 +143,7 @@ func bastilleConfig(options, target, action, property, value string) (string, er
 	return runBastilleCommands(args...)
 }
 
-func bastilleConsole(options, target, user string) (string, error) {
+func (b *Bastille) console(options, target, user string) (string, error) {
 	args := []string{"console"}
 
 	if options != "" {
@@ -180,7 +161,7 @@ func bastilleConsole(options, target, user string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleConvert(options, target, release string) (string, error) {
+func (b *Bastille) convert(options, target, release string) (string, error) {
 	args := []string{"convert"}
 
 	if options != "" {
@@ -198,7 +179,7 @@ func bastilleConvert(options, target, release string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleCp(options, target, hostpath, jailpath string) (string, error) {
+func (b *Bastille) cp(options, target, hostpath, jailpath string) (string, error) {
 	args := []string{"convert"}
 
 	if options != "" {
@@ -220,7 +201,7 @@ func bastilleCp(options, target, hostpath, jailpath string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleCreate(options, name, release, ip, iface, ipip, value, vlanid, zfsoptions string) (string, error) {
+func (b *Bastille) create(options, name, release, ip, iface, ipip, value, vlanid, zfsoptions string) (string, error) {
 	args := []string{"create"}
 
 	if options != "" {
@@ -262,7 +243,7 @@ func bastilleCreate(options, name, release, ip, iface, ipip, value, vlanid, zfso
 	return runBastilleCommands(args...)
 }
 
-func bastilleDestroy(options, jailrelease string) (string, error) {
+func (b *Bastille) destroy(options, jailrelease string) (string, error) {
 	args := []string{"destroy"}
 
 	if options != "" {
@@ -276,7 +257,7 @@ func bastilleDestroy(options, jailrelease string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleEdit(options, target, file string) (string, error) {
+func (b *Bastille) edit(options, target, file string) (string, error) {
 	args := []string{"edit"}
 
 	if options != "" {
@@ -294,7 +275,7 @@ func bastilleEdit(options, target, file string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleEtcupdate(options, bootstraptarget, action, release string) (string, error) {
+func (b *Bastille) etcupdate(options, bootstraptarget, action, release string) (string, error) {
 	args := []string{"etcupdate"}
 
 	if options != "" {
@@ -316,7 +297,7 @@ func bastilleEtcupdate(options, bootstraptarget, action, release string) (string
 	return runBastilleCommands(args...)
 }
 
-func bastilleExport(options, target, path string) (string, error) {
+func (b *Bastille) export(options, target, path string) (string, error) {
 	args := []string{"export"}
 
 	if options != "" {
@@ -334,7 +315,7 @@ func bastilleExport(options, target, path string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleHtop(options, target string) (string, error) {
+func (b *Bastille) htop(options, target string) (string, error) {
 	args := []string{"htop"}
 
 	if options != "" {
@@ -348,7 +329,7 @@ func bastilleHtop(options, target string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleImport(options, file, release string) (string, error) {
+func (b *Bastille) imporT(options, file, release string) (string, error) {
 	args := []string{"htop"}
 
 	if options != "" {
@@ -366,7 +347,7 @@ func bastilleImport(options, file, release string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleJcp(options, sourcejail, jailpath, destjail, jailpath2 string) (string, error) {
+func (b *Bastille) jcp(options, sourcejail, jailpath, destjail, jailpath2 string) (string, error) {
 	args := []string{"jcp"}
 
 	if options != "" {
@@ -392,7 +373,7 @@ func bastilleJcp(options, sourcejail, jailpath, destjail, jailpath2 string) (str
 	return runBastilleCommands(args...)
 }
 
-func bastilleLimits(options, target, action, option, value string) (string, error) {
+func (b *Bastille) limits(options, target, action, option, value string) (string, error) {
 	args := []string{"limits"}
 
 	if options != "" {
@@ -418,7 +399,7 @@ func bastilleLimits(options, target, action, option, value string) (string, erro
 	return runBastilleCommands(args...)
 }
 
-func bastilleList(options, action string) (string, error) {
+func (b *Bastille) list(options, action string) (string, error) {
 	args := []string{"list"}
 
 	if options != "" {
@@ -432,7 +413,7 @@ func bastilleList(options, action string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleMigrate(options, target, remote string) (string, error) {
+func (b *Bastille) migrate(options, target, remote string) (string, error) {
 	args := []string{"migrate"}
 
 	if options != "" {
@@ -450,7 +431,7 @@ func bastilleMigrate(options, target, remote string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleMount(options, target, hostpath, jailpath, filesystemtype, option, dump, passnumber string) (string, error) {
+func (b *Bastille) mount(options, target, hostpath, jailpath, filesystemtype, option, dump, passnumber string) (string, error) {
 	args := []string{"mount"}
 
 	if options != "" {
@@ -488,7 +469,7 @@ func bastilleMount(options, target, hostpath, jailpath, filesystemtype, option, 
 	return runBastilleCommands(args...)
 }
 
-func bastilleNetwork(options, target, action, iface, ip string) (string, error) {
+func (b *Bastille) network(options, target, action, iface, ip string) (string, error) {
 	args := []string{"network"}
 
 	if options != "" {
@@ -514,7 +495,7 @@ func bastilleNetwork(options, target, action, iface, ip string) (string, error) 
 	return runBastilleCommands(args...)
 }
 
-func bastillePkg(options, target string, arg []string) (string, error) {
+func (b *Bastille) pkg(options, target string, arg []string) (string, error) {
 	args := []string{"pkg"}
 	if options != "" {
 		args = append(args, options)
@@ -529,7 +510,7 @@ func bastillePkg(options, target string, arg []string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleRcp(options, target, jailpath, hostpath string) (string, error) {
+func (b *Bastille) rcp(options, target, jailpath, hostpath string) (string, error) {
 	args := []string{"rcp"}
 	if options != "" {
 		args = append(args, options)
@@ -550,7 +531,7 @@ func bastilleRcp(options, target, jailpath, hostpath string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleRdr(options, optionsarg, target, action, hostport, jailport, log, logopts string) (string, error) {
+func (b *Bastille) rdr(options, optionsarg, target, action, hostport, jailport, log, logopts string) (string, error) {
 	args := []string{"rdr"}
 	if options != "" {
 		args = append(args, options)
@@ -587,7 +568,7 @@ func bastilleRdr(options, optionsarg, target, action, hostport, jailport, log, l
 	return runBastilleCommands(args...)
 }
 
-func bastilleRename(options, target, newname string) (string, error) {
+func (b *Bastille) rename(options, target, newname string) (string, error) {
 	args := []string{"rename"}
 	if options != "" {
 		args = append(args, options)
@@ -604,7 +585,7 @@ func bastilleRename(options, target, newname string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleRestart(options, target, value string) (string, error) {
+func (b *Bastille) restart(options, target, value string) (string, error) {
 	args := []string{"restart"}
 	if options != "" {
 		args = append(args, options)
@@ -621,7 +602,7 @@ func bastilleRestart(options, target, value string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleService(options, target, servicename, arg string) (string, error) {
+func (b *Bastille) service(options, target, servicename, arg string) (string, error) {
 	args := []string{"service"}
 	if options != "" {
 		args = append(args, options)
@@ -647,7 +628,7 @@ func bastilleService(options, target, servicename, arg string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleSetup(options, action string) (string, error) {
+func (b *Bastille) setup(options, action string) (string, error) {
 	args := []string{"setup"}
 	if options != "" {
 		args = append(args, options)
@@ -660,7 +641,7 @@ func bastilleSetup(options, action string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleStart(options, target, value string) (string, error) {
+func (b *Bastille) start(options, target, value string) (string, error) {
 	args := []string{"start"}
 	if options != "" {
 		args = append(args, options)
@@ -677,7 +658,7 @@ func bastilleStart(options, target, value string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleStop(options, target string) (string, error) {
+func (b *Bastille) stop(options, target string) (string, error) {
 	args := []string{"stop"}
 	if options != "" {
 		args = append(args, options)
@@ -690,7 +671,7 @@ func bastilleStop(options, target string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleSysrc(options, target, arg string) (string, error) {
+func (b *Bastille) sysrc(options, target, arg string) (string, error) {
 	args := []string{"sysrc"}
 	if options != "" {
 		args = append(args, options)
@@ -707,7 +688,7 @@ func bastilleSysrc(options, target, arg string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleTags(options, target, action, tags string) (string, error) {
+func (b *Bastille) tags(options, target, action, tags string) (string, error) {
 	args := []string{"tags"}
 	if options != "" {
 		args = append(args, options)
@@ -728,7 +709,7 @@ func bastilleTags(options, target, action, tags string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleTemplate(options, target, action, template string) (string, error) {
+func (b *Bastille) template(options, target, action, template string) (string, error) {
 	args := []string{"tags"}
 	if options != "" {
 		args = append(args, options)
@@ -749,7 +730,7 @@ func bastilleTemplate(options, target, action, template string) (string, error) 
 	return runBastilleCommands(args...)
 }
 
-func bastilleTop(options, target string) (string, error) {
+func (b *Bastille) top(options, target string) (string, error) {
 	args := []string{"top"}
 	if options != "" {
 		args = append(args, options)
@@ -762,7 +743,7 @@ func bastilleTop(options, target string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleUmount(options, target, jailpath string) (string, error) {
+func (b *Bastille) umount(options, target, jailpath string) (string, error) {
 	args := []string{"umount"}
 	if options != "" {
 		args = append(args, options)
@@ -779,7 +760,7 @@ func bastilleUmount(options, target, jailpath string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleUpdate(options, target string) (string, error) {
+func (b *Bastille) update(options, target string) (string, error) {
 	args := []string{"update"}
 	if options != "" {
 		args = append(args, options)
@@ -792,7 +773,7 @@ func bastilleUpdate(options, target string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleUpgrade(options, target, action string) (string, error) {
+func (b *Bastille) upgrade(options, target, action string) (string, error) {
 	args := []string{"upgrade"}
 	if options != "" {
 		args = append(args, options)
@@ -809,7 +790,7 @@ func bastilleUpgrade(options, target, action string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func bastilleVerify(options, action string) (string, error) {
+func (b *Bastille) verify(options, action string) (string, error) {
 	args := []string{"verify"}
 	if options != "" {
 		args = append(args, options)
