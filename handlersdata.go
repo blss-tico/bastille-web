@@ -762,3 +762,23 @@ func (hd *HandlersData) verify(w http.ResponseWriter, r *http.Request) {
 
 	respondOkWithJSONUtil(w, result)
 }
+
+func (hd *HandlersData) zfs(w http.ResponseWriter, r *http.Request) {
+	log.Println("zfsHandler")
+
+	var data zfsModel
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	result, err := hd.bl.zfs(data.Options, data.Target, data.Action)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respondOkWithJSONUtil(w, result)
+}

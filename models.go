@@ -278,3 +278,9 @@ type verifyModel struct {
 	Options string `json:"options,omitempty"`
 	Action  string `json:"RELEASE|TEMPLATE"`
 }
+
+type zfsModel struct {
+	Options string `json:"options,omitempty"`
+	Target  string `json:"target"`
+	Action  string `json:"action"`
+}

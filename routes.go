@@ -62,6 +62,7 @@ func (r *Routes) templatesRoutes(mux *http.ServeMux) {
 	mux.HandleFunc("GET /update", r.ht.update)
 	mux.HandleFunc("GET /upgrade", r.ht.upgrade)
 	mux.HandleFunc("GET /verify", r.ht.verify)
+	mux.HandleFunc("GET /zfs", r.ht.zfs)
 }
 
 func (r *Routes) dataRoutes(mux *http.ServeMux) {
@@ -102,4 +103,5 @@ func (r *Routes) dataRoutes(mux *http.ServeMux) {
 	mux.HandleFunc("POST /update", loggingMiddleware(r.hd.update))
 	mux.HandleFunc("POST /upgrade", loggingMiddleware(r.hd.upgrade))
 	mux.HandleFunc("POST /verify", loggingMiddleware(r.hd.verify))
+	mux.HandleFunc("POST /zfs", loggingMiddleware(r.hd.zfs))
 }

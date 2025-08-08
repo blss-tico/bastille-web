@@ -339,3 +339,9 @@ func (ht *HandlersTemplates) verify(w http.ResponseWriter, r *http.Request) {
 	data := templatesModel{Title: "verify", Data: bastille}
 	renderTemplateUtil(w, "verify.html", data)
 }
+
+func (ht *HandlersTemplates) zfs(w http.ResponseWriter, r *http.Request) {
+	log.Println("zfsHandlersTemplates")
+	data := templatesModel{Title: "zfs", Data: bastille}
+	renderTemplateUtil(w, "zfs.html", data)
+}
