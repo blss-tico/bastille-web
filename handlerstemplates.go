@@ -33,7 +33,6 @@ func (ht *HandlersTemplates) home(w http.ResponseWriter, r *http.Request) {
 	pmminf := re.FindAllString(mminf, -1)
 
 	bstv, _ := ht.bl.bastilleVersion()
-
 	sysinfo := SysInfo{
 		Hostname:        posinf[1],
 		Arch:            posinf[7],
@@ -49,6 +48,7 @@ func (ht *HandlersTemplates) home(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), 500)
 		return
 	}
+	// log.Println("homeTemplate result: ", result)
 
 	type List struct {
 		Jid       string `json:"jid"`

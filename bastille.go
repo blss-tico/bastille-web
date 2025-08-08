@@ -5,52 +5,18 @@ import (
 	"log"
 	"os/exec"
 	"strings"
-	"sync"
 )
 
-var wg sync.WaitGroup
-
 func runBastilleCommands(args ...string) (string, error) {
-	resChan := make(chan resultCommandModel)
-	wg.Add(1)
+	cmd := exec.Command("bastille", args...)
+	log.Println("runBastilleCommands:", cmd)
 
-	go func() {
-		defer wg.Done()
-
-		cmd := exec.Command("bastille", args...)
-		log.Println("runBastilleCommands:", cmd)
-
-		result, err := cmd.CombinedOutput()
-		if err != nil {
-			resChan <- resultCommandModel{
-				Output: "",
-				Error:  fmt.Errorf("bastille: %s ,failed: %v\n %s", cmd, err, result),
-			}
-			return
-		}
-
-		resChan <- resultCommandModel{
-			Output: string(result),
-			Error:  nil,
-		}
-	}()
-
-	go func() {
-		wg.Wait()
-		close(resChan)
-	}()
-
-	var r string
-	var e error
-	for res := range resChan {
-		if res.Output != "" {
-			r, e = res.Output, nil
-		} else {
-			r, e = "", res.Error
-		}
+	result, err := cmd.CombinedOutput()
+	if err != nil {
+		return "", fmt.Errorf("bastille: %s ,failed: %v\n %s", cmd, err, result)
 	}
 
-	return r, e
+	return string(result), nil
 }
 
 type Bastille struct {
@@ -710,7 +676,7 @@ func (b *Bastille) tags(options, target, action, tags string) (string, error) {
 }
 
 func (b *Bastille) template(options, target, action, template string) (string, error) {
-	args := []string{"tags"}
+	args := []string{"template"}
 	if options != "" {
 		args = append(args, options)
 	}

@@ -24,11 +24,6 @@ type bastilleModel struct {
 	Commands []bastilleCommandsModel `json:"commands"`
 }
 
-type resultCommandModel struct {
-	Output string
-	Error  error
-}
-
 type templatesModel struct {
 	Title string
 	Data  bastilleModel
@@ -248,7 +243,7 @@ type tagsModel struct {
 type templateModel struct {
 	Options  string `json:"options,omitempty"`
 	Target   string `json:"target"`
-	Action   string `json:"action"`
+	Action   string `json:"action,omitempty"`
 	Template string `json:"template"`
 }
 

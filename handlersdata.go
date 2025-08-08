@@ -654,6 +654,7 @@ func (hd *HandlersData) template(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
+	log.Println(data)
 	result, err := hd.bl.template(data.Options, data.Target, data.Action, data.Template)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
