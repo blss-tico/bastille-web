@@ -14,6 +14,7 @@ type bastilleCommandsModel struct {
 	Options     []optionsModel `json:"options"`
 	Fields      []string       `json:"fields"`
 	Help        string         `json:"help"`
+	HelpUrl     string         `json:"helpUrl"`
 }
 
 type bastilleModel struct {

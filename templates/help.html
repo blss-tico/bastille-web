@@ -16,6 +16,11 @@
     {{range .Options}}
       <p>&nbsp;&nbsp;{{.Sflag}}&nbsp;|&nbsp;{{.Lflag}}&nbsp;-&nbsp;{{.Text}}</p>
     {{end}}
+    {{if .HelpUrl}}
+      <h4>Reference</h4>
+      <a href="{{.HelpUrl}}">{{.HelpUrl}}</a>
+      <br /><br />
+    {{end}}
     <a href="#help-title">
       <svg 
         fill="#000000" 
