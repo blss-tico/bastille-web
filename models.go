@@ -280,7 +280,12 @@ type verifyModel struct {
 }
 
 type zfsModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
-	Action  string `json:"action"`
+	Options     string `json:"options,omitempty"`
+	Target      string `json:"target"`
+	Action      string `json:"action"`
+	Tag         string `json:"tag,omitempty"`
+	Key         string `json:"key,omitempty"`
+	Value       string `json:"value,omitempty"`
+	Pooldataset string `json:"pool/dataset,omitempty"`
+	Jailpath    string `json:"/jail/path,omitempty"`
 }

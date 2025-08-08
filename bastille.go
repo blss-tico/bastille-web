@@ -803,7 +803,7 @@ func (b *Bastille) verify(options, action string) (string, error) {
 	return runBastilleCommands(args...)
 }
 
-func (b *Bastille) zfs(options, target, action string) (string, error) {
+func (b *Bastille) zfs(options, target, action, tag, key, value, pooldataset, jailpath string) (string, error) {
 	args := []string{"zfs"}
 	if options != "" {
 		args = append(args, options)
@@ -815,6 +815,26 @@ func (b *Bastille) zfs(options, target, action string) (string, error) {
 
 	if action != "" {
 		args = append(args, action)
+	}
+
+	if tag != "" {
+		args = append(args, tag)
+	}
+
+	if key != "" {
+		args = append(args, key)
+	}
+
+	if value != "" {
+		args = append(args, value)
+	}
+
+	if pooldataset != "" {
+		args = append(args, pooldataset)
+	}
+
+	if jailpath != "" {
+		args = append(args, jailpath)
 	}
 
 	return runBastilleCommands(args...)

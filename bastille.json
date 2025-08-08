@@ -829,7 +829,7 @@
         "text": "Enable debug mode."
       }],
       "fields": ["TARGET", "destroy", "rollback", "snapshot", "df", "usage", "get", "set", "jail", "unjail", "TAG", "key", "value", "pool/dataset", "/jail/path"],
-      "help": "bastille zfs [option(s)] TARGET destroy|rollback|snapshot [TAG] \n df|usage \n get|set key=value \n jail pool/dataset /jail/path \n unjail pool/dataset",
+      "help": "bastille zfs [option(s)] TARGET destroy|rollback|snapshot [TAG] df|usage get|set key=value jail pool/dataset /jail/path unjail pool/dataset",
       "helpUrl": "https://bastille.readthedocs.io/en/latest/chapters/subcommands/zfs.html"
     }
   ]

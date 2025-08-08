@@ -774,7 +774,7 @@ func (hd *HandlersData) zfs(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	result, err := hd.bl.zfs(data.Options, data.Target, data.Action)
+	result, err := hd.bl.zfs(data.Options, data.Target, data.Action, data.Tag, data.Key, data.Value, data.Pooldataset, data.Jailpath)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

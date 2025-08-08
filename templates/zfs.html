@@ -13,12 +13,17 @@
               <label for="{{.Lflag}}">{{.Lflag}}</label>
               &nbsp;
             {{end}}
-            <br />
-            {{range .Fields}}              
-                <br />
+            {{range .Fields}}
+              {{if or (eq . "destroy") (eq . "rollback") (eq . "snapshot") (eq . "df") (eq . "usage") (eq . "get") (eq . "set") (eq . "jail") (eq . "unjail")}}
+                <input type="radio" id="{{.}}" name="action" value="{{.}}" />
+                <label for="action">{{.}}</label>
+                &nbsp;
+              {{else}}
+                <br /><br />
                 <label>{{.}}</label><br />
                 <input type="text" name="{{.}}" />
-                <br />              
+                <br />
+              {{end}}           
             {{end}}
             <br />
             <button class="btn-card-submit" onclick="zfsSubmit(event)">Submit</button>          
@@ -66,7 +71,7 @@
       });
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
-
+      
       result.innerText = 'send -> bastille ' + name;
 
       const response = await sendHttpRequest(name, formJson);
