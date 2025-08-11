@@ -893,6 +893,15 @@ func (hd *HandlersData) sysrc(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// tags
+// @Summary tags command
+// @Description The tags sub-command adds, removes or lists arbitrary tags on your jail(s).
+// @Tags tags
+// @Accept  json
+// @Produce  text/plain
+// @Param  tags  body	tagsModel  true  "tags"
+// @Success 200 {object} string
+// @Router /tags [post]
 func (hd *HandlersData) tags(w http.ResponseWriter, r *http.Request) {
 	log.Println("tagsHandler")
 
@@ -913,6 +922,15 @@ func (hd *HandlersData) tags(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// template
+// @Summary template command
+// @Description Apply file templates to targeted container(s).
+// @Tags template
+// @Accept  json
+// @Produce  text/plain
+// @Param  template  body	templateModel  true  "template"
+// @Success 200 {object} string
+// @Router /template [post]
 func (hd *HandlersData) template(w http.ResponseWriter, r *http.Request) {
 	log.Println("templateHandler")
 
@@ -934,6 +952,15 @@ func (hd *HandlersData) template(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// top
+// @Summary top command
+// @Description This command runs top in the targeted jail.
+// @Tags top
+// @Accept  json
+// @Produce  text/plain
+// @Param  top  body	topModel  true  "top"
+// @Success 200 {object} string
+// @Router /top [post]
 func (hd *HandlersData) top(w http.ResponseWriter, r *http.Request) {
 	log.Println("topHandler")
 

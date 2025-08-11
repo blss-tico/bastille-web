@@ -235,22 +235,22 @@ type sysrcModel struct {
 }
 
 type tagsModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
-	Action  string `json:"action"`
-	Tgs     string `json:"tags"`
+	Options string `json:"options,omitempty" example:"-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
+	Action  string `json:"action" example:"add|delete|list" format:"string"`
+	Tgs     string `json:"tags" example:"tag_name1,tag_name2" format:"string"`
 }
 
 type templateModel struct {
-	Options  string `json:"options,omitempty"`
-	Target   string `json:"target"`
-	Action   string `json:"action,omitempty"`
-	Template string `json:"template"`
+	Options  string `json:"options,omitempty" example:"-a|-x" format:"string"`
+	Target   string `json:"target" example:"jail_target" format:"string"`
+	Action   string `json:"action,omitempty" example:"--convert" format:"string"`
+	Template string `json:"template" example:"template/name" format:"string"`
 }
 
 type topModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
+	Options string `json:"options,omitempty" example:"-a|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
 }
 
 type umountModel struct {
