@@ -632,6 +632,15 @@ func (hd *HandlersData) pkg(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// rcp
+// @Summary rcp command
+// @Description This command allows copying files from jail to host.
+// @Tags rcp
+// @Accept  json
+// @Produce  text/plain
+// @Param  rcp  body	rcpModel  true  "rcp"
+// @Success 200 {object} string
+// @Router /rcp [post]
 func (hd *HandlersData) rcp(w http.ResponseWriter, r *http.Request) {
 	log.Println("rcpHandler")
 
@@ -652,6 +661,15 @@ func (hd *HandlersData) rcp(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// rdr
+// @Summary rdr command
+// @Description Bastille rdr allows you to configure dynamic rdr rules for your containers without modifying pf.conf.
+// @Tags rdr
+// @Accept  json
+// @Produce  text/plain
+// @Param  rdr  body	rdrModel  true  "rdr"
+// @Success 200 {object} string
+// @Router /rdr [post]
 func (hd *HandlersData) rdr(w http.ResponseWriter, r *http.Request) {
 	log.Println("rdrHandler")
 
@@ -672,6 +690,15 @@ func (hd *HandlersData) rdr(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// rename
+// @Summary rename command
+// @Description Rename a jail.
+// @Tags rename
+// @Accept  json
+// @Produce  text/plain
+// @Param  rename  body	renameModel  true  "rename"
+// @Success 200 {object} string
+// @Router /rename [post]
 func (hd *HandlersData) rename(w http.ResponseWriter, r *http.Request) {
 	log.Println("renameHandler")
 

@@ -176,27 +176,27 @@ type pkgModel struct {
 }
 
 type rcpModel struct {
-	Options  string `json:"options,omitempty"`
-	Target   string `json:"target"`
-	Jailpath string `json:"jail_path"`
-	Hostpath string `json:"host_path"`
+	Options  string `json:"options,omitempty" example:"-q|-x" format:"string"`
+	Target   string `json:"target" example:"jail_target" format:"string"`
+	Jailpath string `json:"jail_path" example:"/jail/path" format:"string"`
+	Hostpath string `json:"host_path" example:"/host/path" format:"string"`
 }
 
 type rdrModel struct {
-	Options    string `json:"options,omitempty"`
-	Optionsarg string `json:"options_arg,omitempty"`
-	Target     string `json:"target"`
-	Action     string `json:"action"`
-	Hostport   string `json:"host_port"`
-	Jailport   string `json:"jail_port"`
-	Log        string `json:"log,omitempty"`
-	Logopts    string `json:"logopts,omitempty"`
+	Options    string `json:"options,omitempty" example:"-a|-H|-y|-x" format:"string"`
+	Optionsarg string `json:"options_arg,omitempty" example:"depends on options" format:"string"`
+	Target     string `json:"target" example:"jail_target" format:"string"`
+	Action     string `json:"action" example:"clear|reset|list|tcp|udp" format:"string"`
+	Hostport   string `json:"host_port" example:"3000" format:"string"`
+	Jailport   string `json:"jail_port" example:"3000" format:"string"`
+	Log        string `json:"log,omitempty" example:"log" format:"string"`
+	Logopts    string `json:"logopts,omitempty" example:"log options" format:"string"`
 }
 
 type renameModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
-	Newname string `json:"new_name"`
+	Options string `json:"options,omitempty" example:"-a|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
+	Newname string `json:"new_name" example:"new_name" format:"string"`
 }
 
 type restartModel struct {

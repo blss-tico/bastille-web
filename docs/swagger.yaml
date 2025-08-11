@@ -318,6 +318,152 @@ definitions:
         format: string
         type: string
     type: object
+  main.mountModel:
+    properties:
+      dump:
+        example: "0"
+        format: string
+        type: string
+      filesystem_type:
+        example: tmpfs|nullfs
+        format: string
+        type: string
+      host_path:
+        example: /host/path
+        format: string
+        type: string
+      jail_path:
+        example: /jail/path
+        format: string
+        type: string
+      option:
+        example: ro|rw|rw,nosuid,mode=01777
+        format: string
+        type: string
+      options:
+        example: -a|-x
+        format: string
+        type: string
+      pass_number:
+        example: "0"
+        format: string
+        type: string
+      target:
+        example: jail_target
+        format: string
+        type: string
+    type: object
+  main.networkModel:
+    properties:
+      action:
+        example: add|remove
+        format: string
+        type: string
+      interface:
+        example: bastille0
+        format: string
+        type: string
+      ip:
+        example: n.n.n.n
+        format: string
+        type: string
+      options:
+        example: -a|-B|-M|-n|-P|-V|-v|-x
+        format: string
+        type: string
+      target:
+        example: jail_target
+        format: string
+        type: string
+      vlanid:
+        example: vlan10
+        format: string
+        type: string
+    type: object
+  main.pkgModel:
+    properties:
+      args:
+        example: install pkg_name
+        format: string
+        type: string
+      options:
+        example: -a|-H|-y|-x
+        format: string
+        type: string
+      target:
+        example: jail_target
+        format: string
+        type: string
+    type: object
+  main.rcpModel:
+    properties:
+      host_path:
+        example: /host/path
+        format: string
+        type: string
+      jail_path:
+        example: /jail/path
+        format: string
+        type: string
+      options:
+        example: -q|-x
+        format: string
+        type: string
+      target:
+        example: jail_target
+        format: string
+        type: string
+    type: object
+  main.rdrModel:
+    properties:
+      action:
+        example: clear|reset|list|tcp|udp
+        format: string
+        type: string
+      host_port:
+        example: "3000"
+        format: string
+        type: string
+      jail_port:
+        example: "3000"
+        format: string
+        type: string
+      log:
+        example: log
+        format: string
+        type: string
+      logopts:
+        example: log options
+        format: string
+        type: string
+      options:
+        example: -a|-H|-y|-x
+        format: string
+        type: string
+      options_arg:
+        example: depends on options
+        format: string
+        type: string
+      target:
+        example: jail_target
+        format: string
+        type: string
+    type: object
+  main.renameModel:
+    properties:
+      new_name:
+        example: new_name
+        format: string
+        type: string
+      options:
+        example: -a|-x
+        format: string
+        type: string
+      target:
+        example: jail_target
+        format: string
+        type: string
+    type: object
 host: 127.0.0.1:80
 info:
   contact: {}
@@ -737,4 +883,137 @@ paths:
       summary: migrate command
       tags:
       - migrate
+  /mount:
+    post:
+      consumes:
+      - application/json
+      description: To mount storage within the container use bastille mount.
+      parameters:
+      - description: mount
+        in: body
+        name: mount
+        required: true
+        schema:
+          $ref: '#/definitions/main.mountModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: mount command
+      tags:
+      - mount
+  /network:
+    post:
+      consumes:
+      - application/json
+      description: Add or remove interfaces to existing jails.
+      parameters:
+      - description: network
+        in: body
+        name: network
+        required: true
+        schema:
+          $ref: '#/definitions/main.networkModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: network command
+      tags:
+      - network
+  /pkg:
+    post:
+      consumes:
+      - application/json
+      description: Manage binary packages inside jails.
+      parameters:
+      - description: pkg
+        in: body
+        name: pkg
+        required: true
+        schema:
+          $ref: '#/definitions/main.pkgModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: pkg command
+      tags:
+      - pkg
+  /rcp:
+    post:
+      consumes:
+      - application/json
+      description: This command allows copying files from jail to host.
+      parameters:
+      - description: rcp
+        in: body
+        name: rcp
+        required: true
+        schema:
+          $ref: '#/definitions/main.rcpModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: rcp command
+      tags:
+      - rcp
+  /rdr:
+    post:
+      consumes:
+      - application/json
+      description: Bastille rdr allows you to configure dynamic rdr rules for your
+        containers without modifying pf.conf.
+      parameters:
+      - description: rdr
+        in: body
+        name: rdr
+        required: true
+        schema:
+          $ref: '#/definitions/main.rdrModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: rdr command
+      tags:
+      - rdr
+  /rename:
+    post:
+      consumes:
+      - application/json
+      description: Rename a jail.
+      parameters:
+      - description: rename
+        in: body
+        name: rename
+        required: true
+        schema:
+          $ref: '#/definitions/main.renameModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: rename command
+      tags:
+      - rename
 swagger: "2.0"

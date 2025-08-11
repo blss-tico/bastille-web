@@ -631,6 +631,210 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/mount": {
+            "post": {
+                "description": "To mount storage within the container use bastille mount.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "mount"
+                ],
+                "summary": "mount command",
+                "parameters": [
+                    {
+                        "description": "mount",
+                        "name": "mount",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.mountModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/network": {
+            "post": {
+                "description": "Add or remove interfaces to existing jails.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "network"
+                ],
+                "summary": "network command",
+                "parameters": [
+                    {
+                        "description": "network",
+                        "name": "network",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.networkModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/pkg": {
+            "post": {
+                "description": "Manage binary packages inside jails.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "pkg"
+                ],
+                "summary": "pkg command",
+                "parameters": [
+                    {
+                        "description": "pkg",
+                        "name": "pkg",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.pkgModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/rcp": {
+            "post": {
+                "description": "This command allows copying files from jail to host.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "rcp"
+                ],
+                "summary": "rcp command",
+                "parameters": [
+                    {
+                        "description": "rcp",
+                        "name": "rcp",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.rcpModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/rdr": {
+            "post": {
+                "description": "Bastille rdr allows you to configure dynamic rdr rules for your containers without modifying pf.conf.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "rdr"
+                ],
+                "summary": "rdr command",
+                "parameters": [
+                    {
+                        "description": "rdr",
+                        "name": "rdr",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.rdrModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/rename": {
+            "post": {
+                "description": "Rename a jail.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "rename"
+                ],
+                "summary": "rename command",
+                "parameters": [
+                    {
+                        "description": "rename",
+                        "name": "rename",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.renameModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -1046,6 +1250,196 @@ const docTemplate = `{
                     "type": "string",
                     "format": "string",
                     "example": "user@host:port"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.mountModel": {
+            "type": "object",
+            "properties": {
+                "dump": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "0"
+                },
+                "filesystem_type": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "tmpfs|nullfs"
+                },
+                "host_path": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "/host/path"
+                },
+                "jail_path": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "/jail/path"
+                },
+                "option": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "ro|rw|rw,nosuid,mode=01777"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-x"
+                },
+                "pass_number": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "0"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.networkModel": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "add|remove"
+                },
+                "interface": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "bastille0"
+                },
+                "ip": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "n.n.n.n"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-B|-M|-n|-P|-V|-v|-x"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                },
+                "vlanid": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "vlan10"
+                }
+            }
+        },
+        "main.pkgModel": {
+            "type": "object",
+            "properties": {
+                "args": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "install pkg_name"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-H|-y|-x"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.rcpModel": {
+            "type": "object",
+            "properties": {
+                "host_path": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "/host/path"
+                },
+                "jail_path": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "/jail/path"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-q|-x"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.rdrModel": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "clear|reset|list|tcp|udp"
+                },
+                "host_port": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "3000"
+                },
+                "jail_port": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "3000"
+                },
+                "log": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "log"
+                },
+                "logopts": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "log options"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-H|-y|-x"
+                },
+                "options_arg": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "depends on options"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.renameModel": {
+            "type": "object",
+            "properties": {
+                "new_name": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "new_name"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-x"
                 },
                 "target": {
                     "type": "string",
