@@ -72,6 +72,105 @@ definitions:
         format: string
         type: string
     type: object
+  main.consoleModel:
+    properties:
+      options:
+        example: -a|-x
+        format: string
+        type: string
+      target:
+        example: jail_target
+        format: string
+        type: string
+      user:
+        example: root
+        format: string
+        type: string
+    type: object
+  main.convertModel:
+    properties:
+      options:
+        example: -a|-y|-x
+        format: string
+        type: string
+      release:
+        example: myrelease
+        format: string
+        type: string
+      target:
+        example: jail_target
+        format: string
+        type: string
+    type: object
+  main.cpModel:
+    properties:
+      hostpath:
+        example: /host/path
+        format: string
+        type: string
+      jailpath:
+        example: /jail/path
+        format: string
+        type: string
+      options:
+        example: -q|-x
+        format: string
+        type: string
+      target:
+        example: jail_target
+        format: string
+        type: string
+    type: object
+  main.createModel:
+    properties:
+      iface:
+        example: bastille0
+        format: string
+        type: string
+      ip:
+        example: n.n.n.n
+        format: string
+        type: string
+      ipip:
+        example: n.n.n.n,i.i.i.i
+        format: string
+        type: string
+      name:
+        example: jail_name
+        format: string
+        type: string
+      options:
+        example: -B|-C|-D|-E|-g|-L|-M|-n|--no-validate|--no-boot|-p|-T|-V|-v|-x|-Z
+        format: string
+        type: string
+      release:
+        example: 14.3-RELEASE
+        format: string
+        type: string
+      value:
+        example: ""
+        format: string
+        type: string
+      vlanid:
+        example: vlan10
+        format: string
+        type: string
+      zfsoptions:
+        example: ""
+        format: string
+        type: string
+    type: object
+  main.destroyModel:
+    properties:
+      jail|release:
+        example: jail_target or release
+        format: string
+        type: string
+      options:
+        example: -a|-c|-f|-y|-x
+        format: string
+        type: string
+    type: object
 host: 127.0.0.1:80
 info:
   contact: {}
@@ -174,4 +273,117 @@ paths:
       summary: config command
       tags:
       - config
+  /console:
+    post:
+      consumes:
+      - application/json
+      description: Launch a login shell into the jail. Default is password- less root
+        login.
+      parameters:
+      - description: config
+        in: body
+        name: console
+        required: true
+        schema:
+          $ref: '#/definitions/main.consoleModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: console command
+      tags:
+      - console
+  /convert:
+    post:
+      consumes:
+      - application/json
+      description: Convert a thin jail to a thick jail. Convert a thick jail to a
+        custom release.
+      parameters:
+      - description: config
+        in: body
+        name: convert
+        required: true
+        schema:
+          $ref: '#/definitions/main.convertModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: convert command
+      tags:
+      - convert
+  /cp:
+    post:
+      consumes:
+      - application/json
+      description: Copy files from host to jail(s).
+      parameters:
+      - description: cp
+        in: body
+        name: cp
+        required: true
+        schema:
+          $ref: '#/definitions/main.cpModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: cp command
+      tags:
+      - cp
+  /create:
+    post:
+      consumes:
+      - application/json
+      description: Create a jail uning any available bootstrapped release. To create
+        a jail, simply provide a name, bootstrapped release, and IP address.
+      parameters:
+      - description: create
+        in: body
+        name: create
+        required: true
+        schema:
+          $ref: '#/definitions/main.createModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: create command
+      tags:
+      - create
+  /destroy:
+    post:
+      consumes:
+      - application/json
+      description: Destroy jails or releases.
+      parameters:
+      - description: destroy
+        in: body
+        name: destroy
+        required: true
+        schema:
+          $ref: '#/definitions/main.destroyModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: destroy command
+      tags:
+      - destroy
 swagger: "2.0"

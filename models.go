@@ -69,27 +69,27 @@ type convertModel struct {
 }
 
 type cpModel struct {
-	Options  string `json:"options,omitempty"`
-	Target   string `json:"target"`
-	Hostpath string `json:"hostpath"`
-	Jailpath string `json:"jailpath"`
+	Options  string `json:"options,omitempty" example:"-q|-x" format:"string"`
+	Target   string `json:"target" example:"jail_target" format:"string"`
+	Hostpath string `json:"hostpath" example:"/host/path" format:"string"`
+	Jailpath string `json:"jailpath" example:"/jail/path" format:"string"`
 }
 
 type createModel struct {
-	Options    string `json:"options,omitempty"`
-	Name       string `json:"name"`
-	Release    string `json:"release"`
-	Ip         string `json:"ip"`
-	Iface      string `json:"iface,omitempty"`
-	Ipip       string `json:"ipip,omitempty"`
-	Value      string `json:"value,omitempty"`
-	Vlanid     string `json:"vlanid,omitempty"`
-	Zfsoptions string `json:"zfsoptions,omitempty"`
+	Options    string `json:"options,omitempty" example:"-B|-C|-D|-E|-g|-L|-M|-n|--no-validate|--no-boot|-p|-T|-V|-v|-x|-Z" format:"string"`
+	Name       string `json:"name" example:"jail_name" format:"string"`
+	Release    string `json:"release" example:"14.3-RELEASE" format:"string"`
+	Ip         string `json:"ip" example:"n.n.n.n" format:"string"`
+	Iface      string `json:"iface,omitempty" example:"bastille0" format:"string"`
+	Ipip       string `json:"ipip,omitempty" example:"n.n.n.n,i.i.i.i" format:"string"`
+	Value      string `json:"value,omitempty" example:"" format:"string"`
+	Vlanid     string `json:"vlanid,omitempty" example:"vlan10" format:"string"`
+	Zfsoptions string `json:"zfsoptions,omitempty" example:"" format:"string"`
 }
 
 type destroyModel struct {
-	Options     string `json:"options,omitempty"`
-	JailRelease string `json:"jail|release"`
+	Options     string `json:"options,omitempty" example:"-a|-c|-f|-y|-x" format:"string"`
+	JailRelease string `json:"jail|release" example:"jail_target or release" format:"string"`
 }
 
 type editModel struct {

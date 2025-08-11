@@ -149,6 +149,176 @@
                     }
                 }
             }
+        },
+        "/console": {
+            "post": {
+                "description": "Launch a login shell into the jail. Default is password- less root login.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "console"
+                ],
+                "summary": "console command",
+                "parameters": [
+                    {
+                        "description": "config",
+                        "name": "console",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.consoleModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/convert": {
+            "post": {
+                "description": "Convert a thin jail to a thick jail. Convert a thick jail to a custom release.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "convert"
+                ],
+                "summary": "convert command",
+                "parameters": [
+                    {
+                        "description": "config",
+                        "name": "convert",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.convertModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/cp": {
+            "post": {
+                "description": "Copy files from host to jail(s).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "cp"
+                ],
+                "summary": "cp command",
+                "parameters": [
+                    {
+                        "description": "cp",
+                        "name": "cp",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.cpModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/create": {
+            "post": {
+                "description": "Create a jail uning any available bootstrapped release. To create a jail, simply provide a name, bootstrapped release, and IP address.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "create"
+                ],
+                "summary": "create command",
+                "parameters": [
+                    {
+                        "description": "create",
+                        "name": "create",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.createModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/destroy": {
+            "post": {
+                "description": "Destroy jails or releases.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "destroy"
+                ],
+                "summary": "destroy command",
+                "parameters": [
+                    {
+                        "description": "destroy",
+                        "name": "destroy",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.destroyModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -244,6 +414,136 @@
                     "type": "string",
                     "format": "string",
                     "example": "depends on property"
+                }
+            }
+        },
+        "main.consoleModel": {
+            "type": "object",
+            "properties": {
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-x"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                },
+                "user": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "root"
+                }
+            }
+        },
+        "main.convertModel": {
+            "type": "object",
+            "properties": {
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-y|-x"
+                },
+                "release": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "myrelease"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.cpModel": {
+            "type": "object",
+            "properties": {
+                "hostpath": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "/host/path"
+                },
+                "jailpath": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "/jail/path"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-q|-x"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.createModel": {
+            "type": "object",
+            "properties": {
+                "iface": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "bastille0"
+                },
+                "ip": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "n.n.n.n"
+                },
+                "ipip": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "n.n.n.n,i.i.i.i"
+                },
+                "name": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_name"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-B|-C|-D|-E|-g|-L|-M|-n|--no-validate|--no-boot|-p|-T|-V|-v|-x|-Z"
+                },
+                "release": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "14.3-RELEASE"
+                },
+                "value": {
+                    "type": "string",
+                    "format": "string",
+                    "example": ""
+                },
+                "vlanid": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "vlan10"
+                },
+                "zfsoptions": {
+                    "type": "string",
+                    "format": "string",
+                    "example": ""
+                }
+            }
+        },
+        "main.destroyModel": {
+            "type": "object",
+            "properties": {
+                "jail|release": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target or release"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-c|-f|-y|-x"
                 }
             }
         }

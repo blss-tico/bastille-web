@@ -191,6 +191,15 @@ func (hd *HandlersData) convert(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// cp
+// @Summary cp command
+// @Description Copy files from host to jail(s).
+// @Tags cp
+// @Accept  json
+// @Produce  text/plain
+// @Param  cp  body	cpModel  true  "cp"
+// @Success 200 {object} string
+// @Router /cp [post]
 func (hd *HandlersData) cp(w http.ResponseWriter, r *http.Request) {
 	log.Println("cpHandler")
 
@@ -211,6 +220,15 @@ func (hd *HandlersData) cp(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// create
+// @Summary create command
+// @Description Create a jail uning any available bootstrapped release. To create a jail, simply provide a name, bootstrapped release, and IP address.
+// @Tags create
+// @Accept  json
+// @Produce  text/plain
+// @Param  create  body	createModel  true  "create"
+// @Success 200 {object} string
+// @Router /create [post]
 func (hd *HandlersData) create(w http.ResponseWriter, r *http.Request) {
 	log.Println("createHandler")
 
@@ -231,6 +249,15 @@ func (hd *HandlersData) create(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// destroy
+// @Summary destroy command
+// @Description Destroy jails or releases.
+// @Tags destroy
+// @Accept  json
+// @Produce  text/plain
+// @Param  destroy  body	destroyModel  true  "destroy"
+// @Success 200 {object} string
+// @Router /destroy [post]
 func (hd *HandlersData) destroy(w http.ResponseWriter, r *http.Request) {
 	log.Println("destroyHandler")
 
