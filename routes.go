@@ -32,6 +32,7 @@ func (r *Routes) swaggerRoutes(mux *http.ServeMux) {
 func (r *Routes) templatesRoutes(mux *http.ServeMux) {
 	mux.HandleFunc("GET /", r.ht.home)
 	mux.HandleFunc("GET /help", r.ht.help)
+	mux.HandleFunc("GET /api", r.ht.api)
 	mux.HandleFunc("GET /contact", r.ht.contact)
 	mux.HandleFunc("GET /bootstrap", r.ht.bootstrap)
 	mux.HandleFunc("GET /clone", r.ht.clone)

@@ -93,6 +93,11 @@ func (ht *HandlersTemplates) help(w http.ResponseWriter, r *http.Request) {
 	renderTemplateUtil(w, "help.html", data)
 }
 
+func (ht *HandlersTemplates) api(w http.ResponseWriter, r *http.Request) {
+	log.Println("apiHandlersTemplates")
+	http.Redirect(w, r, "/swagger", http.StatusMovedPermanently)
+}
+
 func (ht *HandlersTemplates) contact(w http.ResponseWriter, r *http.Request) {
 	log.Println("contactHandlersTemplates")
 
