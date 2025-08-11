@@ -200,21 +200,21 @@ type renameModel struct {
 }
 
 type restartModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
-	Value   string `json:"value,omitempty"`
+	Options string `json:"options,omitempty" example:"-b|-d|-v|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
+	Value   string `json:"value,omitempty" example:"depends -d option" format:"string"`
 }
 
 type serviceModel struct {
-	Options     string `json:"options,omitempty"`
-	Target      string `json:"target"`
-	Servicename string `json:"service_name"`
-	Args        string `json:"args"`
+	Options     string `json:"options,omitempty" example:"-a|-x" format:"string"`
+	Target      string `json:"target" example:"jail_target" format:"string"`
+	Servicename string `json:"service_name" example:"nginx" format:"string"`
+	Args        string `json:"args" example:"start|restart|stop|enable|disable" format:"string"`
 }
 
 type setupModel struct {
-	Options string `json:"options,omitempty"`
-	Action  string `json:"action"`
+	Options string `json:"options,omitempty" example:"-y|-x" format:"string"`
+	Action  string `json:"action" example:"bridge|loopback|pf|firewall|shared|vnet|storage" format:"string"`
 }
 
 type startModel struct {

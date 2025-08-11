@@ -719,6 +719,15 @@ func (hd *HandlersData) rename(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// restart
+// @Summary restart command
+// @Description Restart jail(s).
+// @Tags restart
+// @Accept  json
+// @Produce  text/plain
+// @Param  restart  body	restartModel  true  "restart"
+// @Success 200 {object} string
+// @Router /restart [post]
 func (hd *HandlersData) restart(w http.ResponseWriter, r *http.Request) {
 	log.Println("restartHandler")
 
@@ -739,6 +748,15 @@ func (hd *HandlersData) restart(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// service
+// @Summary service command
+// @Description The service sub-command allows for managing services within jails. This allows you to start, stop, restart, and otherwise interact with services running inside the jail(s).
+// @Tags service
+// @Accept  json
+// @Produce  text/plain
+// @Param  service  body	serviceModel  true  "service"
+// @Success 200 {object} string
+// @Router /service [post]
 func (hd *HandlersData) service(w http.ResponseWriter, r *http.Request) {
 	log.Println("serviceHandler")
 
@@ -759,6 +777,15 @@ func (hd *HandlersData) service(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// setup
+// @Summary setup command
+// @Description The setup sub-command attempts to automatically configure a host system for Bastille jails. This allows you to configure networking, firewall, storage, vnet and bridge options for a Bastille host with one command.
+// @Tags setup
+// @Accept  json
+// @Produce  text/plain
+// @Param  setup  body	setupModel  true  "setup"
+// @Success 200 {object} string
+// @Router /setup [post]
 func (hd *HandlersData) setup(w http.ResponseWriter, r *http.Request) {
 	log.Println("setupHandler")
 
