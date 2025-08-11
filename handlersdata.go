@@ -365,6 +365,15 @@ func (hd *HandlersData) export(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// htop
+// @Summary htop command
+// @Description This command runs htop in the targeted jail. Requires htop to be installed in the jail.
+// @Tags htop
+// @Accept  json
+// @Produce  text/plain
+// @Param  htop  body	htopModel  true  "htop"
+// @Success 200 {object} string
+// @Router /htop [post]
 func (hd *HandlersData) htop(w http.ResponseWriter, r *http.Request) {
 	log.Println("htopHandler")
 
@@ -385,6 +394,15 @@ func (hd *HandlersData) htop(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// import
+// @Summary import command
+// @Description Import a jail backup image or archive.
+// @Tags import
+// @Accept  json
+// @Produce  text/plain
+// @Param  import  body	importModel  true  "import"
+// @Success 200 {object} string
+// @Router /import [post]
 func (hd *HandlersData) imporT(w http.ResponseWriter, r *http.Request) {
 	log.Println("importHandler")
 
@@ -405,6 +423,15 @@ func (hd *HandlersData) imporT(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// jcp
+// @Summary jcp command
+// @Description Copy files from jail to jail(s).
+// @Tags jcp
+// @Accept  json
+// @Produce  text/plain
+// @Param  jcp  body	jcpModel  true  "jcp"
+// @Success 200 {object} string
+// @Router /jcp [post]
 func (hd *HandlersData) jcp(w http.ResponseWriter, r *http.Request) {
 	log.Println("jcpHandler")
 

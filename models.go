@@ -112,22 +112,22 @@ type exportModel struct {
 }
 
 type htopModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
+	Options string `json:"options,omitempty" example:"-a|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
 }
 
 type importModel struct {
-	Options string `json:"options,omitempty"`
-	File    string `json:"file"`
-	Release string `json:"release,omitempty"`
+	Options string `json:"options,omitempty" example:"-f|-M|-v|-x" format:"string"`
+	File    string `json:"file" example:"/path/to/archive.file" format:"string"`
+	Release string `json:"release,omitempty" example:"release_name" format:"string"`
 }
 
 type jcpModel struct {
-	Options    string `json:"options,omitempty"`
-	Sourcejail string `json:"source_jail"`
-	Jailpath   string `json:"jail_path"`
-	Destjail   string `json:"dest_jail"`
-	Jailpath2  string `json:"jail_path2"`
+	Options    string `json:"options,omitempty" example:"-q|-x" format:"string"`
+	Sourcejail string `json:"source_jail" example:"source_jail" format:"string"`
+	Jailpath   string `json:"jail_path" example:"/source_jail/path" format:"string"`
+	Destjail   string `json:"dest_jail" example:"dest_jail" format:"string"`
+	Jailpath2  string `json:"jail_path2" example:"/dest_jail/path" format:"string"`
 }
 
 type limitsModel struct {
