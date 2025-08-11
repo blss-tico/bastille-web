@@ -829,6 +829,482 @@
                     }
                 }
             }
+        },
+        "/restart": {
+            "post": {
+                "description": "Restart jail(s).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "restart"
+                ],
+                "summary": "restart command",
+                "parameters": [
+                    {
+                        "description": "restart",
+                        "name": "restart",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.restartModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/service": {
+            "post": {
+                "description": "The service sub-command allows for managing services within jails. This allows you to start, stop, restart, and otherwise interact with services running inside the jail(s).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "service"
+                ],
+                "summary": "service command",
+                "parameters": [
+                    {
+                        "description": "service",
+                        "name": "service",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.serviceModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/setup": {
+            "post": {
+                "description": "The setup sub-command attempts to automatically configure a host system for Bastille jails. This allows you to configure networking, firewall, storage, vnet and bridge options for a Bastille host with one command.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "setup"
+                ],
+                "summary": "setup command",
+                "parameters": [
+                    {
+                        "description": "setup",
+                        "name": "setup",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.setupModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/start": {
+            "post": {
+                "description": "Start jail(s).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "start"
+                ],
+                "summary": "start command",
+                "parameters": [
+                    {
+                        "description": "start",
+                        "name": "start",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.startModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/stop": {
+            "post": {
+                "description": "Stop jail(s).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "stop"
+                ],
+                "summary": "stop command",
+                "parameters": [
+                    {
+                        "description": "stop",
+                        "name": "stop",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.stopModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/sysrc": {
+            "post": {
+                "description": "The sysrc sub-command allows for safely editing system configuration files. In jail terms, this allows us to toggle on/off services and options at startup.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "sysrc"
+                ],
+                "summary": "sysrc command",
+                "parameters": [
+                    {
+                        "description": "sysrc",
+                        "name": "sysrc",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.sysrcModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/tags": {
+            "post": {
+                "description": "The tags sub-command adds, removes or lists arbitrary tags on your jail(s).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "tags"
+                ],
+                "summary": "tags command",
+                "parameters": [
+                    {
+                        "description": "tags",
+                        "name": "tags",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.tagsModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/template": {
+            "post": {
+                "description": "Apply file templates to targeted container(s).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "template"
+                ],
+                "summary": "template command",
+                "parameters": [
+                    {
+                        "description": "template",
+                        "name": "template",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.templateModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/top": {
+            "post": {
+                "description": "This command runs top in the targeted jail.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "top"
+                ],
+                "summary": "top command",
+                "parameters": [
+                    {
+                        "description": "top",
+                        "name": "top",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.topModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/umount": {
+            "post": {
+                "description": "Unmount storage from jail(s).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "umount"
+                ],
+                "summary": "umount command",
+                "parameters": [
+                    {
+                        "description": "umount",
+                        "name": "umount",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.umountModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/update": {
+            "post": {
+                "description": "The update command targets a release or a thick jail. Because thin jails are based on a release, when the release is updated all the thin jails are automatically updated as well.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "update"
+                ],
+                "summary": "update command",
+                "parameters": [
+                    {
+                        "description": "update",
+                        "name": "update",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.updateModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/upgrade": {
+            "post": {
+                "description": "The upgrade command targets a thick or thin jail. Thin jails will be updated by changing the release mount point that it is based on. Thick jails will be upgraded normally.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "upgrade"
+                ],
+                "summary": "upgrade command",
+                "parameters": [
+                    {
+                        "description": "upgrade",
+                        "name": "upgrade",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.upgradeModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/verify": {
+            "post": {
+                "description": "This command scans a bootstrapped release or template and validates that everything looks in order. This is not a 100% comprehensive check, but it compares the release or template against a “known good” index.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "verify"
+                ],
+                "summary": "verify command",
+                "parameters": [
+                    {
+                        "description": "verify",
+                        "name": "verify",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.verifyModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/zfs": {
+            "post": {
+                "description": "Manage ZFS properties, create, destroy and rollback snapshots, jail and unjail datasets (ZFS only), and check ZFS usage for targeted jail(s).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "zfs"
+                ],
+                "summary": "zfs command",
+                "parameters": [
+                    {
+                        "description": "zfs",
+                        "name": "zfs",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.zfsModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -1439,6 +1915,301 @@
                     "type": "string",
                     "format": "string",
                     "example": "jail_target"
+                }
+            }
+        },
+        "main.restartModel": {
+            "type": "object",
+            "properties": {
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-b|-d|-v|-x"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                },
+                "value": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "seconds to -d option"
+                }
+            }
+        },
+        "main.serviceModel": {
+            "type": "object",
+            "properties": {
+                "args": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "start|restart|stop|enable|disable"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-x"
+                },
+                "service_name": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "nginx"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.setupModel": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "bridge|loopback|pf|firewall|shared|vnet|storage"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-y|-x"
+                }
+            }
+        },
+        "main.startModel": {
+            "type": "object",
+            "properties": {
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-b|-d|-v|-x"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                },
+                "value": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "seconds to -d option"
+                }
+            }
+        },
+        "main.stopModel": {
+            "type": "object",
+            "properties": {
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-v|-x"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.sysrcModel": {
+            "type": "object",
+            "properties": {
+                "args": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "sshd_enable=\"YES\""
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-x"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.tagsModel": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "add|delete|list"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-x"
+                },
+                "tags": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "tag_name1,tag_name2"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.templateModel": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "--convert"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-x"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                },
+                "template": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "template/name"
+                }
+            }
+        },
+        "main.topModel": {
+            "type": "object",
+            "properties": {
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-x"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.umountModel": {
+            "type": "object",
+            "properties": {
+                "jail_path": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "/jail/path"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-x"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.updateModel": {
+            "type": "object",
+            "properties": {
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-f|-x"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.upgradeModel": {
+            "type": "object",
+            "properties": {
+                "NEW_RELEASE|install": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "n.n-RELEASE|install"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-f|-x"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.verifyModel": {
+            "type": "object",
+            "properties": {
+                "RELEASE|TEMPLATE": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "n.n-RELEASE|template_name"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-x"
+                }
+            }
+        },
+        "main.zfsModel": {
+            "type": "object",
+            "properties": {
+                "/jail/path": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "/jail/path"
+                },
+                "action": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "destroy|rollback|snapshot|df|usage|get|set|jail|unjail"
+                },
+                "key": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "name for set action"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-v|-x"
+                },
+                "pool/dataset": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "pool/dataset"
+                },
+                "tag": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "tag_name"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                },
+                "value": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "value for set action"
                 }
             }
         }
