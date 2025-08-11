@@ -806,6 +806,15 @@ func (hd *HandlersData) setup(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// start
+// @Summary start command
+// @Description Start jail(s).
+// @Tags start
+// @Accept  json
+// @Produce  text/plain
+// @Param  start  body	startModel  true  "start"
+// @Success 200 {object} string
+// @Router /start [post]
 func (hd *HandlersData) start(w http.ResponseWriter, r *http.Request) {
 	log.Println("startHandler")
 
@@ -826,6 +835,15 @@ func (hd *HandlersData) start(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// stop
+// @Summary stop command
+// @Description Stop jail(s).
+// @Tags stop
+// @Accept  json
+// @Produce  text/plain
+// @Param  stop  body	stopModel  true  "stop"
+// @Success 200 {object} string
+// @Router /stop [post]
 func (hd *HandlersData) stop(w http.ResponseWriter, r *http.Request) {
 	log.Println("stopHandler")
 
@@ -846,6 +864,15 @@ func (hd *HandlersData) stop(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// sysrc
+// @Summary sysrc command
+// @Description The sysrc sub-command allows for safely editing system configuration files. In jail terms, this allows us to toggle on/off services and options at startup.
+// @Tags sysrc
+// @Accept  json
+// @Produce  text/plain
+// @Param  sysrc  body	sysrcModel  true  "sysrc"
+// @Success 200 {object} string
+// @Router /sysrc [post]
 func (hd *HandlersData) sysrc(w http.ResponseWriter, r *http.Request) {
 	log.Println("sysrcHandler")
 

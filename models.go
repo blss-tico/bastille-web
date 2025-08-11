@@ -202,7 +202,7 @@ type renameModel struct {
 type restartModel struct {
 	Options string `json:"options,omitempty" example:"-b|-d|-v|-x" format:"string"`
 	Target  string `json:"target" example:"jail_target" format:"string"`
-	Value   string `json:"value,omitempty" example:"depends -d option" format:"string"`
+	Value   string `json:"value,omitempty" example:"seconds to -d option" format:"string"`
 }
 
 type serviceModel struct {
@@ -218,20 +218,20 @@ type setupModel struct {
 }
 
 type startModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
-	Value   string `json:"value,omitempty"`
+	Options string `json:"options,omitempty" example:"-b|-d|-v|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
+	Value   string `json:"value,omitempty" example:"seconds to -d option" format:"string"`
 }
 
 type stopModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
+	Options string `json:"options,omitempty" example:"-v|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
 }
 
 type sysrcModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
-	Args    string `json:"args"`
+	Options string `json:"options,omitempty" example:"-a|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
+	Args    string `json:"args" example:"sshd_enable=\"YES\"" format:"string"`
 }
 
 type tagsModel struct {
