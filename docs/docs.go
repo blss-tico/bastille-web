@@ -427,6 +427,210 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/htop": {
+            "post": {
+                "description": "This command runs htop in the targeted jail. Requires htop to be installed in the jail.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "htop"
+                ],
+                "summary": "htop command",
+                "parameters": [
+                    {
+                        "description": "htop",
+                        "name": "htop",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.htopModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/import": {
+            "post": {
+                "description": "Import a jail backup image or archive.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "import"
+                ],
+                "summary": "import command",
+                "parameters": [
+                    {
+                        "description": "import",
+                        "name": "import",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.importModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/jcp": {
+            "post": {
+                "description": "Copy files from jail to jail(s).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "jcp"
+                ],
+                "summary": "jcp command",
+                "parameters": [
+                    {
+                        "description": "jcp",
+                        "name": "jcp",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.jcpModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/limits": {
+            "post": {
+                "description": "Set resourse limits for targeted jail(s).",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "limits"
+                ],
+                "summary": "limits command",
+                "parameters": [
+                    {
+                        "description": "limits",
+                        "name": "limits",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.limitsModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/list": {
+            "post": {
+                "description": "List jails, ports, releases, templates, logs, limits, exports and imports and much more managed by bastille.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "list"
+                ],
+                "summary": "list command",
+                "parameters": [
+                    {
+                        "description": "list",
+                        "name": "list",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.listModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/migrate": {
+            "post": {
+                "description": "The migrate sub-command allows migrating the targeted jail(s) to another remote system.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "migrate"
+                ],
+                "summary": "migrate command",
+                "parameters": [
+                    {
+                        "description": "migrate",
+                        "name": "migrate",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.migrateModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -712,6 +916,136 @@ const docTemplate = `{
                     "type": "string",
                     "format": "string",
                     "example": "/host/path"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.htopModel": {
+            "type": "object",
+            "properties": {
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-x"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.importModel": {
+            "type": "object",
+            "properties": {
+                "file": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "/path/to/archive.file"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-f|-M|-v|-x"
+                },
+                "release": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "release_name"
+                }
+            }
+        },
+        "main.jcpModel": {
+            "type": "object",
+            "properties": {
+                "dest_jail": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "dest_jail"
+                },
+                "jail_path": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "/source_jail/path"
+                },
+                "jail_path2": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "/dest_jail/path"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-q|-x"
+                },
+                "source_jail": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "source_jail"
+                }
+            }
+        },
+        "main.limitsModel": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "add|remove|clear|reset|list|show|active|stats"
+                },
+                "option": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "see rctl"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-l|-x"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                },
+                "value": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "depends on Option"
+                }
+            }
+        },
+        "main.listModel": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "all|backup|export|import|ip|jail|limit|log|path|port|prio|release|state|template|type"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-d|-j|-p|-u|-x"
+                }
+            }
+        },
+        "main.migrateModel": {
+            "type": "object",
+            "properties": {
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|-b|-d|--doas|-l|-p|-x"
+                },
+                "remote": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "user@host:port"
                 },
                 "target": {
                     "type": "string",

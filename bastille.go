@@ -435,7 +435,7 @@ func (b *Bastille) mount(options, target, hostpath, jailpath, filesystemtype, op
 	return runBastilleCommands(args...)
 }
 
-func (b *Bastille) network(options, target, action, iface, ip string) (string, error) {
+func (b *Bastille) network(options, target, action, iface, ip, vlanid string) (string, error) {
 	args := []string{"network"}
 
 	if options != "" {
@@ -456,6 +456,10 @@ func (b *Bastille) network(options, target, action, iface, ip string) (string, e
 
 	if ip != "" {
 		args = append(args, ip)
+	}
+
+	if vlanid != "" {
+		args = append(args, vlanid)
 	}
 
 	return runBastilleCommands(args...)

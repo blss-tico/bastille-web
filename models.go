@@ -131,47 +131,48 @@ type jcpModel struct {
 }
 
 type limitsModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
-	Action  string `json:"action"`
-	Option  string `json:"option,omitempty"`
-	Value   string `json:"value,omitempty"`
+	Options string `json:"options,omitempty" example:"-a|-l|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
+	Action  string `json:"action" example:"add|remove|clear|reset|list|show|active|stats" format:"string"`
+	Option  string `json:"option,omitempty" example:"see rctl" format:"string"`
+	Value   string `json:"value,omitempty" example:"depends on Option" format:"string"`
 }
 
 type listModel struct {
-	Options string `json:"options,omitempty"`
-	Action  string `json:"action"`
+	Options string `json:"options,omitempty" example:"-d|-j|-p|-u|-x" format:"string"`
+	Action  string `json:"action" example:"all|backup|export|import|ip|jail|limit|log|path|port|prio|release|state|template|type" format:"string"`
 }
 
 type migrateModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
-	Remote  string `json:"remote"`
+	Options string `json:"options,omitempty" example:"-a|-b|-d|--doas|-l|-p|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
+	Remote  string `json:"remote" example:"user@host:port" format:"string"`
 }
 
 type mountModel struct {
-	Options        string `json:"options,omitempty"`
-	Target         string `json:"target"`
-	Hostpath       string `json:"host_path"`
-	Jailpath       string `json:"jail_path"`
-	Filesystemtype string `json:"filesystem_type"`
-	Option         string `json:"option"`
-	Dump           string `json:"dump"`
-	Passnumber     string `json:"pass_number"`
+	Options        string `json:"options,omitempty" example:"-a|-x" format:"string"`
+	Target         string `json:"target" example:"jail_target" format:"string"`
+	Hostpath       string `json:"host_path" example:"/host/path" format:"string"`
+	Jailpath       string `json:"jail_path" example:"/jail/path" format:"string"`
+	Filesystemtype string `json:"filesystem_type" example:"tmpfs|nullfs" format:"string"`
+	Option         string `json:"option" example:"ro|rw|rw,nosuid,mode=01777" format:"string"`
+	Dump           string `json:"dump" example:"0" format:"string"`
+	Passnumber     string `json:"pass_number" example:"0" format:"string"`
 }
 
 type networkModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
-	Action  string `json:"action"`
-	Iface   string `json:"interface,omitempty"`
-	Ip      string `json:"ip,omitempty"`
+	Options string `json:"options,omitempty" example:"-a|-B|-M|-n|-P|-V|-v|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
+	Action  string `json:"action" example:"add|remove" format:"string"`
+	Iface   string `json:"interface,omitempty" example:"bastille0" format:"string"`
+	Ip      string `json:"ip,omitempty" example:"n.n.n.n" format:"string"`
+	Vlanid  string `json:"vlanid,omitempty" example:"vlan10" format:"string"`
 }
 
 type pkgModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
-	Arg     string `json:"args"`
+	Options string `json:"options,omitempty" example:"-a|-H|-y|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
+	Arg     string `json:"args" example:"install pkg_name" format:"string"`
 }
 
 type rcpModel struct {

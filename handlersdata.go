@@ -452,6 +452,15 @@ func (hd *HandlersData) jcp(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// limits
+// @Summary limits command
+// @Description Set resourse limits for targeted jail(s).
+// @Tags limits
+// @Accept  json
+// @Produce  text/plain
+// @Param  limits  body	limitsModel  true  "limits"
+// @Success 200 {object} string
+// @Router /limits [post]
 func (hd *HandlersData) limits(w http.ResponseWriter, r *http.Request) {
 	log.Println("limitsHandler")
 
@@ -472,6 +481,15 @@ func (hd *HandlersData) limits(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// list
+// @Summary list command
+// @Description List jails, ports, releases, templates, logs, limits, exports and imports and much more managed by bastille.
+// @Tags list
+// @Accept  json
+// @Produce  text/plain
+// @Param  list  body	listModel  true  "list"
+// @Success 200 {object} string
+// @Router /list [post]
 func (hd *HandlersData) list(w http.ResponseWriter, r *http.Request) {
 	log.Println("listHandler")
 
@@ -492,6 +510,15 @@ func (hd *HandlersData) list(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// migrate
+// @Summary migrate command
+// @Description The migrate sub-command allows migrating the targeted jail(s) to another remote system.
+// @Tags migrate
+// @Accept  json
+// @Produce  text/plain
+// @Param  migrate  body	migrateModel  true  "migrate"
+// @Success 200 {object} string
+// @Router /migrate [post]
 func (hd *HandlersData) migrate(w http.ResponseWriter, r *http.Request) {
 	log.Println("migrateHandler")
 
@@ -512,6 +539,15 @@ func (hd *HandlersData) migrate(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// mount
+// @Summary mount command
+// @Description To mount storage within the container use bastille mount.
+// @Tags mount
+// @Accept  json
+// @Produce  text/plain
+// @Param  mount  body	mountModel  true  "mount"
+// @Success 200 {object} string
+// @Router /mount [post]
 func (hd *HandlersData) mount(w http.ResponseWriter, r *http.Request) {
 	log.Println("mountHandler")
 
@@ -532,6 +568,15 @@ func (hd *HandlersData) mount(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// network
+// @Summary network command
+// @Description Add or remove interfaces to existing jails.
+// @Tags network
+// @Accept  json
+// @Produce  text/plain
+// @Param  network  body	networkModel  true  "network"
+// @Success 200 {object} string
+// @Router /network [post]
 func (hd *HandlersData) network(w http.ResponseWriter, r *http.Request) {
 	log.Println("networkHandler")
 
@@ -543,7 +588,7 @@ func (hd *HandlersData) network(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	result, err := hd.bl.network(data.Options, data.Target, data.Action, data.Iface, data.Ip)
+	result, err := hd.bl.network(data.Options, data.Target, data.Action, data.Iface, data.Ip, data.Vlanid)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -552,6 +597,15 @@ func (hd *HandlersData) network(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// pkg
+// @Summary pkg command
+// @Description Manage binary packages inside jails.
+// @Tags pkg
+// @Accept  json
+// @Produce  text/plain
+// @Param  pkg  body	pkgModel  true  "pkg"
+// @Success 200 {object} string
+// @Router /pkg [post]
 func (hd *HandlersData) pkg(w http.ResponseWriter, r *http.Request) {
 	log.Println("pkgHandler")
 

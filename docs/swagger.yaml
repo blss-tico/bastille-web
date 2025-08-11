@@ -220,6 +220,104 @@ definitions:
         format: string
         type: string
     type: object
+  main.htopModel:
+    properties:
+      options:
+        example: -a|-x
+        format: string
+        type: string
+      target:
+        example: jail_target
+        format: string
+        type: string
+    type: object
+  main.importModel:
+    properties:
+      file:
+        example: /path/to/archive.file
+        format: string
+        type: string
+      options:
+        example: -f|-M|-v|-x
+        format: string
+        type: string
+      release:
+        example: release_name
+        format: string
+        type: string
+    type: object
+  main.jcpModel:
+    properties:
+      dest_jail:
+        example: dest_jail
+        format: string
+        type: string
+      jail_path:
+        example: /source_jail/path
+        format: string
+        type: string
+      jail_path2:
+        example: /dest_jail/path
+        format: string
+        type: string
+      options:
+        example: -q|-x
+        format: string
+        type: string
+      source_jail:
+        example: source_jail
+        format: string
+        type: string
+    type: object
+  main.limitsModel:
+    properties:
+      action:
+        example: add|remove|clear|reset|list|show|active|stats
+        format: string
+        type: string
+      option:
+        example: see rctl
+        format: string
+        type: string
+      options:
+        example: -a|-l|-x
+        format: string
+        type: string
+      target:
+        example: jail_target
+        format: string
+        type: string
+      value:
+        example: depends on Option
+        format: string
+        type: string
+    type: object
+  main.listModel:
+    properties:
+      action:
+        example: all|backup|export|import|ip|jail|limit|log|path|port|prio|release|state|template|type
+        format: string
+        type: string
+      options:
+        example: -d|-j|-p|-u|-x
+        format: string
+        type: string
+    type: object
+  main.migrateModel:
+    properties:
+      options:
+        example: -a|-b|-d|--doas|-l|-p|-x
+        format: string
+        type: string
+      remote:
+        example: user@host:port
+        format: string
+        type: string
+      target:
+        example: jail_target
+        format: string
+        type: string
+    type: object
 host: 127.0.0.1:80
 info:
   contact: {}
@@ -504,4 +602,139 @@ paths:
       summary: export command
       tags:
       - export
+  /htop:
+    post:
+      consumes:
+      - application/json
+      description: This command runs htop in the targeted jail. Requires htop to be
+        installed in the jail.
+      parameters:
+      - description: htop
+        in: body
+        name: htop
+        required: true
+        schema:
+          $ref: '#/definitions/main.htopModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: htop command
+      tags:
+      - htop
+  /import:
+    post:
+      consumes:
+      - application/json
+      description: Import a jail backup image or archive.
+      parameters:
+      - description: import
+        in: body
+        name: import
+        required: true
+        schema:
+          $ref: '#/definitions/main.importModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: import command
+      tags:
+      - import
+  /jcp:
+    post:
+      consumes:
+      - application/json
+      description: Copy files from jail to jail(s).
+      parameters:
+      - description: jcp
+        in: body
+        name: jcp
+        required: true
+        schema:
+          $ref: '#/definitions/main.jcpModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: jcp command
+      tags:
+      - jcp
+  /limits:
+    post:
+      consumes:
+      - application/json
+      description: Set resourse limits for targeted jail(s).
+      parameters:
+      - description: limits
+        in: body
+        name: limits
+        required: true
+        schema:
+          $ref: '#/definitions/main.limitsModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: limits command
+      tags:
+      - limits
+  /list:
+    post:
+      consumes:
+      - application/json
+      description: List jails, ports, releases, templates, logs, limits, exports and
+        imports and much more managed by bastille.
+      parameters:
+      - description: list
+        in: body
+        name: list
+        required: true
+        schema:
+          $ref: '#/definitions/main.listModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: list command
+      tags:
+      - list
+  /migrate:
+    post:
+      consumes:
+      - application/json
+      description: The migrate sub-command allows migrating the targeted jail(s) to
+        another remote system.
+      parameters:
+      - description: migrate
+        in: body
+        name: migrate
+        required: true
+        schema:
+          $ref: '#/definitions/main.migrateModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: migrate command
+      tags:
+      - migrate
 swagger: "2.0"
