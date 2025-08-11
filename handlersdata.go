@@ -981,6 +981,15 @@ func (hd *HandlersData) top(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// umount
+// @Summary umount command
+// @Description Unmount storage from jail(s).
+// @Tags umount
+// @Accept  json
+// @Produce  text/plain
+// @Param  umount  body	umountModel  true  "umount"
+// @Success 200 {object} string
+// @Router /umount [post]
 func (hd *HandlersData) umount(w http.ResponseWriter, r *http.Request) {
 	log.Println("umountHandler")
 
@@ -1001,6 +1010,15 @@ func (hd *HandlersData) umount(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// update
+// @Summary update command
+// @Description The update command targets a release or a thick jail. Because thin jails are based on a release, when the release is updated all the thin jails are automatically updated as well.
+// @Tags update
+// @Accept  json
+// @Produce  text/plain
+// @Param  update  body	updateModel  true  "update"
+// @Success 200 {object} string
+// @Router /update [post]
 func (hd *HandlersData) update(w http.ResponseWriter, r *http.Request) {
 	log.Println("updateHandler")
 
@@ -1021,6 +1039,15 @@ func (hd *HandlersData) update(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// upgrade
+// @Summary upgrade command
+// @Description The upgrade command targets a thick or thin jail. Thin jails will be updated by changing the release mount point that it is based on. Thick jails will be upgraded normally.
+// @Tags upgrade
+// @Accept  json
+// @Produce  text/plain
+// @Param  upgrade  body	upgradeModel  true  "upgrade"
+// @Success 200 {object} string
+// @Router /upgrade [post]
 func (hd *HandlersData) upgrade(w http.ResponseWriter, r *http.Request) {
 	log.Println("upgradeHandler")
 
@@ -1041,6 +1068,15 @@ func (hd *HandlersData) upgrade(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// verify
+// @Summary verify command
+// @Description This command scans a bootstrapped release or template and validates that everything looks in order. This is not a 100% comprehensive check, but it compares the release or template against a “known good” index.
+// @Tags verify
+// @Accept  json
+// @Produce  text/plain
+// @Param  verify  body	verifyModel  true  "verify"
+// @Success 200 {object} string
+// @Router /verify [post]
 func (hd *HandlersData) verify(w http.ResponseWriter, r *http.Request) {
 	log.Println("verifyHandler")
 
@@ -1061,6 +1097,15 @@ func (hd *HandlersData) verify(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// zfs
+// @Summary zfs command
+// @Description Manage ZFS properties, create, destroy and rollback snapshots, jail and unjail datasets (ZFS only), and check ZFS usage for targeted jail(s).
+// @Tags zfs
+// @Accept  json
+// @Produce  text/plain
+// @Param  zfs  body	zfsModel  true  "zfs"
+// @Success 200 {object} string
+// @Router /zfs [post]
 func (hd *HandlersData) zfs(w http.ResponseWriter, r *http.Request) {
 	log.Println("zfsHandler")
 

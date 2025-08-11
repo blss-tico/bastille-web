@@ -254,34 +254,34 @@ type topModel struct {
 }
 
 type umountModel struct {
-	Options  string `json:"options,omitempty"`
-	Target   string `json:"target"`
-	Jailpath string `json:"jail_path"`
+	Options  string `json:"options,omitempty" example:"-a|-x" format:"string"`
+	Target   string `json:"target" example:"jail_target" format:"string"`
+	Jailpath string `json:"jail_path" example:"/jail/path" format:"string"`
 }
 
 type updateModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
+	Options string `json:"options,omitempty" example:"-a|-f|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
 }
 
 type upgradeModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
-	Action  string `json:"NEW_RELEASE|install"`
+	Options string `json:"options,omitempty" example:"-a|-f|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
+	Action  string `json:"NEW_RELEASE|install" example:"n.n-RELEASE|install" format:"string"`
 }
 
 type verifyModel struct {
-	Options string `json:"options,omitempty"`
-	Action  string `json:"RELEASE|TEMPLATE"`
+	Options string `json:"options,omitempty" example:"-x" format:"string"`
+	Action  string `json:"RELEASE|TEMPLATE" example:"n.n-RELEASE|template_name" format:"string"`
 }
 
 type zfsModel struct {
-	Options     string `json:"options,omitempty"`
-	Target      string `json:"target"`
-	Action      string `json:"action"`
-	Tag         string `json:"tag,omitempty"`
-	Key         string `json:"key,omitempty"`
-	Value       string `json:"value,omitempty"`
-	Pooldataset string `json:"pool/dataset,omitempty"`
-	Jailpath    string `json:"/jail/path,omitempty"`
+	Options     string `json:"options,omitempty" example:"-a|-v|-x" format:"string"`
+	Target      string `json:"target" example:"jail_target" format:"string"`
+	Action      string `json:"action" example:"destroy|rollback|snapshot|df|usage|get|set|jail|unjail" format:"string"`
+	Tag         string `json:"tag,omitempty" example:"tag_name" format:"string"`
+	Key         string `json:"key,omitempty" example:"name for set action" format:"string"`
+	Value       string `json:"value,omitempty" example:"value for set action" format:"string"`
+	Pooldataset string `json:"pool/dataset,omitempty" example:"pool/dataset" format:"string"`
+	Jailpath    string `json:"/jail/path,omitempty" example:"/jail/path" format:"string"`
 }
