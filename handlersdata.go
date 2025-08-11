@@ -11,6 +11,15 @@ type HandlersData struct {
 	bl Bastille
 }
 
+// bootstrap
+// @Summary bootstrap command
+// @Description The bootstrap sub-command is used to download and extract releases and templates for use with Bastille containers. A valid release is needed before containers can be created. Templates are optional but are managed in the same manner.
+// @Tags bootstrap
+// @Accept  json
+// @Produce  text/plain
+// @Param  bootstrap  body	bootstrapModel  true  "bootstrap"
+// @Success 200 {object} string
+// @Router /bootstrap [post]
 func (hd *HandlersData) bootstrap(w http.ResponseWriter, r *http.Request) {
 	log.Println("bootstrapHandler")
 
@@ -31,6 +40,15 @@ func (hd *HandlersData) bootstrap(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// clone
+// @Summary clone command
+// @Description Clone/duplicate an existing jail to a new jail.
+// @Tags clone
+// @Accept  json
+// @Produce  text/plain
+// @Param  clone  body	cloneModel  true  "clone"
+// @Success 200 {object} string
+// @Router /clone [post]
 func (hd *HandlersData) clone(w http.ResponseWriter, r *http.Request) {
 	log.Println("cloneHandler")
 
@@ -51,6 +69,15 @@ func (hd *HandlersData) clone(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// cmd
+// @Summary cmd command
+// @Description Execute commands inside targeted jail(s).
+// @Tags cmd
+// @Accept  json
+// @Produce  text/plain
+// @Param  cmd  body	cmdModel  true  "cmd"
+// @Success 200 {object} string
+// @Router /cmd [post]
 func (hd *HandlersData) cmd(w http.ResponseWriter, r *http.Request) {
 	log.Println("cmdHandler")
 
@@ -77,6 +104,15 @@ func (hd *HandlersData) cmd(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// config
+// @Summary config command
+// @Description Get, set or remove properties from targeted jail(s).
+// @Tags config
+// @Accept  json
+// @Produce  text/plain
+// @Param  config  body	configModel  true  "config"
+// @Success 200 {object} string
+// @Router /config [post]
 func (hd *HandlersData) config(w http.ResponseWriter, r *http.Request) {
 	log.Println("configHandler")
 
@@ -97,6 +133,15 @@ func (hd *HandlersData) config(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// console
+// @Summary console command
+// @Description Launch a login shell into the jail. Default is password- less root login.
+// @Tags console
+// @Accept  json
+// @Produce  text/plain
+// @Param  console  body	consoleModel  true  "config"
+// @Success 200 {object} string
+// @Router /console [post]
 func (hd *HandlersData) console(w http.ResponseWriter, r *http.Request) {
 	log.Println("consoleHandler")
 
@@ -117,6 +162,15 @@ func (hd *HandlersData) console(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// convert
+// @Summary convert command
+// @Description Convert a thin jail to a thick jail. Convert a thick jail to a custom release.
+// @Tags convert
+// @Accept  json
+// @Produce  text/plain
+// @Param  convert  body	convertModel  true  "config"
+// @Success 200 {object} string
+// @Router /convert [post]
 func (hd *HandlersData) convert(w http.ResponseWriter, r *http.Request) {
 	log.Println("convertHandler")
 

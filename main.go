@@ -23,6 +23,14 @@ func init() {
 	}
 }
 
+// @title Bastille-Web
+// @version 1.0
+// @description API interface to FreeBSD bastille
+// @termsOfService http://swagger.io/terms/
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+// @host 127.0.0.1:80
+// @BasePath /
 func startHttpServer(argsCommandLine []string) {
 	log.Println("startHttpServer")
 
@@ -32,6 +40,7 @@ func startHttpServer(argsCommandLine []string) {
 	handlersData := &HandlersData{bl: *bastille}
 	routes := &Routes{ht: *handlerTemplates, hd: *handlersData}
 	routes.staticRoutes(mux)
+	routes.swaggerRoutes(mux)
 	routes.templatesRoutes(mux)
 	routes.dataRoutes(mux)
 

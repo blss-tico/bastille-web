@@ -30,42 +30,42 @@ type templatesModel struct {
 }
 
 type bootstrapModel struct {
-	Options         string `json:"options,omitempty"`
-	ReleaseTemplate string `json:"release|template"`
-	UpdateArch      string `json:"update|arch,omitempty"`
+	Options         string `json:"options,omitempty" example:"-x" format:"string"`
+	ReleaseTemplate string `json:"release|template" example:"14.3-RELEASE" format:"string"`
+	UpdateArch      string `json:"update|arch,omitempty" example:"--i386" format:"string"`
 }
 
 type cloneModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
-	Newname string `json:"new_name"`
-	Ip      string `json:"ip"`
+	Options string `json:"options,omitempty" example:"-a|-l|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
+	Newname string `json:"new_name" example:"new_jail_name" format:"string"`
+	Ip      string `json:"ip" example:"n.n.n.n" format:"string"`
 }
 
 type cmdModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
-	Command string `json:"command"`
+	Options string `json:"options,omitempty" example:"-a|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
+	Command string `json:"command" example:"ls -l" format:"string"`
 }
 
 type configModel struct {
-	Options  string `json:"options,omitempty"`
-	Target   string `json:"target"`
-	Action   string `json:"action"`
-	Property string `json:"property"`
-	Value    string `json:"value,omitempty"`
+	Options  string `json:"options,omitempty" example:"-x" format:"string"`
+	Target   string `json:"target" example:"jail_target" format:"string"`
+	Action   string `json:"action" example:"get|set" format:"string"`
+	Property string `json:"property" example:"ip4.addr" format:"string"`
+	Value    string `json:"value,omitempty" example:"depends on property" format:"string"`
 }
 
 type consoleModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
-	User    string `json:"user,omitempty"`
+	Options string `json:"options,omitempty" example:"-a|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
+	User    string `json:"user,omitempty" example:"root" format:"string"`
 }
 
 type convertModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
-	Release string `json:"release,omitempty"`
+	Options string `json:"options,omitempty" example:"-a|-y|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
+	Release string `json:"release,omitempty" example:"myrelease" format:"string"`
 }
 
 type cpModel struct {

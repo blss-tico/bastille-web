@@ -1,0 +1,177 @@
+basePath: /
+definitions:
+  main.bootstrapModel:
+    properties:
+      options:
+        example: -x
+        format: string
+        type: string
+      release|template:
+        example: 14.3-RELEASE
+        format: string
+        type: string
+      update|arch:
+        example: --i386
+        format: string
+        type: string
+    type: object
+  main.cloneModel:
+    properties:
+      ip:
+        example: n.n.n.n
+        format: string
+        type: string
+      new_name:
+        example: new_jail_name
+        format: string
+        type: string
+      options:
+        example: -a|-l|-x
+        format: string
+        type: string
+      target:
+        example: jail_target
+        format: string
+        type: string
+    type: object
+  main.cmdModel:
+    properties:
+      command:
+        example: ls -l
+        format: string
+        type: string
+      options:
+        example: -a|-x
+        format: string
+        type: string
+      target:
+        example: jail_target
+        format: string
+        type: string
+    type: object
+  main.configModel:
+    properties:
+      action:
+        example: get|set
+        format: string
+        type: string
+      options:
+        example: -x
+        format: string
+        type: string
+      property:
+        example: ip4.addr
+        format: string
+        type: string
+      target:
+        example: jail_target
+        format: string
+        type: string
+      value:
+        example: depends on property
+        format: string
+        type: string
+    type: object
+host: 127.0.0.1:80
+info:
+  contact: {}
+  description: API interface to FreeBSD bastille
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Bastille-Web
+  version: "1.0"
+paths:
+  /bootstrap:
+    post:
+      consumes:
+      - application/json
+      description: The bootstrap sub-command is used to download and extract releases
+        and templates for use with Bastille containers. A valid release is needed
+        before containers can be created. Templates are optional but are managed in
+        the same manner.
+      parameters:
+      - description: bootstrap
+        in: body
+        name: bootstrap
+        required: true
+        schema:
+          $ref: '#/definitions/main.bootstrapModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: bootstrap command
+      tags:
+      - bootstrap
+  /clone:
+    post:
+      consumes:
+      - application/json
+      description: Clone/duplicate an existing jail to a new jail.
+      parameters:
+      - description: clone
+        in: body
+        name: clone
+        required: true
+        schema:
+          $ref: '#/definitions/main.cloneModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: clone command
+      tags:
+      - clone
+  /cmd:
+    post:
+      consumes:
+      - application/json
+      description: Execute commands inside targeted jail(s).
+      parameters:
+      - description: cmd
+        in: body
+        name: cmd
+        required: true
+        schema:
+          $ref: '#/definitions/main.cmdModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: cmd command
+      tags:
+      - cmd
+  /config:
+    post:
+      consumes:
+      - application/json
+      description: Get, set or remove properties from targeted jail(s).
+      parameters:
+      - description: config
+        in: body
+        name: config
+        required: true
+        schema:
+          $ref: '#/definitions/main.configModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: config command
+      tags:
+      - config
+swagger: "2.0"

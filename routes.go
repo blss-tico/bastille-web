@@ -2,6 +2,8 @@ package main
 
 import (
 	"net/http"
+
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 type Routes struct {
@@ -19,6 +21,12 @@ func NewRoutes(ht HandlersTemplates, hd HandlersData) *Routes {
 func (r *Routes) staticRoutes(mux *http.ServeMux) {
 	fs := http.FileServer(http.Dir("./static"))
 	mux.Handle("GET /static/", http.StripPrefix("/static/", fs))
+}
+
+func (r *Routes) swaggerRoutes(mux *http.ServeMux) {
+	mux.Handle("GET /swagger/",
+		loggingMiddleware(httpSwagger.Handler(httpSwagger.URL("http://"+addrModel+"/static/swagger.json"))),
+	)
 }
 
 func (r *Routes) templatesRoutes(mux *http.ServeMux) {
