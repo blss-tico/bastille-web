@@ -171,6 +171,55 @@ definitions:
         format: string
         type: string
     type: object
+  main.editModel:
+    properties:
+      file:
+        example: file_name
+        format: string
+        type: string
+      options:
+        example: -x
+        format: string
+        type: string
+      target:
+        example: jail_target
+        format: string
+        type: string
+    type: object
+  main.etcupdateModel:
+    properties:
+      action:
+        example: diff|resolve|update
+        format: string
+        type: string
+      bootstrap|target:
+        example: jail_name|bootstrap
+        format: string
+        type: string
+      options:
+        example: -d|-f|-x
+        format: string
+        type: string
+      release:
+        example: 14.3-RELEASE
+        format: string
+        type: string
+    type: object
+  main.exportModel:
+    properties:
+      options:
+        example: -a|--gz|-r|-s|--tgz|--txz|-v|--xz|-x
+        format: string
+        type: string
+      path:
+        example: /host/path
+        format: string
+        type: string
+      target:
+        example: jail_target
+        format: string
+        type: string
+    type: object
 host: 127.0.0.1:80
 info:
   contact: {}
@@ -386,4 +435,73 @@ paths:
       summary: destroy command
       tags:
       - destroy
+  /edit:
+    post:
+      consumes:
+      - application/json
+      description: Edit jail config files.
+      parameters:
+      - description: edit
+        in: body
+        name: edit
+        required: true
+        schema:
+          $ref: '#/definitions/main.editModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: edit command
+      tags:
+      - edit
+  /etcupdate:
+    post:
+      consumes:
+      - application/json
+      description: This command will update the contents of /etc inside a jail. It
+        should be run after a jail upgrade.
+      parameters:
+      - description: etcupdate
+        in: body
+        name: etcupdate
+        required: true
+        schema:
+          $ref: '#/definitions/main.etcupdateModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: etcupdate command
+      tags:
+      - etcupdate
+  /export:
+    post:
+      consumes:
+      - application/json
+      description: Exporting a container creates an archive or image that can be sent
+        to a different machine to be imported later. These exported archives can be
+        used as container backups.
+      parameters:
+      - description: export
+        in: body
+        name: export
+        required: true
+        schema:
+          $ref: '#/definitions/main.exportModel'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: export command
+      tags:
+      - export
 swagger: "2.0"

@@ -93,22 +93,22 @@ type destroyModel struct {
 }
 
 type editModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
-	File    string `json:"file,omitempty"`
+	Options string `json:"options,omitempty" example:"-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
+	File    string `json:"file,omitempty" example:"file_name" format:"string"`
 }
 
 type etcupdateModel struct {
-	Options         string `json:"options,omitempty"`
-	Bootstraptarget string `json:"bootstrap|target"`
-	Action          string `json:"action,omitempty"`
-	Release         string `json:"release,omitempty"`
+	Options         string `json:"options,omitempty" example:"-d|-f|-x" format:"string"`
+	Bootstraptarget string `json:"bootstrap|target" example:"jail_name|bootstrap" format:"string"`
+	Action          string `json:"action,omitempty" example:"diff|resolve|update" format:"string"`
+	Release         string `json:"release,omitempty" example:"14.3-RELEASE" format:"string"`
 }
 
 type exportModel struct {
-	Options string `json:"options,omitempty"`
-	Target  string `json:"target"`
-	Path    string `json:"path"`
+	Options string `json:"options,omitempty" example:"-a|--gz|-r|-s|--tgz|--txz|-v|--xz|-x" format:"string"`
+	Target  string `json:"target" example:"jail_target" format:"string"`
+	Path    string `json:"path" example:"/host/path" format:"string"`
 }
 
 type htopModel struct {

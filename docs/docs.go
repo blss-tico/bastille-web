@@ -325,6 +325,108 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/edit": {
+            "post": {
+                "description": "Edit jail config files.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "edit"
+                ],
+                "summary": "edit command",
+                "parameters": [
+                    {
+                        "description": "edit",
+                        "name": "edit",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.editModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/etcupdate": {
+            "post": {
+                "description": "This command will update the contents of /etc inside a jail. It should be run after a jail upgrade.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "etcupdate"
+                ],
+                "summary": "etcupdate command",
+                "parameters": [
+                    {
+                        "description": "etcupdate",
+                        "name": "etcupdate",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.etcupdateModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/export": {
+            "post": {
+                "description": "Exporting a container creates an archive or image that can be sent to a different machine to be imported later. These exported archives can be used as container backups.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "export"
+                ],
+                "summary": "export command",
+                "parameters": [
+                    {
+                        "description": "export",
+                        "name": "export",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.exportModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -550,6 +652,71 @@ const docTemplate = `{
                     "type": "string",
                     "format": "string",
                     "example": "-a|-c|-f|-y|-x"
+                }
+            }
+        },
+        "main.editModel": {
+            "type": "object",
+            "properties": {
+                "file": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "file_name"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-x"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
+                }
+            }
+        },
+        "main.etcupdateModel": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "diff|resolve|update"
+                },
+                "bootstrap|target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_name|bootstrap"
+                },
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-d|-f|-x"
+                },
+                "release": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "14.3-RELEASE"
+                }
+            }
+        },
+        "main.exportModel": {
+            "type": "object",
+            "properties": {
+                "options": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "-a|--gz|-r|-s|--tgz|--txz|-v|--xz|-x"
+                },
+                "path": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "/host/path"
+                },
+                "target": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "jail_target"
                 }
             }
         }

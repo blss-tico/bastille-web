@@ -278,6 +278,15 @@ func (hd *HandlersData) destroy(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// edit
+// @Summary edit command
+// @Description Edit jail config files.
+// @Tags edit
+// @Accept  json
+// @Produce  text/plain
+// @Param  edit  body	editModel  true  "edit"
+// @Success 200 {object} string
+// @Router /edit [post]
 func (hd *HandlersData) edit(w http.ResponseWriter, r *http.Request) {
 	log.Println("editHandler")
 
@@ -298,6 +307,15 @@ func (hd *HandlersData) edit(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// etcupdate
+// @Summary etcupdate command
+// @Description This command will update the contents of /etc inside a jail. It should be run after a jail upgrade.
+// @Tags etcupdate
+// @Accept  json
+// @Produce  text/plain
+// @Param  etcupdate  body	etcupdateModel  true  "etcupdate"
+// @Success 200 {object} string
+// @Router /etcupdate [post]
 func (hd *HandlersData) etcupdate(w http.ResponseWriter, r *http.Request) {
 	log.Println("etcupdateHandler")
 
@@ -318,6 +336,15 @@ func (hd *HandlersData) etcupdate(w http.ResponseWriter, r *http.Request) {
 	respondOkWithJSONUtil(w, result)
 }
 
+// export
+// @Summary export command
+// @Description Exporting a container creates an archive or image that can be sent to a different machine to be imported later. These exported archives can be used as container backups.
+// @Tags export
+// @Accept  json
+// @Produce  text/plain
+// @Param  export  body	exportModel  true  "export"
+// @Success 200 {object} string
+// @Router /export [post]
 func (hd *HandlersData) export(w http.ResponseWriter, r *http.Request) {
 	log.Println("exportHandler")
 
