@@ -23,6 +23,27 @@ func init() {
 	}
 }
 
+func setAddrAndPort(argsCommandLine []string) string {
+    addr := os.Getenv("BW_ADDR")
+    log.Println("setAddrAndPort: ", addr)
+    if addr == "" {
+        if len(argsCommandLine) == 2 {
+            log.Println("command line addr: ", argsCommandLine[1])
+            addr = argsCommandLine[1]
+            addrModel = addr
+        } else {
+            addrModel = "127.0.0.1:80"
+            log.Println("source code addr: ", addrModel)
+            addr = addrModel
+        }
+    } else {
+        log.Println("env variable addr: ", addr)
+        addrModel = addr
+    }
+
+    return addr
+}
+
 // @title Bastille-Web
 // @version 1.0
 // @description API interface to FreeBSD bastille
@@ -31,7 +52,7 @@ func init() {
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 // @host addrModel
 // @BasePath /
-func startHttpServer(argsCommandLine []string) {
+func startHttpServer(addr string) {
 	log.Println("startHttpServer")
 
 	mux := http.NewServeMux()
@@ -44,19 +65,6 @@ func startHttpServer(argsCommandLine []string) {
 	routes.templatesRoutes(mux)
 	routes.dataRoutes(mux)
 
-	addr := os.Getenv("BW_ADDR")
-	if addr == "" {
-		if len(argsCommandLine) == 2 {
-			log.Println("command line addr: ", argsCommandLine[1])
-			addr = argsCommandLine[1]
-		} else {
-			log.Println("source code addr: ", addrModel)
-			addr = addrModel
-		}
-	} else {
-		log.Println("env variable addr: ", addr)
-	}
-
 	log.Printf("Server starting on http://%s", addr)
 	if err := http.ListenAndServe(addr, mux); err != nil {
 		log.Fatalf("Server failed to start: %v", err)
@@ -65,5 +73,6 @@ func startHttpServer(argsCommandLine []string) {
 
 func main() {
 	log.Println("main")
-	startHttpServer(os.Args)
+    addr := setAddrAndPort(os.Args)
+	startHttpServer(addr)
 }

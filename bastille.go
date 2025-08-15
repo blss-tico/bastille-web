@@ -19,6 +19,29 @@ func runBastilleCommands(args ...string) (string, error) {
 	return string(result), nil
 }
 
+func runBastilleCommandAsync(args ...string) (<-chan string, <-chan error) {
+	resultChan := make(chan string, 1)
+	errChan := make(chan error, 1)
+
+	go func() {
+		defer close(resultChan)
+		defer close(errChan)
+
+		cmd := exec.Command("bastille", args...)
+		log.Println("runBastilleCommandAsync:", cmd)
+
+		result, err := cmd.CombinedOutput()
+		if err != nil {
+			errChan <- fmt.Errorf("bastille: %s, failed: %v\n%s", cmd, err, string(result))
+			return
+		}
+
+		resultChan <- string(result)
+	}()
+
+	return resultChan, errChan
+}
+
 type Bastille struct {
 }
 
@@ -625,7 +648,14 @@ func (b *Bastille) start(options, target, value string) (string, error) {
 		args = append(args, target)
 	}
 
-	return runBastilleCommands(args...)
+	//return runBastilleCommands(args...)
+	resultChan, errChan := runBastilleCommandAsync(args...)
+	select {
+	case res := <-resultChan:
+		return res, nil
+	case err := <-errChan:
+		return "", err
+	}
 }
 
 func (b *Bastille) stop(options, target string) (string, error) {
@@ -638,7 +668,14 @@ func (b *Bastille) stop(options, target string) (string, error) {
 		args = append(args, target)
 	}
 
-	return runBastilleCommands(args...)
+	// return runBastilleCommands(args...)
+	resultChan, errChan := runBastilleCommandAsync(args...)
+	select {
+	case res := <-resultChan:
+		return res, nil
+	case err := <-errChan:
+		return "", err
+	}
 }
 
 func (b *Bastille) sysrc(options, target, arg string) (string, error) {

@@ -1,6 +1,6 @@
 package main
 
-const addrModel = "127.0.0.1:80"
+var addrModel string
 
 type optionsModel struct {
 	Sflag string

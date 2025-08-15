@@ -35,7 +35,7 @@ func (ht *HandlersTemplates) home(w http.ResponseWriter, r *http.Request) {
 	bstv, _ := ht.bl.bastilleVersion()
 	sysinfo := SysInfo{
 		Hostname:        posinf[1],
-		Arch:            posinf[7],
+		Arch:            posinf[len(posinf)-1],
 		Platform:        posinf[0],
 		Osrelease:       posinf[2],
 		Totalmemory:     pmminf[0],

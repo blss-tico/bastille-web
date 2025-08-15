@@ -100,9 +100,23 @@
     let loaderDiv = document.getElementsByClassName("loader");
     for (const elem of loaderDiv) { elem.style.display = 'none'; }
     
+    let btnsStart = document.getElementsByClassName("btn-home-start-jail");
+    let btnsStop = document.getElementsByClassName("btn-home-stop-jail");
+
+    function disableButtons() {
+      for (const btna of btnsStart) { btna.setAttribute('disabled', ''); }
+      for (const btno of btnsStop) { btno.setAttribute('disabled', ''); }
+    }
+
+    function enableButtons() {
+      for (const btna of btnsStart) { btna.setAttribute('enabled', ''); }
+      for (const btno of btnsStop) { btno.setAttribute('enabled', ''); }
+    }
+
     async function startJail(target, idx) {
       const data = { options: "", target: target, value: "" };
       loaderDiv[idx].style.display = 'block';
+      disableButtons();
 
       const response = await fetch('/start', {
         method: 'POST',
@@ -121,6 +135,7 @@
         console.log('Error: ', error.message);
       }
       
+      enableButtons();
       loaderDiv[idx].style.display = 'none';
       const responseData = await response.json();
       window.location.href = "http://{{.Addr}}/";
@@ -129,8 +144,8 @@
 
     async function stopJail(target, idx) {
       const data = { options: "", target: target };
-      console.log(idx);
       loaderDiv[idx].style.display = 'block';
+      disableButtons();
 
       const response = await fetch('/stop', {
         method: 'POST',
@@ -149,6 +164,7 @@
         console.log('Error: ', error.message);
       }
 
+      enableButtons();
       loaderDiv[idx].style.display = 'none';
       const responseData = await response.json();
       window.location.href = "http://{{.Addr}}/";
