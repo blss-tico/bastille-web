@@ -21,7 +21,6 @@ func (ht *HandlersTemplates) home(w http.ResponseWriter, r *http.Request) {
 		Platform        string `json:"platform"`
 		Osrelease       string `json:"osrelease"`
 		Totalmemory     string `json:"totalmemory"`
-		Availablememory string `json:"availablememory"`
 		BastilleVersion string `json:"bastilleversion"`
 	}
 
@@ -33,14 +32,17 @@ func (ht *HandlersTemplates) home(w http.ResponseWriter, r *http.Request) {
 	pmminf := re.FindAllString(mminf, -1)
 
 	bstv, _ := ht.bl.bastilleVersion()
-	sysinfo := SysInfo{
-		Hostname:        posinf[1],
-		Arch:            posinf[len(posinf)-1],
-		Platform:        posinf[0],
-		Osrelease:       posinf[2],
-		Totalmemory:     pmminf[0],
-		Availablememory: pmminf[1],
-		BastilleVersion: bstv,
+
+	var sysinfo SysInfo
+	if len(posinf) > 0 && len(pmminf) > 0 && bstv != "" {
+		sysinfo = SysInfo{
+			Hostname:        posinf[1],
+			Arch:            posinf[len(posinf)-1],
+			Platform:        posinf[0],
+			Osrelease:       posinf[2],
+			Totalmemory:     pmminf[0],
+			BastilleVersion: bstv,
+		}
 	}
 
 	result, err := ht.bl.list("-j", "all")
@@ -48,7 +50,6 @@ func (ht *HandlersTemplates) home(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), 500)
 		return
 	}
-	// log.Println("homeTemplate result: ", result)
 
 	type List struct {
 		Jid       string `json:"jid"`
@@ -71,16 +72,16 @@ func (ht *HandlersTemplates) home(w http.ResponseWriter, r *http.Request) {
 	type HomeData struct {
 		Title     string
 		Data      bastilleModel
-		SysData   SysInfo
 		JailsData []List
+		SysData   SysInfo
 		Addr      string
 	}
 
 	data := HomeData{
 		Title:     "home",
 		Data:      bastille,
-		SysData:   sysinfo,
 		JailsData: list,
+		SysData:   sysinfo,
 		Addr:      addrModel,
 	}
 

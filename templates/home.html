@@ -2,38 +2,34 @@
   <div>
     <h3 class="ttl-home-host-info">Host Info</h3>
     {{if .SysData}}
-    <table class="tbl-home-host-info">
-      <tbody>
-        <tr>
-          <td>HOSTNAME</td>
-          <td><strong>{{ .SysData.Hostname}}</strong></td> 
-        </tr>
-        <tr>
-          <td>PLATFORM</td>
-          <td><strong>{{ .SysData.Platform}}</strong></td>
-        </tr>  
-        <tr>
-          <td>RELEASE</td>
-          <td><strong>{{ .SysData.Osrelease}}</strong></td>
-        </tr>
-        <tr>
-          <td>ARCHTECTURE</td>
-          <td><strong>{{ .SysData.Arch}}</strong></td>
-        </tr>
-        <tr>
-          <td>TOTAL MEMORY</td>
-          <td><strong>{{ .SysData.Totalmemory}} (Gb)</strong></td>
-        </tr>
-        <tr>
-          <td>AVAILABLE MEMORY</td>
-          <td><strong>{{ .SysData.Availablememory}} (Mb)</strong></td>
-        </tr>
-        <tr>
-          <td>BASTILLE VERSION</td>
-          <td><strong>{{ .SysData.BastilleVersion}}</strong></td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="tbl-home-host-info">
+        <tbody>
+          <tr>
+            <td>HOSTNAME</td>
+            <td><strong>{{ .SysData.Hostname}}</strong></td> 
+          </tr>
+          <tr>
+            <td>PLATFORM</td>
+            <td><strong>{{ .SysData.Platform}}</strong></td>
+          </tr>  
+          <tr>
+            <td>RELEASE</td>
+            <td><strong>{{ .SysData.Osrelease}}</strong></td>
+          </tr>
+          <tr>
+            <td>ARCHTECTURE</td>
+            <td><strong>{{ .SysData.Arch}}</strong></td>
+          </tr>
+          <tr>
+            <td>TOTAL MEMORY</td>
+            <td><strong>{{ .SysData.Totalmemory}} (Gb)</strong></td>
+          </tr>
+          <tr>
+            <td>BASTILLE VERSION</td>
+            <td><strong>{{ .SysData.BastilleVersion}}</strong></td>
+          </tr>
+        </tbody>
+      </table>
     {{end}}
   </div>
 

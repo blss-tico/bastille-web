@@ -2232,8 +2232,8 @@ var SwaggerInfo = &swag.Spec{
 	Description:      "API interface to FreeBSD bastille",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
-	LeftDelim:        "{{",
-	RightDelim:       "}}",
+	//LeftDelim:        "{{",
+	//RightDelim:       "}}",
 }
 
 func init() {
