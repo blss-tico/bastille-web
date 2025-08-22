@@ -105,17 +105,20 @@ func (ht *HandlersTemplates) contact(w http.ResponseWriter, r *http.Request) {
 	type ContactModel struct {
 		Title      string
 		Data       bastilleModel
+		Name       string
 		Email      string
 		Githubpers string
 		Githubproj string
 	}
 
+	const name = "Bruno Leonardo Tico)"
 	const email = "blss-tico@gmail.com"
 	const githubpers = "https://github.com/blss-tico"
 	const githubproj = "https://github.com/blss-tico/bastille-web"
 	data := ContactModel{
 		Title:      "contact",
 		Data:       bastille,
+		Name:       name,
 		Email:      email,
 		Githubpers: githubpers,
 		Githubproj: githubproj,
