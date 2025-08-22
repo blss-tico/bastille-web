@@ -112,7 +112,7 @@ func (ht *HandlersTemplates) contact(w http.ResponseWriter, r *http.Request) {
 	}
 
 	const name = "Bruno Leonardo Tico)"
-	const email = "blss-tico@gmail.com"
+	const email = "bruno.ccutp@gmail.com"
 	const githubpers = "https://github.com/blss-tico"
 	const githubproj = "https://github.com/blss-tico/bastille-web"
 	data := ContactModel{
