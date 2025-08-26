@@ -12,8 +12,8 @@ const docTemplate = `{
         "termsOfService": "http://swagger.io/terms/",
         "contact": {},
         "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+            "name": "BSD-3-Clause",
+            "url": "https://opensource.org/license/bsd-3-clause"
         },
         "version": "{{.Version}}"
     },
@@ -2225,15 +2225,15 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "127.0.0.1:80",
+	Host:             "addrModel",
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "Bastille-Web",
 	Description:      "API interface to FreeBSD bastille",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
-	//LeftDelim:        "{{",
-	//RightDelim:       "}}",
+	LeftDelim:        "{{",
+	RightDelim:       "}}",
 }
 
 func init() {

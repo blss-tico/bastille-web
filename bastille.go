@@ -42,8 +42,7 @@ func runBastilleCommandAsync(args ...string) (<-chan string, <-chan error) {
 	return resultChan, errChan
 }
 
-type Bastille struct {
-}
+type Bastille struct{}
 
 func (b *Bastille) bastilleVersion() (string, error) {
 	args := []string{"-v"}

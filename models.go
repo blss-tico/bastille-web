@@ -2,19 +2,19 @@ package main
 
 var addrModel string
 
-type optionsModel struct {
+type bastilleOptionsModel struct {
 	Sflag string
 	Lflag string
 	Text  string
 }
 
 type bastilleCommandsModel struct {
-	Command     string         `json:"command"`
-	Description string         `json:"description"`
-	Options     []optionsModel `json:"options"`
-	Fields      []string       `json:"fields"`
-	Help        string         `json:"help"`
-	HelpUrl     string         `json:"helpUrl"`
+	Command     string                 `json:"command"`
+	Description string                 `json:"description"`
+	Options     []bastilleOptionsModel `json:"options"`
+	Fields      []string               `json:"fields"`
+	Help        string                 `json:"help"`
+	HelpUrl     string                 `json:"helpUrl"`
 }
 
 type bastilleModel struct {
@@ -25,8 +25,8 @@ type bastilleModel struct {
 }
 
 type templatesModel struct {
-	Title string
-	Data  bastilleModel
+	CommandName string
+	Data        bastilleModel
 }
 
 type bootstrapModel struct {

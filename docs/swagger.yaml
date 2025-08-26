@@ -686,13 +686,13 @@ definitions:
         format: string
         type: string
     type: object
-host: 127.0.0.1:80
+host: addrModel
 info:
   contact: {}
   description: API interface to FreeBSD bastille
   license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    name: BSD-3-Clause
+    url: https://opensource.org/license/bsd-3-clause
   termsOfService: http://swagger.io/terms/
   title: Bastille-Web
   version: "1.0"
