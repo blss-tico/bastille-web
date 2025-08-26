@@ -70,19 +70,19 @@ func (ht *HandlersTemplates) home(w http.ResponseWriter, r *http.Request) {
 	}
 
 	type HomeData struct {
-		Command   string
-		Data      bastilleModel
-		JailsData []List
-		SysData   SysInfo
-		Addr      string
+		CommandName string
+		Data        bastilleModel
+		JailsData   []List
+		SysData     SysInfo
+		Addr        string
 	}
 
 	data := HomeData{
-		Command:   "home",
-		Data:      bastille,
-		JailsData: list,
-		SysData:   sysinfo,
-		Addr:      addrModel,
+		CommandName: "home",
+		Data:        bastille,
+		JailsData:   list,
+		SysData:     sysinfo,
+		Addr:        addrModel,
 	}
 
 	renderTemplateUtil(w, "home.html", data)
@@ -103,12 +103,12 @@ func (ht *HandlersTemplates) contact(w http.ResponseWriter, r *http.Request) {
 	log.Println("contactHandlersTemplates")
 
 	type ContactModel struct {
-		Command    string
-		Data       bastilleModel
-		Name       string
-		Email      string
-		Githubpers string
-		Githubproj string
+		CommandName string
+		Data        bastilleModel
+		Name        string
+		Email       string
+		Githubpers  string
+		Githubproj  string
 	}
 
 	const name = "Bruno Leonardo Tico)"
@@ -116,12 +116,12 @@ func (ht *HandlersTemplates) contact(w http.ResponseWriter, r *http.Request) {
 	const githubpers = "https://github.com/blss-tico"
 	const githubproj = "https://github.com/blss-tico/bastille-web"
 	data := ContactModel{
-		Command:    "contact",
-		Data:       bastille,
-		Name:       name,
-		Email:      email,
-		Githubpers: githubpers,
-		Githubproj: githubproj,
+		CommandName: "contact",
+		Data:        bastille,
+		Name:        name,
+		Email:       email,
+		Githubpers:  githubpers,
+		Githubproj:  githubproj,
 	}
 
 	renderTemplateUtil(w, "contact.html", data)

@@ -6,7 +6,7 @@
         <div class="card-title">{{.Command}}</div>
         <div class="card-description">{{.Description}}</div>
         <div class="card-content">
-          <form id="{{$.Title}}-form" class="card-form">
+          <form id="{{$.CommandName}}-form" class="card-form">
             <label>OPTIONS:</label><br />
             {{range .Options}}
               <input type="checkbox" name="options_{{.Lflag}}" value="{{.Sflag}}" />

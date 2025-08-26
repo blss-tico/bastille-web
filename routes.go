@@ -26,7 +26,8 @@ func (r *Routes) staticRoutes(mux *http.ServeMux) {
 
 func (r *Routes) swaggerRoutes(mux *http.ServeMux) {
 	log.Println("swaggerRoutes: ", addrModel)
-	mux.Handle("GET /swagger/",
+	mux.Handle(
+		"GET /swagger/",
 		loggingMiddleware(httpSwagger.Handler(httpSwagger.URL("http://"+addrModel+"/static/swagger.json"))),
 	)
 }
