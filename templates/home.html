@@ -1,32 +1,32 @@
 {{define "content"}}
   <div>
     <h3 class="ttl-home-host-info">Host Info</h3>
-    {{if .SysData}}
+    {{if .SysInfo}}
       <table class="tbl-home-host-info">
         <tbody>
           <tr>
             <td>HOSTNAME</td>
-            <td><strong>{{ .SysData.Hostname}}</strong></td> 
+            <td><strong>{{ .SysInfo.Hostname}}</strong></td> 
           </tr>
           <tr>
             <td>PLATFORM</td>
-            <td><strong>{{ .SysData.Platform}}</strong></td>
+            <td><strong>{{ .SysInfo.Platform}}</strong></td>
           </tr>  
           <tr>
             <td>RELEASE</td>
-            <td><strong>{{ .SysData.Osrelease}}</strong></td>
+            <td><strong>{{ .SysInfo.Osrelease}}</strong></td>
           </tr>
           <tr>
             <td>ARCHTECTURE</td>
-            <td><strong>{{ .SysData.Arch}}</strong></td>
+            <td><strong>{{ .SysInfo.Arch}}</strong></td>
           </tr>
           <tr>
             <td>TOTAL MEMORY</td>
-            <td><strong>{{ .SysData.Totalmemory}} (Gb)</strong></td>
+            <td><strong>{{ .SysInfo.Totalmemory}} (Gb)</strong></td>
           </tr>
           <tr>
             <td>BASTILLE VERSION</td>
-            <td><strong>{{ .SysData.BastilleVersion}}</strong></td>
+            <td><strong>{{ .SysInfo.BastilleVersion}}</strong></td>
           </tr>
         </tbody>
       </table>

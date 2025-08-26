@@ -73,7 +73,7 @@ func (ht *HandlersTemplates) home(w http.ResponseWriter, r *http.Request) {
 		CommandName string
 		Data        bastilleModel
 		JailsData   []List
-		SysData     SysInfo
+		SysInfo     SysInfo
 		Addr        string
 	}
 
@@ -81,7 +81,7 @@ func (ht *HandlersTemplates) home(w http.ResponseWriter, r *http.Request) {
 		CommandName: "home",
 		Data:        bastille,
 		JailsData:   list,
-		SysData:     sysinfo,
+		SysInfo:     sysinfo,
 		Addr:        addrModel,
 	}
 
