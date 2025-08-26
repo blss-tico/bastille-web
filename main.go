@@ -44,6 +44,11 @@ var bastille bastilleModel
 func init() {
 	log.Println("init")
 
+	_, err := runBastilleCommands("-v")
+	if err != nil {
+		log.Fatalln("error: bastille not installed or not found")
+	}
+
 	bastilleFile, err := os.ReadFile("bastille.json")
 	if err != nil {
 		log.Fatalf("Error: %v", err)
