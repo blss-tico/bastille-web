@@ -66,7 +66,8 @@
         // release or template
         if (key == "RELEASE|TEMPLATE") {
           // bsd flavors
-          if (value.includes("RELEASE")) {
+          const releaseRegex = /^\d+|(\.\d+)|-/;
+          if (releaseRegex.test(value)) {
             formObj[key] = value;
             return;
           }
@@ -104,6 +105,8 @@
       });
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
+      console.log(formJson);
+      return;
       
       result.innerText = 'send -> bastille ' + name;
       
