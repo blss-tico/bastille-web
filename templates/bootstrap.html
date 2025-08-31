@@ -55,12 +55,52 @@
       let options = [];
       let formObj = {};
       formData.forEach((value, key) => {
+        value = value.trim();
+
+        // options
         if (key.indexOf('options_') != -1) {
           options.push(value);
           return;
         }
 
-        formObj[key] = value;
+        // release or template
+        if (key == "RELEASE|TEMPLATE") {
+          // bsd flavors
+          if (value.includes("RELEASE")) {
+            formObj[key] = value;
+            return;
+          }
+          
+          // templates https
+          if (value.includes("https://gitlab.com/bastillebsd-templates/")) {
+            formObj[key] = value;
+            return;
+          }
+          
+          // templates git@
+          if (value.includes("git@")) {
+            formObj[key] = value;
+            return;
+          }
+          
+          // linux flavors
+          const rt = [
+            "ubuntu_bionic", "bionic", "ubuntu-bionic",
+            "ubuntu_focal","focal", "ubuntu-focal", 
+            "ubuntu_jammy","jammy", "ubuntu-jammy",
+            "ubuntu_noble","noble", "ubuntu-noble",
+            "debian_buster", "buster", "debian-buster",
+            "debian_bullseye", "bullseye", "debian-bullseye",
+            "debian_bookworm", "bookworm", "debian-bookworm"
+          ];
+          if (rt.indexOf(value) != -1) { formObj[key] = value; }
+        }
+        
+        // update or archtecture
+        if (key == "update|arch") {
+          const up = ["update", "--i386", "--32bit"];
+          if (up.indexOf(value) != -1) { formObj[key] = value; }
+        }
       });
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
