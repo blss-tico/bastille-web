@@ -44,7 +44,7 @@
     async function bootstrapSubmit(event) {
       event.preventDefault();
 
-      const name = 'bootstrap';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
