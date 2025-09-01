@@ -150,6 +150,33 @@ body {
   margin-right: 10px;
 }
 
+.home-modal {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.home-modal-text {
+  color: #e72727;
+}
+
+.home-modal-close-btn {
+  background-color: #dd544b;
+  color: #fff;
+  border-radius: 2px;
+  border: none;
+  margin: 2px;
+}
+
+.home-modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 .ttl-home-host-info {
   color: #57565e;
 }

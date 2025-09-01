@@ -14,14 +14,13 @@ async function sendHttpRequest(url, bodyData) {
     body: bodyData
   });
 
-  if (!response.ok) {
-    console.log('Response status ', response.status);
+  if (!response.ok) {    
     const error = await response.text();
-    console.log(response.status);
+    // console.log('index.js - sendHttpRequest - error - response status: ', response.status, error);
     return { code: response.status, error: error };
   }
   
   const responseData = await response.json();
-  console.log(response.status, responseData);
+  // console.log('index.js - sendHttpRequest - response status: ', response.status, responseData);
   return { code: response.status, data: responseData };
 }

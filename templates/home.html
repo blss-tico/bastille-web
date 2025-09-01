@@ -89,15 +89,41 @@
           {{end}}
         </tbody>
       </table>
+      <dialog class="home-modal" id="homeModal">
+        <h3>Error</h3>
+        <p class="home-modal-text" id="homeModalText"></p>
+        <button class="home-modal-close-btn" onclick="closeModal()">CLOSE</button>
+      </dialog>
     {{end}}
   </div>
 
   <script>
+    const timeout = 5000;
+    let hmModal = document.getElementById("homeModal");
+    let hmModalTxt = document.getElementById("homeModalText");
     let loaderDiv = document.getElementsByClassName("loader");
-    for (const elem of loaderDiv) { elem.style.display = 'none'; }
-    
     let btnsStart = document.getElementsByClassName("btn-home-start-jail");
     let btnsStop = document.getElementsByClassName("btn-home-stop-jail");
+    
+    hmModal.style.display = 'none';
+    hideLoader();
+
+    function redirectUrl() {
+      window.location.href = "http://{{.Addr}}/";
+    }
+
+    function closeModal() {
+      hmModal.style.display = 'none';
+      redirectUrl();
+    }
+
+    function hideLoader() {
+      for (const elem of loaderDiv) { elem.style.display = 'none'; }
+    }
+
+    function showLoader() {
+      for (const elem of loaderDiv) { elem.style.display = 'block'; }
+    }
 
     function disableButtons() {
       for (const btna of btnsStart) { btna.setAttribute('disabled', ''); }
@@ -110,61 +136,83 @@
     }
 
     async function startJail(target, idx) {
-      const data = { options: "", target: target, value: "" };
-      loaderDiv[idx].style.display = 'block';
       disableButtons();
+      loaderDiv[idx].style.display = 'block';
 
-      const response = await fetch('/start', {
-        method: 'POST',
-        // mode: 'no-cors',
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'accept': 'application/json',
-          'Content-Type': 'application/json',
-          'X-Request-ID': sessionStorage.getItem('id')
-        },
-        body: JSON.stringify(data),
-      });
+      const data = { options: "", target: target, value: "" };
+      const controller = new AbortController();
+      const id = setTimeout(() => controller.abort(), timeout);
 
-      if (!response.ok) {
-        const error = new Error(`HTTP error! status: ${response.status}`);
-        console.log('Error: ', error.message);
+      try {
+        const response = await fetch('/start', {
+          method: 'POST',          
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-Request-ID': sessionStorage.getItem('id')
+          },
+          body: JSON.stringify(data),
+          signal: controller.signal
+        });
+        
+        clearTimeout(id);
+
+        if (!response.ok) {        
+          const error = await response.text();
+          throw new Error(error);
+        }
+        
+        hideLoader();
+        enableButtons();
+        redirectUrl();
+      } catch (error) {
+        if (error.name === 'AbortError') { hmModalTxt.innerText = 'Fetch request timed out.'; } 
+        else { hmModalTxt.innerText = error; }
+
+        hmModal.style.display = 'block';
+        return;
       }
-      
-      enableButtons();
-      loaderDiv[idx].style.display = 'none';
-      const responseData = await response.json();
-      window.location.href = "http://{{.Addr}}/";
-      // return responseData;
     }
 
     async function stopJail(target, idx) {
-      const data = { options: "", target: target };
-      loaderDiv[idx].style.display = 'block';
       disableButtons();
+      loaderDiv[idx].style.display = 'block';
 
-      const response = await fetch('/stop', {
-        method: 'POST',
-        //mode: 'no-cors',
-        headers: {
-          'access-control-allow-origin': '*',
-          'accept': 'application/json',
-          'Content-Type': 'application/json',
-          'X-Request-ID': sessionStorage.getItem('id')
-        },
-        body: JSON.stringify(data),
-      });
+      const data = { options: "", target: target };
+      const controller = new AbortController();
+      const id = setTimeout(() => controller.abort(), timeout);
 
-      if (!response.ok) {
-        const error = new Error(`HTTP error! status: ${response.status}`);
-        console.log('Error: ', error.message);
+      try {
+        const response = await fetch('/stop', {
+          method: 'POST',
+          headers: {
+            'access-control-allow-origin': '*',
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-Request-ID': sessionStorage.getItem('id')
+          },
+          body: JSON.stringify(data),
+          signal: controller.signal
+        });
+        
+        clearTimeout(id);
+
+        if (!response.ok) {
+          const error = await response.text();
+          throw new Error(error);
+        }
+
+        hideLoader();
+        enableButtons();
+        redirectUrl();
+      } catch (error) {
+        if (error.name === 'AbortError') { hmModalTxt.innerText = 'Fetch request timed out.'; } 
+        else { hmModalTxt.innerText = error; }
+
+        hmModal.style.display = 'block';
+        return;
       }
-
-      enableButtons();
-      loaderDiv[idx].style.display = 'none';
-      const responseData = await response.json();
-      window.location.href = "http://{{.Addr}}/";
-      //return responseData;
     }
   </script>
 {{end}}

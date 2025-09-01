@@ -94,19 +94,29 @@
             "debian_bullseye", "bullseye", "debian-bullseye",
             "debian_bookworm", "bookworm", "debian-bookworm"
           ];
-          if (rt.indexOf(value) != -1) { formObj[key] = value; }
+          if (rt.indexOf(value) != -1) { 
+            formObj[key] = value;
+            return;
+          }
+
+          error.innerText = "[Error]: RELEASE|TEMPLATE is incorrect, see help;";
         }
         
         // update or archtecture
         if (key == "update|arch") {
-          const up = ["update", "--i386", "--32bit"];
-          if (up.indexOf(value) != -1) { formObj[key] = value; }
+          const updatearchRegex = /(update|--i386|--32bit)$/;
+          if (updatearchRegex.test(value) || value == "") { 
+            formObj[key] = value;
+          } else { 
+            error.innerText = "[Error]: update, --i386, --32bit are the valid options for this field;"; 
+          }
         }
       });
+      
+      if (error.innerText != "") { return; }
+
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
-      console.log(formJson);
-      return;
       
       result.innerText = 'send -> bastille ' + name;
       
