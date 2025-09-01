@@ -44,7 +44,7 @@
     async function cmdSubmit(event) {
       event.preventDefault();
 
-      const name = 'cmd';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -60,8 +60,20 @@
           return;
         }
 
-        formObj[key] = value.trimEnd();
+        value = value.trim();
+
+        if (key == "TARGET" || key == "COMMAND") {
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+        }
+        
+        error.innerText = "[Error]: invalid/empty values for TARGET or COMMAND fields";
       });
+
+      if (error.innerText != "") { return; }
+
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
 

@@ -55,14 +55,14 @@
       let options = [];
       let formObj = {};
       formData.forEach((value, key) => {
-        value = value.trim();
-
         // options
         if (key.indexOf('options_') != -1) {
           options.push(value);
           return;
         }
 
+        value = value.trim();
+        
         // release or template
         if (key == "RELEASE|TEMPLATE") {
           // bsd flavors

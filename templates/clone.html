@@ -59,6 +59,8 @@
           return;
         }
 
+        value = value.trim();
+
         if (key == "TARGET" || key == "NEW_NAME") {
           if (value != "") {
             formObj[key] = value;
