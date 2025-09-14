@@ -68,10 +68,6 @@
           let frt = document.getElementById(key);
           frt.style.borderColor = 'initial';
 
-          if (value == "") {
-            error.innerText = `[Error]: field ${key} required`;
-          }
-
           // bsd flavors
           const releaseRegex = /^\d+|(\.\d+)|-/;
           if (releaseRegex.test(value)) {
