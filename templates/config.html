@@ -50,7 +50,7 @@
     async function configSubmit(event) {
       event.preventDefault();
 
-      const name = 'config';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -72,8 +72,20 @@
           return;
         }
 
+        value = value.trim();
+
+        if (key == "TARGET") {
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+        }
+
         formObj[key] = value;
       });
+      
+      if (error.innerText != "") { return; }
+
       formObj['options'] = options.join(' ').trimEnd();
       formObj['action'] = actions.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);

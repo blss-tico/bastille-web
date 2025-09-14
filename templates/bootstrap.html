@@ -14,10 +14,10 @@
               &nbsp;
             {{end}}
             <br /><br />
-            {{range .Fields}}
+            {{range .Fields}}                            
               <label>{{.}}</label><br />
-              <input type="text" name="{{.}}" />
-              <br /><br />
+              <input type="text" name="{{.}}" id="{{.}}" />
+              <br /><br />              
             {{end}}
             <button class="btn-card-submit" onclick="bootstrapSubmit(event)">Submit</button>          
           </form>
@@ -65,6 +65,13 @@
         
         // release or template
         if (key == "RELEASE|TEMPLATE") {
+          let frt = document.getElementById(key);
+          frt.style.borderColor = 'initial';
+
+          if (value == "") {
+            error.innerText = `[Error]: field ${key} required`;
+          }
+
           // bsd flavors
           const releaseRegex = /^\d+|(\.\d+)|-/;
           if (releaseRegex.test(value)) {
@@ -99,6 +106,7 @@
             return;
           }
 
+          frt.style.borderColor = '#e72727';
           error.innerText = "[Error]: RELEASE|TEMPLATE is incorrect, see help;";
         }
         
