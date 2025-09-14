@@ -15,7 +15,7 @@
             <br /><br />
             {{range .Fields}}
               <label>{{.}}</label><br />
-              <input type="text" name="{{.}}" />
+              <input type="text" name="{{.}}" id="{{.}}" />
               <br /><br />
             {{end}}
             <button class="btn-card-submit" onclick="cloneSubmit(event)">Submit</button>          
@@ -62,19 +62,29 @@
         value = value.trim();
 
         if (key == "TARGET" || key == "NEW_NAME") {
+          let tn = document.getElementById(key);
+          tn.style.borderColor = 'initial';
+
           if (value != "") {
-            formObj[key] = value;
+            formObj[key] = value;  
             return;
           }
+
+          tn.style.borderColor = '#e72727';          
         }
 
         if (key == "IP") {
+          let i = document.getElementById(key);
+          i.style.borderColor = 'initial';
+
           const ipv4Regex = /^(?:(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)$/;
           const ipv4CidrRegex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(?:\/([0-2]?[0-9]|3[0-2]))$/;
           if (ipv4Regex.test(value) || ipv4CidrRegex.test(value)) {
             formObj[key] = value;
             return;
           }
+            
+          i.style.borderColor = '#e72727';          
         }
 
         error.innerText = "[Error]: invalid value for TARGET, NET_NAME or IP fields";
