@@ -16,11 +16,11 @@
             {{range .Fields}}
               <br />
               {{if (or (eq . "get") (eq . "set") (eq . "add") (eq . "remove"))}}
-                <input type="checkbox" name="action_{{.}}" value="{{.}}" />
+                <input type="radio" name="action" value="{{.}}" id="{{.}}" onchange="handleRadioBtn(this)"/>
                 <label for="{{.}}">{{.}}</label>
               {{else}}
                 <label>{{.}}</label><br />
-                <input type="text" name="{{.}}" />
+                <input type="text" name="{{.}}" id="{{.}}"/>
               {{end}}
               <br />
             {{end}}
@@ -47,6 +47,12 @@
   </div>
 
   <script>
+    function handleRadioBtn(radio) {
+      let v = document.getElementById("VALUE");
+      v.disabled = false;
+      if (radio.value === 'get' || radio.value === 'remove') { v.disabled = true; }
+    }
+
     async function configSubmit(event) {
       event.preventDefault();
 
@@ -59,7 +65,7 @@
       const form = document.getElementById(name + '-form');
       const formData = new FormData(form);
       let options = [];
-      let actions = [];
+      let action = "";
       let formObj = {};
       formData.forEach((value, key) => {
         if (key.indexOf('options_') != -1) {
@@ -67,27 +73,56 @@
           return;
         }
 
-        if (key.indexOf('action_') != -1) {
-          actions.push(value);
+        value = value.trim();
+
+        if (key == "action") {
+          action = value;
+          formObj[key] = value;
           return;
         }
 
-        value = value.trim();
+        if (key === "TARGET") {
+          let t = document.getElementById(key);
+          t.style.borderColor = 'initial';
 
-        if (key == "TARGET") {
           if (value != "") {
             formObj[key] = value;
             return;
           }
+
+          t.style.borderColor = '#e72727';
         }
 
-        formObj[key] = value;
+        if (key === "PROPERTY") {
+          let p = document.getElementById(key);
+          p.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          p.style.borderColor = '#e72727';
+        }
+
+        if (key === "VALUE") {
+          let v = document.getElementById(key);
+          v.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          v.style.borderColor = '#e72727';
+        }
+
+        error.innerText = "[Error]: invalid/empty values for TARGET, PROPERTY or VALUE fields.";
       });
       
       if (error.innerText != "") { return; }
 
       formObj['options'] = options.join(' ').trimEnd();
-      formObj['action'] = actions.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
 
       result.innerText = 'send -> bastille ' + name;

@@ -16,7 +16,7 @@
             <br /><br />
             {{range .Fields}}
               <label>{{.}}</label><br />
-              <input type="text" name="{{.}}" />
+              <input type="text" name="{{.}}" id="{{.}}"/>
               <br /><br />
             {{end}}
             <button class="btn-card-submit" onclick="cmdSubmit(event)">Submit</button>          
@@ -63,10 +63,15 @@
         value = value.trim();
 
         if (key == "TARGET" || key == "COMMAND") {
+          let tc = document.getElementById(key);
+          tc.style.borderColor = 'initial';
+
           if (value != "") {
             formObj[key] = value;
             return;
           }
+
+          tc.style.borderColor = '#e72727';
         }
         
         error.innerText = "[Error]: invalid/empty values for TARGET or COMMAND fields";
