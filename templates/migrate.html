@@ -16,7 +16,7 @@
             <br /><br />
             {{range .Fields}}
               <label>{{.}}</label><br />
-              <input type="text" name="{{.}}" />
+              <input type="text" name="{{.}}" id="{{.}}"/>
               <br /><br />
             {{end}}
             <button class="btn-card-submit" onclick="migrateSubmit(event)">Submit</button>          
@@ -44,7 +44,7 @@
     async function migrateSubmit(event) {
       event.preventDefault();
 
-      const name = 'migrate';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -60,10 +60,40 @@
           return;
         }
 
-        formObj[key] = value;
+        value = value.trim();
+
+        if (key === "TARGET") {
+          let t = document.getElementById(key);
+          t.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          t.style.borderColor = '#e72727';
+          error.innerText = "[Error]: TARGET is a required field.";
+        }
+
+        if (key === "REMOTE") {
+          let r = document.getElementById(key);
+          r.style.borderColor = 'initial';
+
+          const remoteRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+(?:\.[a-zA-Z]{2,})?(?::\d{1,5})?$/;
+          if (remoteRegex.test(value)) {
+            formObj[key] = value;
+            return;
+          }
+
+          r.style.borderColor = '#e72727';
+          error.innerText = "[Error]: REMOTE is a required field.";
+        }
       });
+
+      if (error.innerText != "") { return; }
+
       formObj['options'] = options.join(' ').trimEnd();
-      const formJson = JSON.stringify(formObj);
+      const formJson = JSON.stringify(formObj);      
 
       result.innerText = 'send -> bastille ' + name;
 
