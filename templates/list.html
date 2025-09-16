@@ -17,11 +17,11 @@
               {{if or (eq . "RELEASE")}}
                 <br /><br />
                 <label>{{.}}</label><br />
-                <input type="text" name="{{.}}" />
+                <input type="text" name="{{.}}" id="{{.}}"/>
                 <br /><br />
               {{else}}
-                <input type="radio" id="{{.}}" name="action" value="{{.}}" />
-                <label for="actions_{{.}}">{{.}}</label>
+                <input type="radio" id="{{.}}" name="action" value="{{.}}" onchange="handleRadioBtn(this)" />
+                <label for="action">{{.}}</label>
                 &nbsp;
               {{end}}
             {{end}}
@@ -48,10 +48,22 @@
   </div>
 
   <script>
+    function handleRadioBtn(radio) {
+      let r = document.getElementById("RELEASE");
+      r.style.border = '1px solid #8f8f9d';
+      r.disabled = false;
+      
+      if (radio.value !== '') { 
+        r.style.border = '1px solid #ccc';
+        r.disabled = true; 
+        return;
+      }
+    }
+
     async function listSubmit(event) {
       event.preventDefault();
 
-      const name = 'list';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -68,8 +80,13 @@
           return;
         }
 
+        value = value.trim();
+
         formObj[key] = value;
       });
+
+      if (error.innerText != "") { return; }
+      
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
 
