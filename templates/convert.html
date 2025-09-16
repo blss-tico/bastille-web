@@ -44,7 +44,7 @@
     async function convertSubmit(event) {
       event.preventDefault();
 
-      const name = 'convert';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -72,7 +72,7 @@
           }
 
           t.style.borderColor = '#e72727';
-          error.innerText = "[Error]: invalid value for TARGET field.";
+          error.innerText = "[Error]: TARGET field is required.";
         }
 
         if (key === "RELEASE") {

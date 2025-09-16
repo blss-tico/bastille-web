@@ -70,7 +70,8 @@
             return;
           }
 
-          tn.style.borderColor = '#e72727';          
+          tn.style.borderColor = '#e72727';
+          error.innerText = "[Error]: TARGET, NEW_NAME are required fields";        
         }
 
         if (key == "IP") {
@@ -84,10 +85,9 @@
             return;
           }
             
-          i.style.borderColor = '#e72727';          
+          i.style.borderColor = '#e72727';
+          error.innerText = "[Error]: IP is a required field, must to be a valid IP number. CIDR can be used.";
         }
-
-        error.innerText = "[Error]: invalid value for TARGET, NET_NAME or IP fields";
       });
 
       if (error.innerText != "") { return; }

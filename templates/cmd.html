@@ -72,9 +72,8 @@
           }
 
           tc.style.borderColor = '#e72727';
+          error.innerText = "[Error]: TARGET or COMMAND are required fields.";
         }
-        
-        error.innerText = "[Error]: invalid/empty values for TARGET or COMMAND fields";
       });
 
       if (error.innerText != "") { return; }

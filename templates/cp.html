@@ -16,7 +16,7 @@
             <br /><br />
             {{range .Fields}}
               <label>{{.}}</label><br />
-              <input type="text" name="{{.}}" />
+              <input type="text" name="{{.}}" id="{{.}}"/>
               <br /><br />
             {{end}}
             <button class="btn-card-submit" onclick="cpSubmit(event)">Submit</button>          
@@ -44,7 +44,7 @@
     async function cpSubmit(event) {
       event.preventDefault();
 
-      const name = 'cp';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -60,11 +60,51 @@
           return;
         }
 
-        formObj[key] = value;
+        if (key === "TARGET") {
+          let t = document.getElementById(key);
+          t.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;    
+          }
+
+          t.style.borderColor = '#e72727';
+          error.innerText = "[Error]: TARGET field is required";
+        }
+
+        if (key === "HOST_PATH") {
+          let hp = document.getElementById(key);
+          hp.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;    
+          }
+
+          hp.style.borderColor = '#e72727';
+          error.innerText = "[Error]: HOST_PATH field is required";
+        }
+
+        if (key === "JAIL_PATH") {
+          let jp = document.getElementById(key);
+          jp.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;    
+          }
+
+          jp.style.borderColor = '#e72727';
+          error.innerText = "[Error]: JAIL_PATH field is required";
+        }
       });
+
+      if (error.innerText != "") { return; }
+      
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
-
+      
       result.innerText = 'send -> bastille ' + name;
 
       const response = await sendHttpRequest(name, formJson);

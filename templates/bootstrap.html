@@ -103,17 +103,22 @@
           }
 
           frt.style.borderColor = '#e72727';
-          error.innerText = "[Error]: RELEASE|TEMPLATE is incorrect, see help;";
+          error.innerText = "[Error]: RELEASE|TEMPLATE is incorrect, see help.";
         }
         
         // update or archtecture
         if (key == "update|arch") {
+          let ua = document.getElementById(key);
+          ua.style.borderColor = 'initial';
+
           const updatearchRegex = /(update|--i386|--32bit)$/;
           if (updatearchRegex.test(value) || value == "") { 
             formObj[key] = value;
-          } else { 
-            error.innerText = "[Error]: update, --i386, --32bit are the valid options for this field;"; 
+            return;
           }
+          
+          ua.style.borderColor = '#e72727';
+          error.innerText = "[Error]: update|arch field must to be [update, --i386, --32bit]."; 
         }
       });
       
