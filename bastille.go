@@ -316,7 +316,7 @@ func (b *Bastille) htop(options, target string) (string, error) {
 }
 
 func (b *Bastille) imporT(options, file, release string) (string, error) {
-	args := []string{"htop"}
+	args := []string{"import"}
 
 	if options != "" {
 		args = append(args, options)
