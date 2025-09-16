@@ -49,6 +49,7 @@
   <script>
     function handleRadioBtn(radio) {
       let v = document.getElementById("VALUE");
+      v.style.borderColor = 'initial';
       v.disabled = false;
       if (radio.value === 'get' || radio.value === 'remove') { v.disabled = true; }
     }
@@ -65,7 +66,6 @@
       const form = document.getElementById(name + '-form');
       const formData = new FormData(form);
       let options = [];
-      let action = "";
       let formObj = {};
       formData.forEach((value, key) => {
         if (key.indexOf('options_') != -1) {
@@ -76,7 +76,6 @@
         value = value.trim();
 
         if (key == "action") {
-          action = value;
           formObj[key] = value;
           return;
         }
@@ -91,6 +90,7 @@
           }
 
           t.style.borderColor = '#e72727';
+          error.innerText = "[Error]: invalid value for TARGET field.";
         }
 
         if (key === "PROPERTY") {
@@ -103,6 +103,7 @@
           }
 
           p.style.borderColor = '#e72727';
+          error.innerText = "[Error]: invalid value for PROPERTY field.";
         }
 
         if (key === "VALUE") {
@@ -115,9 +116,8 @@
           }
 
           v.style.borderColor = '#e72727';
+          error.innerText = "[Error]: invalid value for VALUE field.";
         }
-
-        error.innerText = "[Error]: invalid/empty values for TARGET, PROPERTY or VALUE fields.";
       });
       
       if (error.innerText != "") { return; }
