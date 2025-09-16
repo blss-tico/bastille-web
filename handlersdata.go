@@ -356,7 +356,13 @@ func (hd *HandlersData) export(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	result, err := hd.bl.export(data.Options, data.Target, data.Path)
+	options := strings.Split(data.Options, " ")
+	if len(options) == 0 {
+		http.Error(w, "options error", http.StatusBadRequest)
+		return
+	}
+
+	result, err := hd.bl.export(options, data.Target, data.Path)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

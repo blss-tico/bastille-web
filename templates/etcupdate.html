@@ -61,7 +61,7 @@
     async function etcupdateSubmit(event) {
       event.preventDefault();
 
-      const name = 'etcupdate';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";

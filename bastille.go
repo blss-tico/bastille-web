@@ -285,12 +285,10 @@ func (b *Bastille) etcupdate(options, bootstraptarget, action, release string) (
 	return runBastilleCommands(args...)
 }
 
-func (b *Bastille) export(options, target, path string) (string, error) {
+func (b *Bastille) export(options []string, target, path string) (string, error) {
 	args := []string{"export"}
 
-	if options != "" {
-		args = append(args, options)
-	}
+	args = append(args, options...)
 
 	if target != "" {
 		args = append(args, target)
