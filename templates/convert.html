@@ -16,7 +16,7 @@
             <br /><br />
             {{range .Fields}}
               <label>{{.}}</label><br />
-              <input type="text" name="{{.}}" />
+              <input type="text" name="{{.}}" id="{{.}}"/>
               <br /><br />
             {{end}}
             <button class="btn-card-submit" onclick="convertSubmit(event)">Submit</button>          
@@ -54,14 +54,43 @@
       const formData = new FormData(form);      
       let options = [];
       let formObj = {};
+      let targetControl = false;
       formData.forEach((value, key) => {
         if (key.indexOf('options_') != -1) {
           options.push(value);
           return;
         }
 
-        formObj[key] = value;
+        if (key === "TARGET") {
+          let t = document.getElementById(key);
+          t.style.borderColor = 'initial';
+
+          if (value != "") {
+            targetControl = true;
+            formObj[key] = value;
+            return;    
+          }
+
+          t.style.borderColor = '#e72727';
+          error.innerText = "[Error]: invalid value for TARGET field.";
+        }
+
+        if (key === "RELEASE") {
+          let r = document.getElementById(key);
+          r.style.borderColor = 'initial';
+
+          if (targetControl) {
+            formObj[key] = value;
+            return;
+          }
+
+          r.style.borderColor = '#e72727';
+          error.innerText = "[Error]: RELEASE field depends on TARGET field.";
+        }
       });
+
+      if (error.innerText != "") { return; }
+
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
 
