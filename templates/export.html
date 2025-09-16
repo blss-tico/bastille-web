@@ -60,6 +60,8 @@
           return;
         }
 
+        value = value.trim();
+
         if (key === "TARGET") {
           let t = document.getElementById(key);
           t.style.borderColor = 'initial';
@@ -73,7 +75,12 @@
           error.innerText = "[Error]: TARGET is a required field.";
         }
 
-        formObj[key] = value;
+        if (key === "PATH") {
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+        }        
       });
 
       if (error.innerText != "") { return; }
