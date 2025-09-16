@@ -17,11 +17,11 @@
               {{if or (eq . "TARGET") (eq . "OPTION") (eq . "VALUE")}}
                 <br /><br />
                 <label>{{.}}</label><br />
-                <input type="text" name="{{.}}" />
+                <input type="text" name="{{.}}" id="{{.}}"/>
                 <br />
               {{else}}            
-                <input type="radio" id="{{.}}" name="action" value="{{.}}" />
-                <label for="actions_{{.}}">{{.}}</label>
+                <input type="radio" id="{{.}}" name="action" value="{{.}}" onchange="handleRadioBtn(this)" />
+                <label for="action">{{.}}</label>
                 &nbsp;
               {{end}}
             {{end}}
@@ -37,6 +37,14 @@
             {{range .Options}}
               <p>&nbsp;&nbsp;{{.Sflag}}&nbsp;|&nbsp;{{.Lflag}}&nbsp;-&nbsp;{{.Text}}</p>
             {{end}}
+            <h4>OPTION FIELD (possible values)</h4>
+            <ul>
+              <li>cputime, datasize, stacksize, coredumpsize, memoryuse;</li> 
+              <li>memorylocked, maxproc, openfiles, vmemoryuse, pseudoterminals;</li> 
+              <li>swapuse, nthr, msgqqueued, msgqsize, nmsgq;</li> 
+              <li>nsemop, nshm, shmsize, wallclock, pcpu;</li> 
+              <li>readbps, writebps, readiops, writeiops;</li>            
+            </ul>
           </div>
         </div>
       {{end}}
@@ -48,10 +56,46 @@
   </div>
 
   <script>
+    let optional = false;
+
+    function handleRadioBtn(radio) {
+      const initialBorder = '1px solid #8f8f9d';
+      const disabledBorder = '1px solid #ccc';
+
+      let o = document.getElementById("OPTION");
+      o.style.border = initialBorder;
+      o.disabled = false;
+
+      let v = document.getElementById("VALUE");
+      v.style.border = initialBorder;
+      v.disabled = false;
+      
+      if (radio.value === 'clear' || radio.value === 'reset' || radio.value === 'stats') { 
+        o.style.border = disabledBorder;
+        o.disabled = true;        
+        v.style.border = disabledBorder;
+        v.disabled = true; 
+        return;
+      }
+
+      if (radio.value === 'remove' || radio.value === 'active') {
+        v.style.border = disabledBorder;
+        v.disabled = true; 
+        return;
+      }
+
+      if (radio.value === 'list' || radio.value === 'show') {
+        v.style.border = disabledBorder;
+        v.disabled = true; 
+        optional = true;
+        return;
+      }
+    }
+
     async function limitsSubmit(event) {
       event.preventDefault();
 
-      const name = 'limits';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -67,8 +111,55 @@
           return;
         }
 
-        formObj[key] = value;
+        value = value.trim();
+
+        if (key === "action") {
+          formObj[key] = value;
+          return;
+        }
+
+        if (key === "TARGET") {
+          let sj = document.getElementById(key);
+          sj.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          sj.style.borderColor = '#e72727';
+          error.innerText = "[Error]: TARGET is a required field.";
+        }
+        
+        if (key === "OPTION") {
+          let o = document.getElementById(key);
+          o.style.borderColor = 'initial';
+
+          if (value != "" || optional) {
+            formObj[key] = value;
+            return;
+          }
+
+          o.style.borderColor = '#e72727';
+          error.innerText = "[Error]: OPTION is a required field.";
+        }
+
+        if (key === "VALUE") {
+          let v = document.getElementById(key);
+          v.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          v.style.borderColor = '#e72727';
+          error.innerText = "[Error]: VALUE is a required field.";
+        }
       });
+
+      if (error.innerText != "") { return; }
+
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
 

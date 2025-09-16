@@ -380,7 +380,7 @@
         "lflag": "--debug",
         "text": "Enable debug mode."
       }],
-      "fields": ["TARGET", "add", "remove", "clear", "reset", "list", "show", "active", "stats", "OPTION", "VALUE"],
+      "fields": ["TARGET", "add", "remove", "clear", "reset", "list", "show", "stats", "OPTION", "VALUE"],
       "help": "bastille limits [option(s)] TARGET [add|remove|clear|reset|(list|show [active])|stats] OPTION [VALUE]",
       "helpUrl": "https://bastille.readthedocs.io/en/latest/chapters/subcommands/limits.html"
     },
