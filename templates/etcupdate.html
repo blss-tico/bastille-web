@@ -16,11 +16,11 @@
             <br /><br />
             {{range .Fields}}
               {{if (or (eq . "diff") (eq . "resolve") (eq . "update"))}}
-                <input type="checkbox" name="action_{{.}}" value="{{.}}" />
+                <input type="radio" name="action" value="{{.}}" onchange="handleRadioBtn(this)" />
                 <label for="{{.}}">{{.}}</label>
               {{else}}
                 <label>{{.}}</label><br />
-                <input type="text" name="{{.}}" />
+                <input type="text" name="{{.}}" id="{{.}}"/>
               {{end}}
               <br /><br />
             {{end}}
@@ -46,6 +46,18 @@
   </div>
 
   <script>
+    function handleRadioBtn(radio) {
+      let r = document.getElementById("RELEASE");
+      r.style.border = '1px solid #8f8f9d';
+      r.disabled = false;
+      
+      if (radio.value === 'resolve') { 
+        r.style.border = '1px solid #ccc';
+        r.disabled = true;         
+        return;
+      }
+    }
+
     async function etcupdateSubmit(event) {
       event.preventDefault();
 
@@ -58,7 +70,6 @@
       const form = document.getElementById(name + '-form');
       const formData = new FormData(form);      
       let options = [];
-      let actions = [];
       let formObj = {};
       formData.forEach((value, key) => {
         if (key.indexOf('options_') != -1) {
@@ -66,15 +77,41 @@
           return;
         }
 
-        if (key.indexOf('action_') != -1) {
-          actions.push(value);
+        if (key === "action") {
+          formObj[key] = value;
           return;
         }
 
-        formObj[key] = value;
+        if (key === "bootstrap|TARGET") {
+          let bt = document.getElementById(key);
+          bt.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          bt.style.borderColor = '#e72727';
+          error.innerText = "[Error]: bootstrap|TARGET is a required field.";
+        }
+
+        if (key === "RELEASE") {
+          let r = document.getElementById(key);
+          r.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          r.style.borderColor = '#e72727';
+          error.innerText = "[Error]: RELEASE is a required field for diff and update.";
+        }
       });
+
+      if (error.innerText != "") { return; }
+      
       formObj['options'] = options.join(' ').trimEnd();
-      formObj['action'] = actions.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
 
       result.innerText = 'send -> bastille ' + name;

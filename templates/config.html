@@ -49,9 +49,14 @@
   <script>
     function handleRadioBtn(radio) {
       let v = document.getElementById("VALUE");
-      v.style.borderColor = 'initial';
+      v.style.border = '1px solid #8f8f9d';
       v.disabled = false;
-      if (radio.value === 'get' || radio.value === 'remove') { v.disabled = true; }
+      
+      if (radio.value === 'get' || radio.value === 'remove') { 
+        v.style.border = '1px solid #ccc';
+        v.disabled = true; 
+        return;
+      }
     }
 
     async function configSubmit(event) {
