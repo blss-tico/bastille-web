@@ -16,7 +16,7 @@
             <br /><br />
             {{range .Fields}}
               <label>{{.}}</label><br />
-              <input type="text" name="{{.}}" />
+              <input type="text" name="{{.}}" id="{{.}}"/>
               <br /><br />
             {{end}}
             <button class="btn-card-submit" onclick="destroySubmit(event)">Submit</button>          
@@ -44,7 +44,7 @@
     async function destroySubmit(event) {
       event.preventDefault();
 
-      const name = 'destroy';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -60,8 +60,22 @@
           return;
         }
 
-        formObj[key] = value;
+        if (key === "JAIL|RELEASE") {
+          let jr = document.getElementById(key);
+          jr.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          jr.style.borderColor = '#e72727';
+          error.innerText = "[Error]: JAIL|RELEASE is a required field.";
+        }        
       });
+
+      if (error.innerText != "") { return; }
+
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
 
