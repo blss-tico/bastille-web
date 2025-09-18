@@ -9,24 +9,22 @@
           <form id="{{$.CommandName}}-form" class="card-form">
             <label>OPTIONS:</label><br />
             {{range .Options}}
-              <input type="checkbox" name="options_{{.Lflag}}" value="{{.Sflag}}" />
+              <input type="checkbox" name="options_{{.Lflag}}" value="{{.Sflag}}" onchange="handleCheckBox(this)"/>
               <label for="{{.Lflag}}">{{.Lflag}}</label>
               &nbsp;
             {{end}}
-            <br />
+            <br /><br />
             {{range .Fields}}
               {{if or (eq . "add") (eq . "remove")}}              
-                <input type="radio" id="{{.}}" name="action" value="{{.}}" />
-                <label for="{{.}}">{{.}}</label>
-                &nbsp;
-              {{else}}
-                <br />
+                <input type="radio" id="{{.}}" name="action" value="{{.}}" onchange="handleRadioBtn(this)"/>
+                <label for="action">{{.}}</label>
+                &nbsp;<br /><br />
+              {{else}}              
                 <label>{{.}}</label><br />
-                <input type="text" name="{{.}}" />
-                <br />
+                <input type="text" name="{{.}}" id="{{.}}"/>
+                <br /><br />
               {{end}}            
-            {{end}}
-            <br />
+            {{end}}            
             <button class="btn-card-submit" onclick="networkSubmit(event)">Submit</button>          
           </form>
         </div>
@@ -49,10 +47,32 @@
   </div>
 
   <script>
+    let v = document.getElementById("VLANID");
+    v.disabled = true;
+
+    let i = document.getElementById("IP");
+    i.disabled = false;
+    
+    function handleRadioBtn(radio) {
+      i.style.border = '1px solid #8f8f9d';
+      i.disabled = false;
+
+      if (radio.value === 'remove') { 
+        i.style.border = '1px solid #ccc';
+        i.disabled = true; 
+        return;
+      }
+    }
+
+    function handleCheckBox(check) {
+      v.disabled = true;
+      if (check.checked && (check.value === '-v' || check.value === '--vlan')) { v.disabled = false; }
+    }
+
     async function networkSubmit(event) {
       event.preventDefault();
 
-      const name = 'network';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -63,13 +83,61 @@
       let options = [];
       let formObj = {};
       formData.forEach((value, key) => {
-        if (key.indexOf('options_') != -1) {
+        if (key.indexOf('options_') != -1) {        
           options.push(value);
           return;
         }
 
-        formObj[key] = value;
+        value = value.trim();
+
+        if (key === "action") {
+          formObj[key] = value;
+          return;
+        }
+
+        if (key === "TARGET") {
+          let t = document.getElementById(key);
+          t.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          t.style.borderColor = '#e72727';
+          error.innerText = "[Error]: TARGET is a required field.";
+        }
+
+        if (key === "INTERFACE") {
+          let i = document.getElementById(key);
+          i.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          i.style.borderColor = '#e72727';
+          error.innerText = "[Error]: INTERFACE is a required field.";
+        }
+
+        if (key === "IP") {
+          let i = document.getElementById(key);
+          i.style.borderColor = 'initial';
+
+          const ipv4Regex = /^(?:(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)$/;
+          if (ipv4Regex.test(value)) {
+            formObj[key] = value;
+            return;
+          }
+
+          i.style.borderColor = '#e72727';
+          error.innerText = "[Error]: IP field must to be a valid IP address.";
+        }
       });
+
+      if (error.innerText != "") { return; }
+
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
 
