@@ -16,7 +16,7 @@
             <br /><br />
             {{range .Fields}}
               <label>{{.}}</label><br />
-              <input type="text" name="{{.}}" />
+              <input type="text" name="{{.}}" id="{{.}}"/>
               <br /><br />
             {{end}}
             <button class="btn-card-submit" onclick="mountSubmit(event)">Submit</button>          
@@ -44,7 +44,7 @@
     async function mountSubmit(event) {
       event.preventDefault();
 
-      const name = 'mount';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -60,8 +60,104 @@
           return;
         }
 
-        formObj[key] = value;
+        value = value.trim();
+
+        if (key === "TARGET") {
+          let t = document.getElementById(key);
+          t.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          t.style.borderColor = '#e72727';
+          error.innerText = "[Error]: TARGET is a required field.";
+        }
+
+        if (key === "HOST_PATH") {
+          let hp = document.getElementById(key);
+          hp.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          hp.style.borderColor = '#e72727';
+          error.innerText = "[Error]: HOST_PATH is a required field.";
+        }
+        
+        if (key === "JAIL_PATH") {
+          let jp = document.getElementById(key);
+          jp.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          jp.style.borderColor = '#e72727';
+          error.innerText = "[Error]: JAIL_PATH is a required field.";
+        }
+        
+        if (key === "filesystem_type") {
+          let ft = document.getElementById(key);
+          ft.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          ft.style.borderColor = '#e72727';
+          error.innerText = "[Error]: filesystem_type is a required field.";
+        }
+
+        if (key === "option") {
+          let o = document.getElementById(key);
+          o.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          o.style.borderColor = '#e72727';
+          error.innerText = "[Error]: option is a required field.";
+        }
+
+        if (key === "dump") {
+          let d = document.getElementById(key);
+          d.style.borderColor = 'initial';
+
+          const dumpRegex = /^(0|[1-9]\d{0,2})$/;
+          if (dumpRegex.test(value)) {
+            formObj[key] = value;
+            return;
+          }
+
+          d.style.borderColor = '#e72727';
+          error.innerText = "[Error]: dump is a required field.";
+        }
+
+        if (key === "pass_number") {
+          let pn = document.getElementById(key);
+          pn.style.borderColor = 'initial';
+
+          let pnRegex = /^(0|[1-9]\d{0,3}|[12]\d{4}|3[01]\d{3}|32[0-5]\d{2}|326[0-4]\d|3265[0-5])$/;
+          if (pnRegex.test(value)) {
+            formObj[key] = value;
+            return;
+          }
+
+          pn.style.borderColor = '#e72727';
+          error.innerText = "[Error]: pass_number is a required field.";
+        }
       });
+
+      if (error.innerText != "") { return; }
+
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
 
