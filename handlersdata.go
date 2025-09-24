@@ -687,7 +687,12 @@ func (hd *HandlersData) rdr(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	result, err := hd.bl.rdr(data.Options, data.Optionsarg, data.Target, data.Action, data.Hostport, data.Jailport, data.Log, data.Logopts)
+	odestination := strings.Split(data.Odestination, " ")
+	ointerface := strings.Split(data.Ointerface, " ")
+	osource := strings.Split(data.Osource, " ")
+	otype := strings.Split(data.Otype, " ")
+
+	result, err := hd.bl.rdr(data.Options, odestination, ointerface, osource, otype, data.Target, data.Action, data.Hostport, data.Jailport, data.Log, data.Logopts)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

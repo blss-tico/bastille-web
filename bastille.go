@@ -521,14 +521,27 @@ func (b *Bastille) rcp(options, target, jailpath, hostpath string) (string, erro
 	return runBastilleCommands(args...)
 }
 
-func (b *Bastille) rdr(options, optionsarg, target, action, hostport, jailport, log, logopts string) (string, error) {
+func (b *Bastille) rdr(options string, odestination []string, ointerface []string, osource []string, otype []string, target, action, hostport, jailport, logg, logopts string) (string, error) {
 	args := []string{"rdr"}
+
 	if options != "" {
 		args = append(args, options)
 	}
 
-	if optionsarg != "" {
-		args = append(args, optionsarg)
+	if len(odestination) == 2 {
+		args = append(args, odestination...)
+	}
+
+	if len(ointerface) == 2 {
+		args = append(args, ointerface...)
+	}
+
+	if len(osource) == 2 {
+		args = append(args, osource...)
+	}
+
+	if len(otype) == 2 {
+		args = append(args, otype...)
 	}
 
 	if target != "" {
@@ -547,8 +560,8 @@ func (b *Bastille) rdr(options, optionsarg, target, action, hostport, jailport, 
 		args = append(args, jailport)
 	}
 
-	if log != "" {
-		args = append(args, log)
+	if logg != "" {
+		args = append(args, logg)
 	}
 
 	if logopts != "" {
