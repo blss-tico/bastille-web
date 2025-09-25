@@ -15,13 +15,13 @@
             {{end}}
             {{range .Fields}}
               {{if or (eq . "add") (eq . "delete") (eq . "list")}}
-                <input type="radio" id="{{.}}" name="action" value="{{.}}" />
+                <input type="radio" id="{{.}}" name="action" value="{{.}}" onchange="handleRadioBtn(this)" />
                 <label for="action">{{.}}</label>
                 &nbsp;
               {{else}}
                 <br /><br />
                 <label>{{.}}</label><br />
-                <input type="text" name="{{.}}" />
+                <input type="text" name="{{.}}" id="{{.}}" />
                 <br />
               {{end}}
             {{end}}
@@ -48,10 +48,23 @@
   </div>
 
   <script>
+    let tg = document.getElementById("tags");
+
+    function handleRadioBtn(radio) {      
+      tg.style.border = '1px solid #8f8f9d';
+      tg.disabled = false;
+      
+      if (radio.value === 'list') { 
+        tg.style.border = '1px solid #ccc';
+        tg.disabled = true; 
+        return;
+      }
+    }
+
     async function tagsSubmit(event) {
       event.preventDefault();
 
-      const name = 'tags';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -67,10 +80,43 @@
           return;
         }
 
-        formObj[key] = value;
+        value = value.trim();
+
+        if (key === "TARGET") {
+          let t = document.getElementById(key);
+          t.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          t.style.borderColor = '#e72727';
+          error.innerText = "[Error]: TARGET is a required field.";
+        }
+
+        if (key === "action") {
+          formObj[key] = value;
+          return;
+        }
+        
+        if (key === "tags") {          
+          tg.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          tg.style.borderColor = '#e72727';
+          error.innerText = "[Error]: tags is a required field.";
+        }
       });
+
+      if (error.innerText != "") { return; }
+
       formObj['options'] = options.join(' ').trimEnd();
-      const formJson = JSON.stringify(formObj);
+      const formJson = JSON.stringify(formObj);      
 
       result.innerText = 'send -> bastille ' + name;
 
