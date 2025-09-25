@@ -17,7 +17,7 @@
             {{range .Fields}}              
               <br />
               <label>{{.}}</label><br />
-              <input type="text" name="{{.}}" />
+              <input type="text" name="{{.}}" id="{{.}}" />
               <br />              
             {{end}}
             <br />
@@ -46,7 +46,7 @@
     async function upgradeSubmit(event) {
       event.preventDefault();
 
-      const name = 'upgrade';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -62,8 +62,37 @@
           return;
         }
 
-        formObj[key] = value;
+        value = value.trim();
+
+        if (key === "TARGET") {
+          let t = document.getElementById(key);
+          t.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          t.style.borderColor = '#e72727';
+          error.innerText = "[Error]: TARGET is a required field.";
+        }
+
+        if (key === "NEW_RELEASE|install") {
+          let nri = document.getElementById(key);
+          nri.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          nri.style.borderColor = '#e72727';
+          error.innerText = "[Error]: NEW_RELEASE|install is a required field.";
+        }        
       });
+
+      if (error.innerText != "") { return; }
+
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
 
