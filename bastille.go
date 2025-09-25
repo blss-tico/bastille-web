@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os/exec"
-	"strings"
 )
 
 func runBastilleCommands(args ...string) (string, error) {
@@ -607,6 +606,7 @@ func (b *Bastille) restart(options, target, value string) (string, error) {
 
 func (b *Bastille) service(options, target, servicename, arg string) (string, error) {
 	args := []string{"service"}
+
 	if options != "" {
 		args = append(args, options)
 	}
@@ -620,12 +620,7 @@ func (b *Bastille) service(options, target, servicename, arg string) (string, er
 	}
 
 	if arg != "" {
-		var formatedArgs []string
-		formatedArgs = append(formatedArgs, "'")
-		formatedArgs = append(formatedArgs, arg)
-		formatedArgs = append(formatedArgs, "'")
-		result := strings.Join(formatedArgs, " ")
-		args = append(args, result)
+		args = append(args, arg)
 	}
 
 	return runBastilleCommands(args...)
