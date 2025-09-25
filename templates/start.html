@@ -9,14 +9,14 @@
           <form id="{{$.CommandName}}-form" class="card-form">
             <label>OPTIONS:</label><br />
             {{range .Options}}
-              <input type="checkbox" name="options_{{.Lflag}}" value="{{.Sflag}}" />
+              <input type="checkbox" name="options_{{.Lflag}}" value="{{.Sflag}}" onchange="handleCheckBox(this)" />
               <label for="{{.Lflag}}">{{.Lflag}}</label>
               &nbsp;
             {{end}}
             <br /><br />
             {{range .Fields}}
               <label>{{.}}</label><br />
-              <input type="text" name="{{.}}" />
+              <input type="text" name="{{.}}" id="{{.}}" />
               <br /><br />
             {{end}}
             <button class="btn-card-submit" onclick="startSubmit(event)">Submit</button>          
@@ -41,10 +41,27 @@
   </div>
 
   <script>
+    const enabled = '1px solid #8f8f9d';
+    const disabled = '1px solid #ccc';
+
+    let v = document.getElementById("VALUE");
+    v.disabled = true;
+    v.style.border = disabled;
+
+    function handleCheckBox(check) {
+      v.disabled = true;
+      v.style.border = disabled;
+      
+      if (check.checked && (check.value === '-d' || check.value === '--delay')) { 
+        v.disabled = false; 
+        v.style.border = enabled;
+      }
+    }
+
     async function startSubmit(event) {
       event.preventDefault();
 
-      const name = 'start';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -60,8 +77,36 @@
           return;
         }
 
-        formObj[key] = value;
+        value = value.trim();
+
+        if (key === "TARGET") {
+          let t = document.getElementById(key);
+          t.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          t.style.borderColor = '#e72727';
+          error.innerText = "[Error]: TARGET is a required field.";
+        }
+
+        if (key === "VALUE") {          
+          v.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          v.style.borderColor = '#e72727';
+          error.innerText = "[Error]: VALUE is a required field.";
+        }
       });
+
+      if (error.innerText != "") { return; }
+
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
 
