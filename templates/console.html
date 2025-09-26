@@ -10,13 +10,13 @@
             <label>OPTIONS:</label><br />
             {{range .Options}}
               <input type="checkbox" name="options_{{.Lflag}}" value="{{.Sflag}}" />
-              <label for="{{.Lflag}}">{{.Lflag}}</label>
+              <label for="options_{{.Lflag}}">{{.Lflag}}</label>
             {{end}}
             <br />
             {{range .Fields}}
               <br />         
               <label>{{.}}</label><br />
-              <input type="text" name="{{.}}" />              
+              <input type="text" name="{{.}}" id="{{.}}" />              
               <br />
             {{end}}
             <br />
@@ -45,7 +45,7 @@
     async function consoleSubmit(event) {
       event.preventDefault();
 
-      const name = 'console';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -53,8 +53,7 @@
       
       const form = document.getElementById(name + '-form');
       const formData = new FormData(form);
-      let options = [];
-      let actions = [];
+      let options = [];      
       let formObj = {};
       formData.forEach((value, key) => {
         if (key.indexOf('options_') != -1) {
@@ -62,15 +61,38 @@
           return;
         }
 
-        if (key.indexOf('action_') != -1) {
-          actions.push(value);
-          return;
+        value = value.trim();
+
+        if (key === "TARGET") {
+          let t = document.getElementById(key);
+          t.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          t.style.borderColor = '#e72727';
+          error.innerText = "[Error]: TARGET is a required field.";
         }
 
-        formObj[key] = value;
+        if (key === "USER") {
+          let u = document.getElementById(key);
+          u.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          u.style.borderColor = '#e72727';
+          error.innerText = "[Error]: USER is a required field.";
+        }
       });
+
+      if (error.innerText != "") { return; }
+
       formObj['options'] = options.join(' ').trimEnd();
-      formObj['action'] = actions.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
 
       result.innerText = 'send -> bastille ' + name;
