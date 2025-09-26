@@ -21,7 +21,7 @@
               {{else}}
                 <br /><br />
                 <label>{{.}}</label><br />
-                <input type="text" name="{{.}}" />
+                <input type="text" name="{{.}}" id="{{.}}" />
                 <br />
               {{end}}
             {{end}}
@@ -51,7 +51,7 @@
     async function templateSubmit(event) {
       event.preventDefault();
 
-      const name = 'template';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -67,8 +67,42 @@
           return;
         }
 
-        formObj[key] = value;
+        value = value.trim();
+
+        if (key === "TARGET") {
+          let t = document.getElementById(key);
+          t.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          t.style.borderColor = '#e72727';
+          error.innerText = "[Error]: TARGET is a required field.";
+        }
+
+        if (key === "action") {
+          formObj[key] = value;
+          return;
+        }
+
+        if (key === "TEMPLATE") {
+          let tpt = document.getElementById(key);
+          tpt.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          tpt.style.borderColor = '#e72727';
+          error.innerText = "[Error]: TEMPLATE is a required field.";
+        }
       });
+
+      if (error.innerText != "") { return; }
+
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
 
