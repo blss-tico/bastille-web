@@ -13,19 +13,25 @@
               <label for="{{.Lflag}}">{{.Lflag}}</label>
               &nbsp;
             {{end}}
-            {{range .Fields}}
+            <br /><br />
+            {{range .Fields}}              
               {{if or (eq . "destroy") (eq . "rollback") (eq . "snapshot") (eq . "df") (eq . "usage") (eq . "get") (eq . "set") (eq . "jail") (eq . "unjail")}}
-                <input type="radio" id="{{.}}" name="action" value="{{.}}" />
+                <input type="radio" id="{{.}}" name="action" value="{{.}}" onchange="handleRadioBtn(this)" />
                 <label for="action">{{.}}</label>
                 &nbsp;
               {{else}}
-                <br /><br />
-                <label>{{.}}</label><br />
-                <input type="text" name="{{.}}" />
-                <br />
-              {{end}}           
+                {{if or (eq . "TAG") (eq . "key") (eq . "value") (eq . "pool/dataset") (eq . "/jail/path") }}
+                  <br /><br />
+                  <label>{{.}}</label><br />
+                  <input type="text" name="{{.}}" id="{{.}}" />                  
+                {{else}}                  
+                  <label>{{.}}</label><br />
+                  <input type="text" name="{{.}}" id="{{.}}" />
+                  <br />
+                {{end}}           
+              {{end}}
             {{end}}
-            <br />
+            <br /><br />
             <button class="btn-card-submit" onclick="zfsSubmit(event)">Submit</button>          
           </form>
         </div>
@@ -48,10 +54,76 @@
   </div>
 
   <script>
+    const enabled = '1px solid #8f8f9d';
+    const disabled = '1px solid #ccc';
+
+    let tg = document.getElementById("TAG");
+    tg.style.border = disabled;
+    tg.disabled = true;
+
+    let k = document.getElementById("key");
+    k.style.border = disabled;
+    k.disabled = true;
+
+    let v = document.getElementById("value");
+    v.style.border = disabled;
+    v.disabled = true;
+
+    let pd = document.getElementById("pool/dataset");
+    pd.style.border = disabled;
+    pd.disabled = true;
+    
+    let jp = document.getElementById("/jail/path");
+    jp.style.border = disabled;
+    jp.disabled = true;
+
+    function handleRadioBtn(radio) {
+      tg.style.border = disabled;
+      tg.disabled = true;
+
+      k.style.border = disabled;
+      k.disabled = true;
+
+      v.style.border = disabled;
+      v.disabled = true;
+
+      pd.style.border = disabled;
+      pd.disabled = true;
+
+      jp.style.border = disabled;
+      jp.disabled = true;
+
+      if (radio.value === 'destroy' || radio.value === 'rollback' || radio.value === 'snapshot') { 
+        tg.style.border = enabled;
+        tg.disabled = false;
+      }
+
+      if (radio.value === 'get' || radio.value === 'set') { 
+        k.style.border = enabled;
+        k.disabled = false;
+
+        v.style.border = enabled;
+        v.disabled = false;
+      }
+
+      if (radio.value === 'jail') { 
+        pd.style.border = enabled;
+        pd.disabled = false;
+
+        jp.style.border = enabled;
+        jp.disabled = false;
+      }
+
+      if (radio.value === 'unjail') {        
+        jp.style.border = enabled;
+        jp.disabled = false;
+      }
+    }
+
     async function zfsSubmit(event) {
       event.preventDefault();
 
-      const name = 'zfs';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -67,8 +139,89 @@
           return;
         }
 
-        formObj[key] = value;
+        value = value.trim();
+
+        if (key === "TARGET") {
+          let t = document.getElementById(key);
+          t.style.borderColor = 'initial';
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          t.style.borderColor = '#e72727';
+          error.innerText = "[Error]: TARGET is a required field.";
+        }
+
+        if (key === "action") {
+          formObj[key] = value;
+          return;
+        }
+
+        if (key === "TAG") {          
+          tg.style.borderColor = enabled;
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          tg.style.borderColor = '#e72727';
+          error.innerText = "[Error]: TAG is a required field.";
+        }
+
+        if (key === "key") {
+          k.style.borderColor = enabled;
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          k.style.borderColor = '#e72727';
+          error.innerText = "[Error]: key is a required field.";
+        }
+
+        if (key === "value") {          
+          v.style.borderColor = enabled;
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          v.style.borderColor = '#e72727';
+          error.innerText = "[Error]: value is a required field.";
+        }
+
+        if (key === "pool/dataset") {          
+          pd.style.borderColor = enabled;
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          pd.style.borderColor = '#e72727';
+          error.innerText = "[Error]: pool/dataset is a required field.";
+        }
+
+        if (key === "/jail/path") {          
+          jp.style.borderColor = enabled;
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          jp.style.borderColor = '#e72727';
+          error.innerText = "[Error]: /jail/path is a required field.";
+        }
       });
+
+      if (error.innerText != "") { return; }
+
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
       
