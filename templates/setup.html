@@ -45,7 +45,7 @@
     async function setupSubmit(event) {
       event.preventDefault();
 
-      const name = 'setup';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -61,8 +61,14 @@
           return;
         }
 
-        formObj[key] = value;
+        if (key === "action") {
+          formObj[key] = value;
+          return;
+        }
       });
+
+      if (error.innerText != "") { return; }
+      
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
 
