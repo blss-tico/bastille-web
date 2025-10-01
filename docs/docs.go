@@ -1477,6 +1477,11 @@ const docTemplate = `{
         "main.createModel": {
             "type": "object",
             "properties": {
+                "gtwip": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "n.n.n.n"
+                },
                 "iface": {
                     "type": "string",
                     "format": "string",
@@ -1510,7 +1515,7 @@ const docTemplate = `{
                 "value": {
                     "type": "string",
                     "format": "string",
-                    "example": ""
+                    "example": "99"
                 },
                 "vlanid": {
                     "type": "string",
@@ -1887,15 +1892,30 @@ const docTemplate = `{
                     "format": "string",
                     "example": "log options"
                 },
+                "odestination": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "depends on options destination"
+                },
+                "ointerface": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "depends on options interface"
+                },
                 "options": {
                     "type": "string",
                     "format": "string",
                     "example": "-a|-H|-y|-x"
                 },
-                "options_arg": {
+                "osource": {
                     "type": "string",
                     "format": "string",
-                    "example": "depends on options"
+                    "example": "depends on options source"
+                },
+                "otype": {
+                    "type": "string",
+                    "format": "string",
+                    "example": "depends on options type"
                 },
                 "target": {
                     "type": "string",

@@ -83,7 +83,7 @@ type createModel struct {
 	Iface      string `json:"iface,omitempty" example:"bastille0" format:"string"`
 	Gtwip      string `json:"gtwip,omitempty" example:"n.n.n.n" format:"string"`
 	Ipip       string `json:"ipip,omitempty" example:"n.n.n.n,i.i.i.i" format:"string"`
-	Value      string `json:"value,omitempty" example:"" format:"string"`
+	Value      string `json:"value,omitempty" example:"99" format:"string"`
 	Vlanid     string `json:"vlanid,omitempty" example:"vlan10" format:"string"`
 	Zfsoptions string `json:"zfsoptions,omitempty" example:"" format:"string"`
 }

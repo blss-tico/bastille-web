@@ -123,6 +123,10 @@ definitions:
     type: object
   main.createModel:
     properties:
+      gtwip:
+        example: n.n.n.n
+        format: string
+        type: string
       iface:
         example: bastille0
         format: string
@@ -148,7 +152,7 @@ definitions:
         format: string
         type: string
       value:
-        example: ""
+        example: "99"
         format: string
         type: string
       vlanid:
@@ -436,12 +440,24 @@ definitions:
         example: log options
         format: string
         type: string
+      odestination:
+        example: depends on options destination
+        format: string
+        type: string
+      ointerface:
+        example: depends on options interface
+        format: string
+        type: string
       options:
         example: -a|-H|-y|-x
         format: string
         type: string
-      options_arg:
-        example: depends on options
+      osource:
+        example: depends on options source
+        format: string
+        type: string
+      otype:
+        example: depends on options type
         format: string
         type: string
       target:
