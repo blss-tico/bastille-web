@@ -449,7 +449,7 @@ definitions:
         format: string
         type: string
       options:
-        example: -a|-H|-y|-x
+        example: -d|-i|-s|-t|-x
         format: string
         type: string
       osource:

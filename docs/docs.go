@@ -1905,7 +1905,7 @@ const docTemplate = `{
                 "options": {
                     "type": "string",
                     "format": "string",
-                    "example": "-a|-H|-y|-x"
+                    "example": "-d|-i|-s|-t|-x"
                 },
                 "osource": {
                     "type": "string",

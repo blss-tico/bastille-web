@@ -184,7 +184,7 @@ type rcpModel struct {
 }
 
 type rdrModel struct {
-	Options      string `json:"options,omitempty" example:"-a|-H|-y|-x" format:"string"`
+	Options      string `json:"options,omitempty" example:"-d|-i|-s|-t|-x" format:"string"`
 	Odestination string `json:"odestination,omitempty" example:"depends on options destination" format:"string"`
 	Ointerface   string `json:"ointerface,omitempty" example:"depends on options interface" format:"string"`
 	Osource      string `json:"osource,omitempty" example:"depends on options source" format:"string"`
