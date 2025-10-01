@@ -9,7 +9,7 @@
           <form id="{{$.CommandName}}-form" class="card-form">
             <label>OPTIONS:</label><br />
             {{range $index, $element := .Options}}
-              <input type="checkbox" name="options_{{$element.Lflag}}" value="{{$element.Sflag}}" />
+              <input type="checkbox" name="options_{{$element.Lflag}}" value="{{$element.Sflag}}" onchange="handleCheckBox(this)" />
               <label for="options_{{$element.Lflag}}">{{$element.Lflag}}</label>            
               &nbsp;
               {{if or (eq $index 6) (eq $index 12)}}<br /><br />{{end}}
@@ -17,7 +17,7 @@
             <br /><br />
             {{range .Fields}}
               <label>{{.}}</label><br />
-              <input type="text" name="{{.}}" />
+              <input type="text" name="{{.}}" id="{{.}}"/>
               <br /><br />
             {{end}}
             <button class="btn-card-submit" onclick="createSubmit(event)">Submit</button>          
@@ -42,10 +42,95 @@
   </div>
 
   <script>
+    const enabled = '1px solid #8f8f9d';
+    const disabled = '1px solid #ccc';
+
+    let gi = document.getElementById("GTWIP");
+    gi.style.border = disabled;
+    gi.disabled = true;
+
+    let ii = document.getElementById("IPIP");
+    ii.style.border = disabled;
+    ii.disabled = true;
+
+    let vl = document.getElementById("VALUE");
+    vl.style.border = disabled;
+    vl.disabled = true;
+
+    let vi = document.getElementById("VLANID");
+    vi.style.border = disabled;
+    vi.disabled = true;
+
+    let zo = document.getElementById("zfsoptions");
+    zo.style.border = disabled;
+    zo.disabled = true;
+    
+    function handleCheckBox(check) {
+      if (check.value === "-g" || check.value === '--gateway') {
+        if (check.checked) {
+          gi.style.border = enabled;
+          gi.disabled = false; 
+          return;
+        } else {
+          gi.style.border = disabled;
+          gi.disabled = true; 
+          return;
+        }
+      }
+
+      if (check.value === "-n" || check.value === '--nameserver') {
+        if (check.checked) {
+          ii.style.border = enabled;
+          ii.disabled = false;
+          return;
+        } else {
+          ii.style.border = disabled;
+          ii.disabled = true;
+          return;
+        }
+      }
+
+      if (check.value === "-p" || check.value === '--priority') { 
+        if (check.checked) {
+          vl.style.border = enabled;
+          vl.disabled = false; 
+          return;
+        } else {
+          vl.style.border = disabled;
+          vl.disabled = true; 
+          return;
+        }
+      }
+
+      if (check.value === "-v" || check.value === '--vlan') { 
+        if (check.checked) {
+          vi.style.border = enabled;
+          vi.disabled = false; 
+          return;
+        } else {
+          vi.style.border = disabled;
+          vi.disabled = true; 
+          return;
+        }
+      }
+
+      if (check.value === "-Z" || check.value === '--zfs-opts') { 
+        if (check.checked) {
+          zo.style.border = enabled;
+          zo.disabled = false; 
+          return;
+        } else {
+          zo.style.border = disabled;
+          zo.disabled = true; 
+          return;
+        }
+      }
+    }
+
     async function createSubmit(event) {
       event.preventDefault();
 
-      const name = 'create';
+      const name = '{{$.CommandName}}';
       const result = document.getElementById('result');
       const error = document.getElementById('error');
       result.innerText = "";
@@ -55,16 +140,150 @@
       const formData = new FormData(form);      
       let options = [];
       let formObj = {};
+      const ipv4Regex = /^(?:(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)$/;
+      const ipv4WithCidrRegex = /^((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\/(3[0-2]|[12]?\d))?$/;
+      const ipv6Regex = /^((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?$/;
+      const someOptions = ["-B", "-C", "-D", "-E", "-L", "-M", "--no-validate", "--no-boot", "-T", "-V", "-x"];
+      
       formData.forEach((value, key) => {
         if (key.indexOf('options_') != -1) {
-          options.push(value);
-          return;
+          if (someOptions.includes(value)) {
+            options.push(value);
+            return;
+          }
         }
 
-        formObj[key] = value;
+        value = value.trim();
+
+        if (key === "GTWIP") {        
+          gi.style.border = enabled;
+
+          if (ipv4Regex.test(value) || ipv6Regex.test(value)) {
+            formObj[key] = value;
+            return;
+          }
+
+          gi.style.borderColor = '#e72727';
+          error.innerText = "[Error]: GTWIP is a required field and must to be valid ip number.";
+        }
+
+        if (key === "IPIP") {          
+          ii.style.border = enabled;
+
+          let arrIPIP = value.split(",");
+          let validIPIP = true;
+          if (arrIPIP.length > 0) {
+            for (let i=0; i<arrIPIP.length; i++) {
+              const v = arrIPIP[i].trim();
+              if (!ipv4Regex.test(v) && !ipv6Regex.test(v)) {
+                validIPIP = false;
+                break;
+              }
+            }
+            
+            if (validIPIP) {
+              formObj[key] = value;
+              return;
+            }
+          } else {
+            if (ipv4Regex.test(value) || ipv6Regex.test(value)) {
+              formObj[key] = value;
+              return;
+            }
+          }
+
+          ii.style.borderColor = '#e72727';
+          error.innerText = "[Error]: IP,IP is a required field and must to be valid ip number.";
+        }
+
+        if (key === "VALUE") {          
+          vl.style.border = enabled;
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          vl.style.borderColor = '#e72727';
+          error.innerText = "[Error]: VALUE is a required field.";
+        }
+
+        if (key === "VLANID") {          
+          vi.style.border = enabled;
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          vi.style.borderColor = '#e72727';
+          error.innerText = "[Error]: VLANID is a required field.";
+        }
+
+        if (key === "zfsoptions") {          
+          zo.style.border = enabled;
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          zo.style.borderColor = '#e72727';
+          error.innerText = "[Error]: zfsoptions is a required field.";
+        }
+
+        if (key === "NAME") {
+          let n = document.getElementById(key);
+          n.style.border = enabled;
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          n.style.borderColor = '#e72727';
+          error.innerText = "[Error]: NAME is a required field.";
+        }
+
+        if (key === "RELEASE") {
+          let r = document.getElementById(key);
+          r.style.border = enabled;
+
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+
+          r.style.borderColor = '#e72727';
+          error.innerText = "[Error]: RELEASE is a required field.";
+        }
+
+        if (key === "IP") {
+          let i = document.getElementById(key);
+          i.style.border = enabled;
+          
+          if (ipv4Regex.test(value) || ipv4WithCidrRegex.test(value) || ipv6Regex.test(value)) {
+            formObj[key] = value;
+            return;
+          }
+
+          i.style.borderColor = '#e72727';
+          error.innerText = "[Error]: IP is a required field and must to a valid ip number.";
+        }
+
+        if (key === "INTERFACE") {
+          if (value != "") {
+            formObj[key] = value;
+            return;
+          }
+        }        
       });
+
+      if (error.innerText != "") { return; }
+
       formObj['options'] = options.join(' ').trimEnd();
       const formJson = JSON.stringify(formObj);
+      console.log(formJson);
 
       result.innerText = 'send -> bastille ' + name;
 

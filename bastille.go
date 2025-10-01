@@ -188,11 +188,41 @@ func (b *Bastille) cp(options, target, hostpath, jailpath string) (string, error
 	return runBastilleCommands(args...)
 }
 
-func (b *Bastille) create(options, name, release, ip, iface, ipip, value, vlanid, zfsoptions string) (string, error) {
+func (b *Bastille) create(options, name, release, ip, iface, gtwip, ipip, value, vlanid, zfsoptions string) (string, error) {
 	args := []string{"create"}
 
 	if options != "" {
 		args = append(args, options)
+	}
+
+	if gtwip != "" {
+		gtwipArgs := []string{"-g"}
+		gtwipArgs = append(gtwipArgs, gtwip)
+		args = append(args, gtwipArgs...)
+	}
+
+	if ipip != "" {
+		ipipArgs := []string{"-n"}
+		ipipArgs = append(ipipArgs, ipip)
+		args = append(args, ipipArgs...)
+	}
+
+	if value != "" {
+		valueArgs := []string{"-p"}
+		valueArgs = append(valueArgs, value)
+		args = append(args, valueArgs...)
+	}
+
+	if vlanid != "" {
+		vlanidArgs := []string{"-v"}
+		vlanidArgs = append(vlanidArgs, vlanid)
+		args = append(args, vlanidArgs...)
+	}
+
+	if zfsoptions != "" {
+		zfsoptionsArgs := []string{"-Z"}
+		zfsoptionsArgs = append(zfsoptionsArgs, zfsoptions)
+		args = append(args, zfsoptionsArgs...)
 	}
 
 	if name != "" {
@@ -211,22 +241,7 @@ func (b *Bastille) create(options, name, release, ip, iface, ipip, value, vlanid
 		args = append(args, iface)
 	}
 
-	if ipip != "" {
-		args = append(args, ipip)
-	}
-
-	if value != "" {
-		args = append(args, value)
-	}
-
-	if vlanid != "" {
-		args = append(args, vlanid)
-	}
-
-	if zfsoptions != "" {
-		args = append(args, zfsoptions)
-	}
-
+	log.Println(args)
 	return runBastilleCommands(args...)
 }
 

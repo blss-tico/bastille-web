@@ -240,7 +240,13 @@ func (hd *HandlersData) create(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	result, err := hd.bl.create(data.Options, data.Name, data.Release, data.Ip, data.Iface, data.Ipip, data.Value, data.Vlanid, data.Zfsoptions)
+	// gtwip := strings.Split(data.Gtwip, " ")
+	// ipip := strings.Split(data.Ipip, " ")
+	// value := strings.Split(data.Value, " ")
+	// vlanid := strings.Split(data.Vlanid, " ")
+	// zfsoptions := strings.Split(data.Zfsoptions, " ")
+
+	result, err := hd.bl.create(data.Options, data.Name, data.Release, data.Ip, data.Iface, data.Gtwip, data.Ipip, data.Value, data.Vlanid, data.Zfsoptions)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

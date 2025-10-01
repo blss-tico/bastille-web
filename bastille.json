@@ -188,7 +188,7 @@
         "lflag": "--zfs-opts",
         "text": "zfs,options - Comma separated list of ZFS options to create the jail with. This overrides the defaults."
       }],
-      "fields": ["NAME", "RELEASE", "IP", "INTERFACE", "IP,IP", "VALUE", "VLANID", "zfsoptions"],
+      "fields": ["NAME", "RELEASE", "IP", "INTERFACE", "GTWIP", "IPIP", "VALUE", "VLANID", "zfsoptions"],
       "help": "bastille create [option(s)] NAME RELEASE IP [INTERFACE]",
       "helpUrl": "https://bastille.readthedocs.io/en/latest/chapters/subcommands/create.html"
     },

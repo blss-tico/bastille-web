@@ -81,6 +81,7 @@ type createModel struct {
 	Release    string `json:"release" example:"14.3-RELEASE" format:"string"`
 	Ip         string `json:"ip" example:"n.n.n.n" format:"string"`
 	Iface      string `json:"iface,omitempty" example:"bastille0" format:"string"`
+	Gtwip      string `json:"gtwip,omitempty" example:"n.n.n.n" format:"string"`
 	Ipip       string `json:"ipip,omitempty" example:"n.n.n.n,i.i.i.i" format:"string"`
 	Value      string `json:"value,omitempty" example:"" format:"string"`
 	Vlanid     string `json:"vlanid,omitempty" example:"vlan10" format:"string"`
