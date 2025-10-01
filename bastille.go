@@ -537,27 +537,35 @@ func (b *Bastille) rcp(options, target, jailpath, hostpath string) (string, erro
 	return runBastilleCommands(args...)
 }
 
-func (b *Bastille) rdr(options string, odestination []string, ointerface []string, osource []string, otype []string, target, action, hostport, jailport, logg, logopts string) (string, error) {
+func (b *Bastille) rdr(options, odestination, ointerface, osource, otype, target, action, hostport, jailport, logg, logopts string) (string, error) {
 	args := []string{"rdr"}
 
 	if options != "" {
 		args = append(args, options)
 	}
 
-	if len(odestination) == 2 {
-		args = append(args, odestination...)
+	if odestination != "" {
+		odestinationArgs := []string{"-d"}
+		odestinationArgs = append(odestinationArgs, odestination)
+		args = append(args, odestinationArgs...)
 	}
 
-	if len(ointerface) == 2 {
-		args = append(args, ointerface...)
+	if ointerface != "" {
+		ointerfaceArgs := []string{"-i"}
+		ointerfaceArgs = append(ointerfaceArgs, ointerface)
+		args = append(args, ointerfaceArgs...)
 	}
 
-	if len(osource) == 2 {
-		args = append(args, osource...)
+	if osource != "" {
+		osourceArgs := []string{"-s"}
+		osourceArgs = append(osourceArgs, osource)
+		args = append(args, osourceArgs...)
 	}
 
-	if len(otype) == 2 {
-		args = append(args, otype...)
+	if otype != "" {
+		otypeArgs := []string{"-t"}
+		otypeArgs = append(otypeArgs, otype)
+		args = append(args, otypeArgs...)
 	}
 
 	if target != "" {

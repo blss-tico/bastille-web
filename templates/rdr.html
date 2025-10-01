@@ -187,7 +187,7 @@
           od.style.borderColor = 'initial';
 
           if (ipv4Regex.test(value) || ipv6Regex.test(value)) {
-            formObj[key] = "-d " + value;
+            formObj[key] = value;
             return;
           }
 
@@ -199,7 +199,7 @@
           oi.style.borderColor = 'initial';
 
           if (value != "") {
-            formObj[key] = "-i " + value;
+            formObj[key] = value;
             return;
           }
 
@@ -211,7 +211,7 @@
           os.style.borderColor = 'initial';
           
           if (ipv4Regex.test(value) || ipv6Regex.test(value)) {
-            formObj[key] = "-s " + value;
+            formObj[key] = value;
             return;
           }
 
@@ -223,7 +223,7 @@
           ot.style.borderColor = 'initial';
 
           if (value === "ipv4" || value === "ipv6") {
-            formObj[key] = "-t " + value;
+            formObj[key] = value;
             return;
           }
 
