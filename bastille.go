@@ -493,7 +493,9 @@ func (b *Bastille) network(options, target, action, iface, ip, vlanid string) (s
 	}
 
 	if vlanid != "" {
-		args = append(args, vlanid)
+		vlanidArgs := []string{"-v"}
+		vlanidArgs = append(vlanidArgs, vlanid)
+		args = append(args, vlanidArgs...)
 	}
 
 	return runBastilleCommands(args...)
