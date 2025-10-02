@@ -164,6 +164,10 @@
         "lflag": "--no-boot",
         "text": "Create jail with boot=off"
       },{
+        "sflag": "-P",
+        "lflag": "--passthrough",
+        "text": "Enable VNET, and pass the specified interface into the jail."
+      },{
         "sflag": "-p",
         "lflag": "--priority",
         "text": "VALUE - Set priority value for jail."
@@ -599,6 +603,10 @@
         "sflag": "-d",
         "lflag": "--delay",
         "text": "VALUE - Time (seconds) to wait after starting each jail."
+      },{
+        "sflag": "-i",
+        "lflag": "--ignore",
+        "text": "Ignore stopped jails (do not start if stopped)."
       },{
         "sflag": "-v",
         "lflag": "--verbose",
