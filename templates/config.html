@@ -14,22 +14,24 @@
             {{end}}
             <br />
             {{range .Fields}}
-              <br />
               {{if (or (eq . "get") (eq . "set") (eq . "add") (eq . "remove"))}}
                 <input type="radio" name="action" value="{{.}}" id="{{.}}" onchange="handleRadioBtn(this)"/>
                 <label for="{{.}}">{{.}}</label>
+                <br />
               {{else}}
+                <br />
                 <label>{{.}}</label><br />
                 <input type="text" name="{{.}}" id="{{.}}"/>
-              {{end}}
-              <br />
+                <br />
+              {{end}}              
             {{end}}
             <br />
-            <button class="btn-card-submit" onclick="configSubmit(event)">Submit</button>          
+            <button class="btn-card-submit" onclick="configSubmit(event)">Submit</button>
+            <button class="btn-card-help" onclick="helpED(event)">Help</button>
           </form>
         </div>
         <br />
-        <div class="card-help">
+        <div class="card-help" id="card-help">
           <h3>Help</h3>
           <p>{{.Help}}</p>
           <div class="card-help-options">
@@ -47,6 +49,14 @@
   </div>
 
   <script>
+    let hlp = document.getElementById("card-help");
+    hlp.style.display = 'none';
+
+    function helpED(event) {
+      event.preventDefault();     
+      hlp.style.display === 'none' ?  hlp.style.display = 'block' : hlp.style.display = 'none';
+    }
+
     function handleRadioBtn(radio) {
       let v = document.getElementById("VALUE");
       v.style.border = '1px solid #8f8f9d';

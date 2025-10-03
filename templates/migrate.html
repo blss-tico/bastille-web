@@ -19,11 +19,12 @@
               <input type="text" name="{{.}}" id="{{.}}"/>
               <br /><br />
             {{end}}
-            <button class="btn-card-submit" onclick="migrateSubmit(event)">Submit</button>          
+            <button class="btn-card-submit" onclick="migrateSubmit(event)">Submit</button>
+            <button class="btn-card-help" onclick="helpED(event)">Help</button>
           </form>
         </div>
         <br />
-        <div class="card-help">
+        <div class="card-help" id="card-help">
           <h3>Help</h3>
           <p>{{.Help}}</p>
           <div class="card-help-options">
@@ -41,6 +42,14 @@
   </div>
 
   <script>
+    let hlp = document.getElementById("card-help");
+    hlp.style.display = 'none';
+
+    function helpED(event) {
+      event.preventDefault();     
+      hlp.style.display === 'none' ?  hlp.style.display = 'block' : hlp.style.display = 'none';
+    }
+
     async function migrateSubmit(event) {
       event.preventDefault();
 

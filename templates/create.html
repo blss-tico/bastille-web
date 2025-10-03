@@ -12,19 +12,26 @@
               <input type="checkbox" name="options_{{$element.Lflag}}" value="{{$element.Sflag}}" onchange="handleCheckBox(this)" />
               <label for="options_{{$element.Lflag}}">{{$element.Lflag}}</label>            
               &nbsp;
-              {{if or (eq $index 6) (eq $index 12)}}<br /><br />{{end}}
+              {{if or (eq $index 5) (eq $index 10)}}<br /><br />{{end}}
             {{end}}
             <br /><br />
             {{range .Fields}}
-              <label>{{.}}</label><br />
-              <input type="text" name="{{.}}" id="{{.}}"/>
-              <br /><br />
+              {{if or (eq . "GTWIP") (eq . "IPIP") (eq . "VALUE") (eq . "VLANID") (eq . "zfsoptions")}}                               
+                <input type="text" name="{{.}}" id="{{.}}" placeholder="{{.}}" />                
+              {{else}}
+                <br />
+                <label>{{.}}</label><br />
+                <input type="text" name="{{.}}" id="{{.}}"/>
+                <br />
+              {{end}}    
             {{end}}
-            <button class="btn-card-submit" onclick="createSubmit(event)">Submit</button>          
+            <br />
+            <button class="btn-card-submit" onclick="createSubmit(event)">Submit</button>
+            <button class="btn-card-help" onclick="helpED(event)">Help</button>
           </form>
         </div>
         <br />
-        <div class="card-help">
+        <div class="card-help" id="card-help">
           <h3>Help</h3>
           <p>{{.Help}}</p>
           <div class="card-help-options">
@@ -42,38 +49,53 @@
   </div>
 
   <script>
+    let hlp = document.getElementById("card-help");
+    hlp.style.display = 'none';
+
+    function helpED(event) {
+      event.preventDefault();     
+      hlp.style.display === 'none' ?  hlp.style.display = 'block' : hlp.style.display = 'none';
+    }
+
     const enabled = '1px solid #8f8f9d';
     const disabled = '1px solid #ccc';
 
     let gi = document.getElementById("GTWIP");
     gi.style.border = disabled;
     gi.disabled = true;
+    gi.style.display = 'none';
 
     let ii = document.getElementById("IPIP");
     ii.style.border = disabled;
     ii.disabled = true;
+    ii.style.display = 'none';
 
     let vl = document.getElementById("VALUE");
     vl.style.border = disabled;
     vl.disabled = true;
+    vl.style.display = 'none';
 
     let vi = document.getElementById("VLANID");
     vi.style.border = disabled;
     vi.disabled = true;
+    vi.style.display = 'none';
 
     let zo = document.getElementById("zfsoptions");
     zo.style.border = disabled;
     zo.disabled = true;
-    
+    zo.style.display = 'none';
+
     function handleCheckBox(check) {
       if (check.value === "-g" || check.value === '--gateway') {
         if (check.checked) {
           gi.style.border = enabled;
-          gi.disabled = false; 
+          gi.disabled = false;
+          gi.style.display = 'block';
           return;
         } else {
           gi.style.border = disabled;
           gi.disabled = true; 
+          gi.style.display = 'none';
           return;
         }
       }
@@ -82,10 +104,12 @@
         if (check.checked) {
           ii.style.border = enabled;
           ii.disabled = false;
+          ii.style.display = 'block';
           return;
         } else {
           ii.style.border = disabled;
           ii.disabled = true;
+          ii.style.display = 'none';
           return;
         }
       }
@@ -94,10 +118,12 @@
         if (check.checked) {
           vl.style.border = enabled;
           vl.disabled = false; 
+          vl.style.display = 'block';
           return;
         } else {
           vl.style.border = disabled;
           vl.disabled = true; 
+          vl.style.display = 'none';
           return;
         }
       }
@@ -106,10 +132,12 @@
         if (check.checked) {
           vi.style.border = enabled;
           vi.disabled = false; 
+          vi.style.display = 'block';
           return;
         } else {
           vi.style.border = disabled;
           vi.disabled = true; 
+          vi.style.display = 'none';
           return;
         }
       }
@@ -118,10 +146,12 @@
         if (check.checked) {
           zo.style.border = enabled;
           zo.disabled = false; 
+          zo.style.display = 'block';
           return;
         } else {
           zo.style.border = disabled;
-          zo.disabled = true; 
+          zo.disabled = true;
+          zo.style.display = 'none';
           return;
         }
       }
