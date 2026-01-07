@@ -71,7 +71,7 @@ body {
 }
 
 .navbar-menu a:hover {
-  background-color: #555;
+  background-color: #dd544b;
 }
 
 .container {
@@ -84,7 +84,7 @@ body {
   left: 0;
   width: 20vh;
   height: 100vh;
-  background-color: #f4f4f4;
+  background-color: #393e46; /*#f4f4f4;*/
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);  
   /*overflow-y: hidden;*/
@@ -102,7 +102,8 @@ body {
 
 .sidebar h4 {
   margin-top: 0;
-  color: #333;
+  color: #f96d00;
+  /*color: #333;*/
 }
 
 .sidebar-btn {
@@ -134,13 +135,15 @@ body {
 .sidebar ul li a {
   display: block;
   text-decoration: none;
-  color: #000000;  
+  color: #fff;  
   padding: 2px 0;
 }
 
-.sidebar ul li a:hover {
+.sidebar ul li:hover {
   color: #fff;
-  background-color: #dd544b;  
+  background-color: #dd544b;
+  border-radius: 4px;
+  padding: 2px;
 }
 
 .main-content {
@@ -196,7 +199,7 @@ body {
 }
 
 .tbl-home-list-jails {
-  pad: 5px;
+  padding: 5px;
   font-size: 0.9em;
   width: 100%;
   overflow-x: auto;
