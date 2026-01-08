@@ -17,12 +17,19 @@
               {{if or (eq . "add") (eq . "delete") (eq . "list")}}
                 <input type="radio" id="{{.}}" name="action" value="{{.}}" onchange="handleRadioBtn(this)" />
                 <label for="action">{{.}}</label>
-                &nbsp;
+                &nbsp;<br />
               {{else}}
-                <br /><br />
-                <label>{{.}}</label><br />
-                <input type="text" name="{{.}}" id="{{.}}" />
-                <br />
+                {{if eq . "TARGET"}}
+                  <br /><br />
+                  <label>{{.}}</label><br />
+                  <select name="{{.}}" id="{{.}}"></select>
+                  <br />
+                {{else}}
+                  <br />
+                  <label>{{.}}</label><br />
+                  <input type="text" name="{{.}}" id="{{.}}" class="input-text"/>
+                  <br />
+                {{end}}
               {{end}}
             {{end}}
             <br />
@@ -51,6 +58,16 @@
   <script>
     let hlp = document.getElementById("card-help");
     hlp.style.display = 'none';
+
+    let tgt = document.getElementById('TARGET');
+    let jails = sessionStorage.getItem('jails');
+    let pjails = JSON.parse(jails);
+    pjails.forEach(j => {
+      const option = document.createElement("option");
+      option.value = j.Hostname;
+      option.textContent = j.Hostname;
+      tgt.appendChild(option);
+    });
 
     function helpED(event) {
       event.preventDefault();     

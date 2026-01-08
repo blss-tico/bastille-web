@@ -14,10 +14,10 @@
               &nbsp;
             {{end}}
             <br /><br />
-            {{range .Fields}}
+            {{range .Fields}}              
               <label>{{.}}</label><br />
-              <input type="text" name="{{.}}" id="{{.}}"/>
-              <br /><br />
+              <input type="text" name="{{.}}" id="{{.}}" class="input-text"/>
+              <br /><br />              
             {{end}}
             <button class="btn-card-submit" onclick="importSubmit(event)">Submit</button>
             <button class="btn-card-help" onclick="helpED(event)">Help</button>

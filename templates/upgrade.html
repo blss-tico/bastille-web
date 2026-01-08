@@ -15,10 +15,17 @@
             {{end}}
             <br />
             {{range .Fields}}              
-              <br />
-              <label>{{.}}</label><br />
-              <input type="text" name="{{.}}" id="{{.}}" />
-              <br />              
+              {{if eq . "TARGET"}}
+                <br />
+                <label>{{.}}</label><br />
+                <select name="{{.}}" id="{{.}}"></select>
+                <br />
+              {{else}}
+                <br />
+                <label>{{.}}</label><br />
+                <input type="text" name="{{.}}" id="{{.}}" class="input-text"/>
+                <br />
+              {{end}}            
             {{end}}
             <br />
             <button class="btn-card-submit" onclick="upgradeSubmit(event)">Submit</button>
@@ -46,6 +53,16 @@
   <script>
     let hlp = document.getElementById("card-help");
     hlp.style.display = 'none';
+
+    let tgt = document.getElementById('TARGET');
+    let jails = sessionStorage.getItem('jails');
+    let pjails = JSON.parse(jails);
+    pjails.forEach(j => {
+      const option = document.createElement("option");
+      option.value = j.Hostname;
+      option.textContent = j.Hostname;
+      tgt.appendChild(option);
+    });
 
     function helpED(event) {
       event.preventDefault();     

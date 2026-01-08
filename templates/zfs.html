@@ -23,11 +23,17 @@
                 {{if or (eq . "TAG") (eq . "key") (eq . "value") (eq . "pool/dataset") (eq . "/jail/path") }}
                   <br /><br />
                   <label>{{.}}</label><br />
-                  <input type="text" name="{{.}}" id="{{.}}" />                  
+                  <input type="text" name="{{.}}" id="{{.}}" class="input-text" />                  
                 {{else}}                  
-                  <label>{{.}}</label><br />
-                  <input type="text" name="{{.}}" id="{{.}}" />
-                  <br />
+                  {{if eq . "TARGET"}}                    
+                    <label>{{.}}</label><br />
+                    <select name="{{.}}" id="{{.}}"></select>
+                    <br />
+                  {{else}}                    
+                    <label>{{.}}</label><br />
+                    <input type="text" name="{{.}}" id="{{.}}" class="input-text"/>
+                    <br />
+                  {{end}}
                 {{end}}           
               {{end}}
             {{end}}
@@ -57,6 +63,16 @@
   <script>
     let hlp = document.getElementById("card-help");
     hlp.style.display = 'none';
+
+    let tgt = document.getElementById('TARGET');
+    let jails = sessionStorage.getItem('jails');
+    let pjails = JSON.parse(jails);
+    pjails.forEach(j => {
+      const option = document.createElement("option");
+      option.value = j.Hostname;
+      option.textContent = j.Hostname;
+      tgt.appendChild(option);
+    });
 
     function helpED(event) {
       event.preventDefault();     

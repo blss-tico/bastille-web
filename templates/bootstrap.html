@@ -16,7 +16,7 @@
             <br /><br />
             {{range .Fields}}                            
               <label>{{.}}</label><br />
-              <input type="text" name="{{.}}" id="{{.}}" />
+              <input type="text" name="{{.}}" id="{{.}}" class="input-text"/>
               <br /><br />              
             {{end}}
             <button class="btn-card-submit" onclick="bootstrapSubmit(event)">Submit</button>
