@@ -37,6 +37,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+
+	"bastille-web/docs"
 )
 
 var bastille bastilleModel
@@ -106,10 +108,10 @@ func startHttpServer(addr string) {
 // @termsOfService http://swagger.io/terms/
 // @license.name BSD-3-Clause
 // @license.url https://opensource.org/license/bsd-3-clause
-// @host addrModel
 // @BasePath /
 func main() {
 	log.Println("main")
 	addr := setAddrAndPort(os.Args)
+	docs.SwaggerInfo.Host = addr
 	startHttpServer(addr)
 }

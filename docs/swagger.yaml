@@ -702,7 +702,6 @@ definitions:
         format: string
         type: string
     type: object
-host: addrModel
 info:
   contact: {}
   description: API interface to FreeBSD bastille
