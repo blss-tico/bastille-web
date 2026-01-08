@@ -77,7 +77,7 @@ body {
 .container {
   display: flex;
   flex: 1;
-  padding-left: 28vh;
+  padding-left: 25vh;
 }
 
 .sidebar {
@@ -102,8 +102,7 @@ body {
 
 .sidebar h4 {
   margin-top: 0;
-  color: #f96d00;
-  /*color: #333;*/
+  color: #ff5555;
 }
 
 .sidebar-btn {
@@ -149,6 +148,7 @@ body {
 .main-content {
   flex: 1;
   background-color: #fff;
+  margin-left: 6px;
   margin-top: 50px;
   margin-bottom: 35px;
   margin-right: 10px;
@@ -233,7 +233,7 @@ body {
 .tbl-home-td-btns {
   display: flex;
   flex: 1;
-  flex-direction: row;
+  justify-content:space-around;
   align-items: center;
 }
 
@@ -248,6 +248,7 @@ body {
   border: none;
   margin: 2px;
   color: #fff;
+  padding: 2px;
 }
 
 .btn-home-start-jail:hover {
@@ -268,6 +269,7 @@ body {
   border: none;
   margin: 2px;
   color: #fff;
+  padding: 2px;
 }
 
 .btn-home-stop-jail:hover {
@@ -438,16 +440,16 @@ footer {
     width: 0em;
     height: 100vh;
     overflow-y: scroll;
-    /*overflow: hidden;*/
     padding: 0px;
-    background-color: #e0dede;
+    background-color: #393e46;
     z-index: 1;
   }
 
-  .div-sidebar-navigation {
-    padding-left: 20px;
-    padding-top: 10px;
-    padding-bottom: 50px;
+  .sidebar ul li:hover {
+    color: #fff;
+    background-color: #dd544b;
+    border-radius: 4px;
+    padding: 2px;
   }
 
   .sidebar-btn {
@@ -456,6 +458,12 @@ footer {
 
   .sidebar.open {
     width: 20vh;
+  }
+
+  .div-sidebar-navigation {
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 50px;
   }
 
   .container {
@@ -470,7 +478,7 @@ footer {
   .main-content {
     flex: 1;
     background-color: #fff;
-    margin-left: 5px;
+    margin-left: 1px;
     margin-right: 5px;
     margin-bottom: 10px;
     margin-top: 10px;
@@ -509,7 +517,7 @@ footer {
     position: absolute;
     left: 6px;
     width: 100%;
-    padding-right: 10px;
+    padding-right: 8px;
     white-space: nowrap;
     text-align: left;
     font-weight: normal;

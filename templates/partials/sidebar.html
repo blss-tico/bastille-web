@@ -14,7 +14,7 @@
                 </g>
               </g>
             </svg>
-            Home
+            &nbsp;Home
           </a>
         </li>
         <li>
@@ -28,7 +28,7 @@
                 </g>
               </g>
             </svg>
-            Api
+            &nbsp;Api
           </a>
         </li>
         <li>
@@ -42,7 +42,7 @@
                 </g>
               </g>
             </svg>
-            Help
+            &nbsp;Help
           </a>
         </li>
         <li>
@@ -56,11 +56,11 @@
                 </g>
               </g>
             </svg>
-            Contact
+            &nbsp;Contact
           </a>
         </li>
         <br />
-        <h4>Bastille Commands</h4>
+        <h4>Commands</h4>
         {{range .Data.Commands}}
           {{if and (ne .Command "console") (ne .Command "edit") (ne .Command "htop") (ne .Command "top")}}
             <li>
@@ -74,7 +74,7 @@
                     </g>
                   </g>
                 </svg>              
-                {{.Command}}
+                &nbsp;{{.Command}}
               </a>
             </li>
           {{end}}
