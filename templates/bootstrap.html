@@ -89,7 +89,10 @@
           }
           
           // templates https
-          if (value.includes("https://gitlab.com/bastillebsd-templates/")) {
+          if (
+            value.includes("https://gitlab.com/bastillebsd-templates/") || 
+            value.includes("https://github.com/bastillebsd/templates")
+          ) {
             formObj[key] = value;
             return;
           }
