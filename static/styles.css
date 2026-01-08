@@ -118,9 +118,9 @@ body {
 }
 
 .sidebar ul {
-  list-style: none;
+  list-style: inherit;
   padding: 0;
-  width: max-content;
+  width: 100%;
 }
 
 .sidebar ul li {
@@ -330,6 +330,8 @@ body {
 
 .card-results {
   background-color: #000;
+  padding-left: 5px;
+  padding-bottom: 10px;
 }
 
 .card-result {
