@@ -246,9 +246,9 @@ body {
   background-color: #76aa72;
   border-radius: 2px;
   border: none;
-  margin: 2px;
+  margin: 1px;
   color: #fff;
-  padding: 2px;
+  padding: 3px;
 }
 
 .btn-home-start-jail:hover {
@@ -267,9 +267,9 @@ body {
   background-color: #dd544b;
   border-radius: 2px;
   border: none;
-  margin: 2px;
+  margin: 1px;
   color: #fff;
-  padding: 2px;
+  padding: 3px;
 }
 
 .btn-home-stop-jail:hover {
