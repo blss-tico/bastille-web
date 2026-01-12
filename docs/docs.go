@@ -2249,7 +2249,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "Bastille-Web",
-	Description:      "API interface to FreeBSD bastille",
+	Description:      "API interface to FreeBSD bastille\nObservation: Do not use console, htop and top commands with API. Only for UI Interface.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	//LeftDelim:        "{{",
