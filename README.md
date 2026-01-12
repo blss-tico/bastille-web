@@ -13,7 +13,7 @@ Before begin, you must to know that this project was tested with:
 
 ## 🚀 Install bastille-web
 
-To install the bastille-web, follow these steps:
+To install the bastille-web, follow these steps.
 
 Install dependencies:
 
