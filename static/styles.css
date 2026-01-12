@@ -413,6 +413,7 @@ body {
   width: 99%;
   height: 400px;
   margin: 1px;
+  padding-top: 2px;
 }
 
 .ttl-help {

@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"os/exec"
+	"math/rand/v2"
+	"strconv"
 )
 
 func runBastilleCommands(args ...string) (string, error) {
@@ -145,7 +147,8 @@ func (b *Bastille) console(options, target, user string) (string, error) {
 		args = append(args, user)
 	}
 
-	cmd := exec.Command("ttyd", "-t", "disableLeaveAlert=true", "-o", "-p", "8182", "-W", "sudo", "bastille", "console", target)
+	port := strconv.Itoa(8000 + rand.IntN(8200-8000))
+	cmd := exec.Command("ttyd", "-t", "disableLeaveAlert=true", "-o", "-p", port, "-W", "sudo", "bastille", "console", target)
 	log.Println("console: ", cmd)
 
 	if err := cmd.Start(); err != nil {
@@ -153,7 +156,7 @@ func (b *Bastille) console(options, target, user string) (string, error) {
 		return "", fmt.Errorf("bastille: %s ,failed: %v\n %s", cmd, err)
 	}
 	
-	return "console", nil
+	return port, nil
 }
 
 func (b *Bastille) convert(options, target, release string) (string, error) {

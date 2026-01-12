@@ -126,11 +126,11 @@
       const response = await sendHttpRequest(name, formJson);
       if (response.code == 200) {
         error.innerText = "";
-        result.innerText = response.data.msg + " opening...";
+        result.innerText = "console opening on :" + response.data.msg;
   
         setTimeout(() => {
           result.innerText = "";
-          createIframe(); 
+          createIframe(response.data.msg); 
         }, 1000);
       } else {
         result.innerText = "";
@@ -138,10 +138,9 @@
       }
     }
 
-    function createIframe(jail) {
+    function createIframe(port) {
       var iframe = document.createElement('iframe');
-      iframe.src = "http://127.0.0.1:8182/";
-      iframe.title = jail;
+      iframe.src = `http://127.0.0.1:${port}/`;
       iframe.classList.add('console-iframe');
 
       result.style.display = 'none';

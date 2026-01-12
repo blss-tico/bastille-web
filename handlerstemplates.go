@@ -22,6 +22,7 @@ func (ht *HandlersTemplates) home(w http.ResponseWriter, r *http.Request) {
 		Osrelease       string `json:"osrelease"`
 		Totalmemory     string `json:"totalmemory"`
 		BastilleVersion string `json:"bastilleversion"`
+		Ip              string `json:ip`
 	}
 
 	osinf, _ := infoOsUtil()
@@ -42,6 +43,7 @@ func (ht *HandlersTemplates) home(w http.ResponseWriter, r *http.Request) {
 			Osrelease:       posinf[2],
 			Totalmemory:     pmminf[0],
 			BastilleVersion: bstv,
+			Ip:              addrModel,   
 		}
 	}
 
