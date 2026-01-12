@@ -43,7 +43,7 @@
         </div>
       {{end}}
     {{end}}
-    <div class="card-results">
+    <div class="card-results" id="card-results">
       <p id="result" class="card-result"></p>
       <p id="error" class="card-error"></p>
     </div>
@@ -126,11 +126,29 @@
       const response = await sendHttpRequest(name, formJson);
       if (response.code == 200) {
         error.innerText = "";
-        result.innerText = response.data.msg;
+        result.innerText = response.data.msg + " opening...";
+  
+        setTimeout(() => {
+          result.innerText = "";
+          createIframe(); 
+        }, 1000);
       } else {
         result.innerText = "";
         error.innerText = response.error;
       }
+    }
+
+    function createIframe(jail) {
+      var iframe = document.createElement('iframe');
+      iframe.src = "http://127.0.0.1:8182/";
+      iframe.title = jail;
+      iframe.classList.add('console-iframe');
+
+      result.style.display = 'none';
+      error.style.display = 'none';
+      
+      const divResults = document.getElementById('card-results');
+      divResults.appendChild(iframe);
     }
   </script>
 {{end}}

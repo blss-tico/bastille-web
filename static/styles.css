@@ -331,7 +331,7 @@ body {
 .card-results {
   background-color: #000;
   padding-left: 5px;
-  padding-bottom: 10px;
+  /*padding-bottom: 10px;*/
 }
 
 .card-result {
@@ -406,6 +406,13 @@ body {
 .input-text:focus {
   outline: none;
   border-color: #007bff;
+}
+
+.console-iframe {
+  border: none;
+  width: 99%;
+  height: 400px;
+  margin: 1px;
 }
 
 .ttl-help {

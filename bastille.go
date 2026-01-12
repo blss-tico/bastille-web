@@ -145,7 +145,15 @@ func (b *Bastille) console(options, target, user string) (string, error) {
 		args = append(args, user)
 	}
 
-	return runBastilleCommands(args...)
+	cmd := exec.Command("ttyd", "-t", "disableLeaveAlert=true", "-o", "-p", "8182", "-W", "sudo", "bastille", "console", target)
+	log.Println("console: ", cmd)
+
+	if err := cmd.Start(); err != nil {
+		log.Println("Error starting ttyd:", err)
+		return "", fmt.Errorf("bastille: %s ,failed: %v\n %s", cmd, err)
+	}
+	
+	return "console", nil
 }
 
 func (b *Bastille) convert(options, target, release string) (string, error) {
