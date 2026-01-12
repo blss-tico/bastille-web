@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "API interface to FreeBSD bastille\nObservation: Do not use console, htop and top commands with API. Only for UI Interface.",
+        "description": "API interface to FreeBSD Bastille Jails Manager.\nObservation: Do not use console, htop and top commands with API. Only for UI Interface.",
         "title": "Bastille-Web",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {},

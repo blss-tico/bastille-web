@@ -104,7 +104,7 @@ func startHttpServer(addr string) {
 
 // @title Bastille-Web
 // @version 1.0
-// @description API interface to FreeBSD bastille
+// @description API interface to FreeBSD Bastille Jails Manager.
 // @description Observation: Do not use console, htop and top commands with API. Only for UI Interface.
 // @termsOfService http://swagger.io/terms/
 // @license.name BSD-3-Clause
