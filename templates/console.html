@@ -39,6 +39,9 @@
             {{range .Options}}
               <p>&nbsp;&nbsp;{{.Sflag}}&nbsp;|&nbsp;{{.Lflag}}&nbsp;-&nbsp;{{.Text}}</p>
             {{end}}
+            <p>
+              <strong>**If the connection to the terminal is lost, then submit again to reconnect.**</strong>
+            </p>
           </div>
         </div>
       {{end}}
@@ -50,6 +53,8 @@
   </div>
 
   <script>
+    let iframe;
+
     let hlp = document.getElementById("card-help");
     hlp.style.display = 'none';
 
@@ -111,8 +116,8 @@
             return;
           }
 
-          u.style.borderColor = '#e72727';
-          error.innerText = "[Error]: USER is a required field.";
+          // u.style.borderColor = '#e72727';
+          // error.innerText = "[Error]: USER is a required field.";
         }
       });
 
@@ -139,7 +144,8 @@
     }
 
     function createIframe(port) {
-      var iframe = document.createElement('iframe');
+      if (iframe) { iframe.remove(); }
+      iframe = document.createElement('iframe');
       iframe.src = `http://127.0.0.1:${port}/`;
       iframe.classList.add('console-iframe');
 

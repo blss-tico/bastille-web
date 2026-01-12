@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os/exec"
-	"math/rand/v2"
-	"strconv"
 )
 
 func runBastilleCommands(args ...string) (string, error) {
@@ -147,7 +145,7 @@ func (b *Bastille) console(options, target, user string) (string, error) {
 		args = append(args, user)
 	}
 
-	port := strconv.Itoa(8000 + rand.IntN(8200-8000))
+	port := RandPortUtil()
 	cmd := exec.Command("ttyd", "-t", "disableLeaveAlert=true", "-o", "-p", port, "-W", "sudo", "bastille", "console", target)
 	log.Println("console: ", cmd)
 
@@ -337,7 +335,16 @@ func (b *Bastille) htop(options, target string) (string, error) {
 		args = append(args, target)
 	}
 
-	return runBastilleCommands(args...)
+	port := RandPortUtil()
+	cmd := exec.Command("ttyd", "-t", "disableLeaveAlert=true", "-o", "-p", port, "-W", "sudo", "bastille", "htop", target)
+	log.Println("console: ", cmd)
+
+	if err := cmd.Start(); err != nil {
+		log.Println("Error starting ttyd:", err)
+		return "", fmt.Errorf("bastille: %s ,failed: %v\n %s", cmd, err)
+	}
+	
+	return port, nil
 }
 
 func (b *Bastille) imporT(options, file, release string) (string, error) {
@@ -788,7 +795,16 @@ func (b *Bastille) top(options, target string) (string, error) {
 		args = append(args, target)
 	}
 
-	return runBastilleCommands(args...)
+	port := RandPortUtil()
+	cmd := exec.Command("ttyd", "-t", "disableLeaveAlert=true", "-o", "-p", port, "-W", "sudo", "bastille", "top", target)
+	log.Println("console: ", cmd)
+
+	if err := cmd.Start(); err != nil {
+		log.Println("Error starting ttyd:", err)
+		return "", fmt.Errorf("bastille: %s ,failed: %v\n %s", cmd, err)
+	}
+	
+	return port, nil
 }
 
 func (b *Bastille) umount(options, target, jailpath string) (string, error) {

@@ -5,6 +5,8 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"math/rand/v2"
+	"strconv"
 )
 
 var templates *template.Template
@@ -54,4 +56,8 @@ func RespondErrorWithJSONUtil(w http.ResponseWriter, code int, payload string) {
 	w.WriteHeader(code)
 	response := map[string]string{"msg": "with errors", "err": payload}
 	json.NewEncoder(w).Encode(response)
+}
+
+func RandPortUtil() string {
+	return strconv.Itoa(8000 + rand.IntN(8200-8000))
 }

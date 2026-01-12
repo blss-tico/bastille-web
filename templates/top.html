@@ -39,17 +39,22 @@
             {{range .Options}}
               <p>&nbsp;&nbsp;{{.Sflag}}&nbsp;|&nbsp;{{.Lflag}}&nbsp;-&nbsp;{{.Text}}</p>
             {{end}}
+            <p>
+              <strong>**If the connection to the terminal is lost, then submit again to reconnect.**</strong>
+            </p>
           </div>
         </div>
       {{end}}
     {{end}}
-    <div class="card-results">
+    <div class="card-results" id="card-results">
       <p id="result" class="card-result"></p>
       <p id="error" class="card-error"></p>
     </div>
   </div>
 
   <script>
+    let iframe;
+
     let hlp = document.getElementById("card-help");
     hlp.style.display = 'none';
 
@@ -113,11 +118,29 @@
       const response = await sendHttpRequest(name, formJson);
       if (response.code == 200) {
         error.innerText = "";
-        result.innerText = response.data.msg;
+        result.innerText = "console opening on :" + response.data.msg;
+  
+        setTimeout(() => {
+          result.innerText = "to reconnect after close, submit again";
+          createIframe(response.data.msg); 
+        }, 1000);
       } else {
         result.innerText = "";
         error.innerText = response.error;
       }
+    }
+
+    function createIframe(port) {
+      if (iframe) { iframe.remove(); }
+      iframe = document.createElement('iframe');
+      iframe.src = `http://127.0.0.1:${port}/`;
+      iframe.classList.add('console-iframe');
+
+      result.style.display = 'none';
+      error.style.display = 'none';
+      
+      const divResults = document.getElementById('card-results');
+      divResults.appendChild(iframe);
     }
   </script>
 {{end}}

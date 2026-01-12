@@ -62,7 +62,7 @@
         <br />
         <h4>Commands</h4>
         {{range .Data.Commands}}
-          {{if and (ne .Command "edit") (ne .Command "htop") (ne .Command "top")}}
+          {{if and (ne .Command "edit") (ne .Command "htop") }}
             <li onclick="location.href='/{{.Command}}';">
               <a href="/{{.Command}}">
                 <svg width="12px" height="12px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
