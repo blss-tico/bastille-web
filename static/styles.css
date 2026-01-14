@@ -8,7 +8,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: light-dark(#fff, #444);
+  background-color: light-dark(#fff, #fff);
+  color: light-dark(#333, #333);
 }
 
 .loader {
@@ -16,7 +17,8 @@ body {
   padding: 1px;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: #333;
+  background-color: light-dark(#333, #333);
+  color: light-dark(#fff, #fff);
   --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
   -webkit-mask: var(--_m);
   mask: var(--_m);
@@ -36,9 +38,9 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #333;
-  color: white;
-  padding: 10px 20px;
+  background-color: light-dark(#333, #333);
+  color: light-dark(#fff, #fff);
+  padding: 5px 20px;
   display: flex;
   flex: 1;
   justify-content: space-between;
@@ -77,14 +79,15 @@ body {
 .container {
   display: flex;
   flex: 1;
-  padding-left: 25vh;
+  padding-left: 26vh;
 }
 
 .sidebar {
   left: 0;
   width: 20vh;
   height: 100vh;
-  background-color: #393e46; /*#f4f4f4;*/
+  background-color: light-dark(#393e46, #393e46);
+  color: light-dark(#fff, #fff);
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);  
   /*overflow-y: hidden;*/
@@ -147,7 +150,8 @@ body {
 
 .main-content {
   flex: 1;
-  background-color: #fff;
+  background-color: light-dark(#fff, #fff);
+  color: light-dark(#333, #333);
   margin-left: 6px;
   margin-top: 50px;
   margin-bottom: 35px;
@@ -331,7 +335,6 @@ body {
 .card-results {
   background-color: #000;
   padding-left: 5px;
-  /*padding-bottom: 10px;*/
 }
 
 .card-result {
@@ -376,14 +379,14 @@ body {
   font-size: 11px;
   border: 2px solid #ccc;
   border-radius: 5px;
-  background-color: #f9f9f9;
-  color: #333;
+  background-color: light-dark(#f9f9f9, #f9f9f9);
+  color: light-dark(#333, #333);
   cursor: pointer;
 }
 
 #TARGET option {
-  background-color: #f9f9f9;
-  color: #333;
+  background-color: light-dark(#f9f9f9, #f9f9f9);
+  color: light-dark(#333, #333);
   padding: 5px;
 }
 
@@ -398,22 +401,14 @@ body {
   font-size: 11px;
   border: 2px solid #ccc;
   border-radius: 5px;
-  background-color: #f9f9f9;
-  color: #333;
+  background-color: light-dark(#f9f9f9, #f9f9f9);
+  color: light-dark(#333, #333);
   cursor: pointer;
 }
 
 .input-text:focus {
   outline: none;
   border-color: #007bff;
-}
-
-.console-iframe {
-  border: none;
-  width: 99%;
-  height: 400px;
-  margin: 1px;
-  padding-top: 2px;
 }
 
 .ttl-help {
@@ -451,13 +446,66 @@ body {
   text-decoration: none;
 }
 
+.dialog {
+  position: fixed;
+  top: 10%;
+  left: 10%;
+  width: 50%;
+  height: 85%;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+.dialog-content {
+  background-color: white;
+  padding: 5px;
+  margin-top: 2px;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 420px;
+}
+
+.dialog-iframe {
+  width: 100%; 
+  height: 400px;
+}
+
+.console-iframe {
+  border: none;
+  width: 99%;
+  height: 400px;
+  margin: 1px;
+  padding-top: 2px;
+  background-color: light-dark(#333, #333);
+  color: light-dark(#fff, #fff);
+}
+
+.btn-close-dialog {
+  background-color: #333; 
+  border-radius: 2px;
+  border: none;
+  margin: 2px;
+  color: #f3f3f3;
+  height: 30px;
+  width: 60px;
+}
+
+.btn-close-dialog:hover {
+  background-color: #dd544b;
+  color: #fff;
+}
+
 footer {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #333;
-  color: white;
+  background-color: light-dark(#333, #333);
+  color: light-dark(#fff, #fff);
   text-align: center;
   padding: 5px 0;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);

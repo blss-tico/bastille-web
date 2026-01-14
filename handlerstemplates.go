@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"regexp"
 	"strings"
+
+	"bastille-web/docs"
 )
 
 type HandlersTemplates struct {
@@ -14,6 +16,12 @@ type HandlersTemplates struct {
 
 func (ht *HandlersTemplates) home(w http.ResponseWriter, r *http.Request) {
 	log.Println("homeHandlersTemplates")
+
+	if len(addrModel) == 0 {
+		addrModel = getClientIPAddrUtil(r)
+		docs.SwaggerInfo.Host = addrModel
+		log.Println("addrModel: ", addrModel)
+	}
 
 	type SysInfo struct {
 		Hostname        string `json:"hostname"`

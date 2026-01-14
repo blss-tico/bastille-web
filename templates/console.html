@@ -50,13 +50,32 @@
       <p id="result" class="card-result"></p>
       <p id="error" class="card-error"></p>
     </div>
+
+    <dialog id="dialog" class="dialog">
+      <div class="dialog-content">
+        <button id="btn-close-dialog" class="btn-close-dialog">Close</button>
+        <br />
+        <div id="dialog-iframe" class="dialog-iframe"></div>
+      </div>
+    </dialog>
   </div>
 
   <script>
     let iframe;
 
-    let hlp = document.getElementById("card-help");
+    let hlp = document.getElementById('card-help');
     hlp.style.display = 'none';
+
+    let dlg = document.getElementById('dialog');
+    dlg.style.display = 'none';
+
+    let btnCloseDlg = document.getElementById('btn-close-dialog');
+    btnCloseDlg.addEventListener('click', () => {
+      divIframe.removeChild(iframe);
+      dlg.style.display = 'none';
+    });
+
+    let divIframe = document.getElementById('dialog-iframe');
 
     let tgt = document.getElementById('TARGET');
     let jails = sessionStorage.getItem('jails');
@@ -115,9 +134,6 @@
             formObj[key] = value;
             return;
           }
-
-          // u.style.borderColor = '#e72727';
-          // error.innerText = "[Error]: USER is a required field.";
         }
       });
 
@@ -144,16 +160,22 @@
     }
 
     function createIframe(port) {
+      const ip = sessionStorage.getItem('ipaddr').split(":");
+      if (!ip) {
+        error.innerText = "ip address for console not found";
+        return;
+      }
+
       if (iframe) { iframe.remove(); }
       iframe = document.createElement('iframe');
-      iframe.src = `http://127.0.0.1:${port}/`;
+      iframe.src = `http://${ip[0]}:${port}/`;
       iframe.classList.add('console-iframe');
 
       result.style.display = 'none';
       error.style.display = 'none';
-      
-      const divResults = document.getElementById('card-results');
-      divResults.appendChild(iframe);
+      dlg.style.display = 'block';
+
+      divIframe.appendChild(iframe);
     }
   </script>
 {{end}}

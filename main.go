@@ -38,7 +38,7 @@ import (
 	"net/http"
 	"os"
 
-	"bastille-web/docs"
+	//"bastille-web/docs"
 )
 
 var bastille bastilleModel
@@ -63,21 +63,22 @@ func init() {
 }
 
 func setAddrAndPort(argsCommandLine []string) string {
+	log.Println("setAddrAndPort")
+	
 	addr := os.Getenv("BW_ADDR")
-	log.Println("setAddrAndPort: ", addr)
 	if addr == "" {
 		if len(argsCommandLine) == 2 {
 			log.Println("command line addr: ", argsCommandLine[1])
 			addr = argsCommandLine[1]
-			addrModel = addr
+			//addrModel = addr
 		} else {
-			addrModel = "127.0.0.1:80"
-			log.Println("source code addr: ", addrModel)
-			addr = addrModel
+			addr = "0.0.0.0:80"
+			log.Println("source code addr: ", addr)
+			//addr = addrModel
 		}
 	} else {
 		log.Println("env variable addr: ", addr)
-		addrModel = addr
+		//addrModel = addr
 	}
 
 	return addr
@@ -113,6 +114,6 @@ func startHttpServer(addr string) {
 func main() {
 	log.Println("main")
 	addr := setAddrAndPort(os.Args)
-	docs.SwaggerInfo.Host = addr
+	// docs.SwaggerInfo.Host = addr
 	startHttpServer(addr)
 }

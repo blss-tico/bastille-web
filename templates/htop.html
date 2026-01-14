@@ -48,6 +48,16 @@
       <p id="result" class="card-result"></p>
       <p id="error" class="card-error"></p>
     </div>
+
+    <dialog id="dialog" class="dialog">
+      <div class="dialog-content">
+        <button id="btn-close-dialog" class="btn-close-dialog">
+          Close
+        </button>&nbsp;&nbsp; CTRL+C (to finish htop)
+        <br />
+        <div id="dialog-iframe" class="dialog-iframe"></div>
+      </div>
+    </dialog>
   </div>
 
   <script>
@@ -55,6 +65,17 @@
 
     let hlp = document.getElementById("card-help");
     hlp.style.display = 'none';
+
+    let dlg = document.getElementById('dialog');
+    dlg.style.display = 'none';
+
+    let btnCloseDlg = document.getElementById('btn-close-dialog');
+    btnCloseDlg.addEventListener('click', () => {
+      divIframe.removeChild(iframe);
+      dlg.style.display = 'none';
+    });
+
+    let divIframe = document.getElementById('dialog-iframe');
 
     let tgt = document.getElementById('TARGET');
     let jails = sessionStorage.getItem('jails');
@@ -119,7 +140,7 @@
         result.innerText = "console opening on :" + response.data.msg;
 
         setTimeout(() => {
-          result.innerText = "to reconnect after close, submit again";
+          result.innerText = "";
           createIframe(response.data.msg); 
         }, 1000);
       } else {
@@ -129,16 +150,22 @@
     }
 
     function createIframe(port) {
+      const ip = sessionStorage.getItem('ipaddr').split(":");
+      if (!ip) {
+        error.innerText = "ip address for console not found";
+        return;
+      }
+
       if (iframe) { iframe.remove(); }
       iframe = document.createElement('iframe');
-      iframe.src = `http://127.0.0.1:${port}/`;
+      iframe.src = `http://${ip[0]}:${port}/`;
       iframe.classList.add('console-iframe');
 
       result.style.display = 'none';
       error.style.display = 'none';
-      
-      const divResults = document.getElementById('card-results');
-      divResults.appendChild(iframe);
+      dlg.style.display = 'block';
+
+      divIframe.appendChild(iframe);
     }
   </script>
 {{end}}

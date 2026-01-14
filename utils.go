@@ -5,8 +5,10 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"net"
 	"math/rand/v2"
 	"strconv"
+	"strings"
 )
 
 var templates *template.Template
@@ -60,4 +62,19 @@ func RespondErrorWithJSONUtil(w http.ResponseWriter, code int, payload string) {
 
 func RandPortUtil() string {
 	return strconv.Itoa(8000 + rand.IntN(8200-8000))
+}
+
+func getClientIPAddrUtil(r *http.Request) string {
+	for _, h := range []string{"X-Forwarded-For", "X-Real-Ip"} {
+		if header := r.Header.Get(h); header != "" {
+			ips := strings.Split(header, ",")
+			return strings.TrimSpace(ips[0])
+		}
+	}
+
+	ip, _, err := net.SplitHostPort(r.RemoteAddr)
+	if err != nil {
+		return r.RemoteAddr
+	}
+	return ip
 }

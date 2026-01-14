@@ -20,19 +20,21 @@ func NewRoutes(ht HandlersTemplates, hd HandlersData) *Routes {
 }
 
 func (r *Routes) staticRoutes(mux *http.ServeMux) {
+	log.Println("staticRoutes")
 	fs := http.FileServer(http.Dir("./static"))
 	mux.Handle("GET /static/", http.StripPrefix("/static/", fs))
 }
 
 func (r *Routes) swaggerRoutes(mux *http.ServeMux) {
-	log.Println("swaggerRoutes: ", addrModel)
+	log.Println("swaggerRoutes")
 	mux.Handle(
 		"GET /swagger/",
-		loggingMiddleware(httpSwagger.Handler(httpSwagger.URL("http://"+addrModel+"/static/swagger.json"))),
+		loggingMiddleware(httpSwagger.Handler(httpSwagger.URL("/static/swagger.json"))),
 	)
 }
 
 func (r *Routes) templatesRoutes(mux *http.ServeMux) {
+	log.Println("templatesRoutes")
 	mux.HandleFunc("GET /", r.ht.home)
 	mux.HandleFunc("GET /help", r.ht.help)
 	mux.HandleFunc("GET /api", r.ht.api)
@@ -78,6 +80,7 @@ func (r *Routes) templatesRoutes(mux *http.ServeMux) {
 }
 
 func (r *Routes) dataRoutes(mux *http.ServeMux) {
+	log.Println("dataRoutes")
 	mux.HandleFunc("POST /bootstrap", loggingMiddleware(r.hd.bootstrap))
 	mux.HandleFunc("POST /clone", loggingMiddleware(r.hd.clone))
 	mux.HandleFunc("POST /cmd", loggingMiddleware(r.hd.cmd))
