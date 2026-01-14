@@ -18,7 +18,15 @@ func (ht *HandlersTemplates) home(w http.ResponseWriter, r *http.Request) {
 	log.Println("homeHandlersTemplates")
 
 	if len(addrModel) == 0 {
-		addrModel = getClientIPAddrUtil(r)
+		ip0 := getClientIPAddrUtil(r)
+		ip1 := GetOutboundIPUtil()
+		ip2 := GetLocalIPUtil()
+
+		log.Println("ip0[client  request]: ", ip0)
+		log.Println("ip1[external lookup]: ", ip1)
+		log.Println("ip2[loopback ifaces]: ", ip2)
+
+		addrModel = ip2
 		docs.SwaggerInfo.Host = addrModel
 		log.Println("addrModel: ", addrModel)
 	}
