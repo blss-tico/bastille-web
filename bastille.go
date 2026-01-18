@@ -151,9 +151,9 @@ func (b *Bastille) console(options, target, user string) (string, error) {
 
 	if err := cmd.Start(); err != nil {
 		log.Println("Error starting ttyd:", err)
-		return "", fmt.Errorf("bastille: %s ,failed: %v\n %s", cmd, err)
+		return "", fmt.Errorf("bastille: %s ,failed: %v\n", cmd, err)
 	}
-	
+
 	return port, nil
 }
 
@@ -341,9 +341,9 @@ func (b *Bastille) htop(options, target string) (string, error) {
 
 	if err := cmd.Start(); err != nil {
 		log.Println("Error starting ttyd:", err)
-		return "", fmt.Errorf("bastille: %s ,failed: %v\n %s", cmd, err)
+		return "", fmt.Errorf("bastille: %s ,failed: %v\n", cmd, err)
 	}
-	
+
 	return port, nil
 }
 
@@ -801,9 +801,9 @@ func (b *Bastille) top(options, target string) (string, error) {
 
 	if err := cmd.Start(); err != nil {
 		log.Println("Error starting ttyd:", err)
-		return "", fmt.Errorf("bastille: %s ,failed: %v\n %s", cmd, err)
+		return "", fmt.Errorf("bastille: %s ,failed: %v\n", cmd, err)
 	}
-	
+
 	return port, nil
 }
 
